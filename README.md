@@ -56,21 +56,31 @@ All settings are optional and listed in `.env.example`.
 | Accessibility | Done. Lighthouse accessibility 100 on home, intake, topic, listing, plan, updates, help, print, suggest and staff pages in this build. |
 | Stretch 6: conversational navigator | Done (behind `ENABLE_CHAT`) |
 | Stretch 7: Spanish and read-aloud | **Done in this round** |
-| Seed data: 25 to 40 verified listings | **Not done: 9 listings, all unverified, contact fields empty.** See below. |
+| Seed data: 25 to 40 verified listings | **Not done: 20 listings, all unverified. 14 were read from their sources; 6 still have empty contact fields.** See below. |
 
 New in this round, from the conversation with the VA: a full website structure (topic pages, help, printable directory, footer navigation), and outreach by text, phone call and mail with its own database, consent tracking and staff tools.
 
 ## Seed data: the biggest remaining gap
 
-`data/resources.json` holds **9 listings, all `unverified`**, with phone, address and hours empty on purpose. The build environment's network policy blocks the source sites (211 Virginia, Virginia Veterans Navigator, valegalaid.org, va.gov and provider sites), and the project rule is never to fill a contact field the source does not state.
+`data/resources.json` holds **20 listings, all `unverified`**. `scripts/build-seed.mjs` builds the file and records where each listing came from. The project rule is never to fill a contact field the source does not state.
 
-This matters more now: the text and phone line read only what the directory holds, so they say "no phone number on file yet" for most listings today. To fix it:
+**14 listings were read from their source on 2026-11-05.** Twelve come from va.gov: the Fredericksburg VA Health Care Center and its mental health care, VA ride, homeless, caregiver and crisis line pages for the area, and national VA health care, dental, benefits and job programs. Two come from Virginia Veterans Navigator: the DVS Fredericksburg office and FXBGO!. Every filled phone, address, hours and website field is stated on the cited page, and `source_notes` names the page each field came from.
+
+**6 listings were not read.** Their contact fields are empty on purpose, and each record's `source_notes` says why:
+
+- **211 Virginia** (Mobility Options, Legal Aid Works, LSNV Fredericksburg, Family Assistance Center, and 211 itself) turns away automated clients. It asks that programmatic access go through Connect211 (connect211.com). A person can still open each listing in a browser.
+- **Virginia Veterans Navigator's** robots.txt asks AI agents not to crawl it. The build loaded only the two Navigator pages the spec cites and no others, so the Navigator listing itself was not read.
+- valegalaid.org now redirects to virginialawhelp.org. That site, veteranscrisisline.net and provider websites (county offices, food bank, free clinic and so on) were not reachable from the build environment. The crisis line numbers were confirmed on va.gov instead.
+
+There are no food listings and no county social services listings yet. This matters more now that the text and phone line read only what the directory holds: they say "no phone number on file yet" for the unread listings. To fix it:
 
 1. A verifier opens each listing's source in `/verify`, fills only what the source states (a source note is required), and marks it verified.
-2. Add listings through `npm run import:csv`. Every row needs a `source_url`. Imported rows are unverified.
+2. Add listings through `npm run import:csv`. A person can copy listings from 211 Virginia or Veterans Navigator in a browser. Every row needs a `source_url`. Imported rows are unverified.
 3. Run `npm run import:va -- --write` with a VA Facilities API key.
-4. Use public reports: the "Report a problem" and "Suggest a listing" forms feed the verifier dashboard.
-5. Watch the staff overview's "found nothing" column. It shows which topics and places people ask the text and phone line for that the directory cannot answer.
+4. For 211 Virginia data in bulk, request access through Connect211.
+5. Rerun the research step from an environment that can reach provider websites.
+6. Use public reports: the "Report a problem" and "Suggest a listing" forms feed the verifier dashboard.
+7. Watch the staff overview's "found nothing" column. It shows which topics and places people ask the text and phone line for that the directory cannot answer.
 
 **Demo moment:** 211 Virginia and valegalaid.org list different street addresses for Legal Services of Northern Virginia, Fredericksburg. The verifier dashboard flags it "Sources disagree," and its address stays empty until a person confirms it.
 
@@ -157,7 +167,7 @@ Also set `OUTREACH_SENDER_NAME` and `OUTREACH_RETURN_ADDRESS` so texts, calls, l
 
 Use a phone-sized window. All people and numbers are fictional.
 
-1. **Ray, 71, Spotsylvania (60 s).** "Start: answer 4 quick questions." Transportation, ZIP `22553`, "For me," Skip. Save Mobility Options and FXBGO!. Open My Plan, see the call script, "Print large-type list."
+1. **Ray, 71, Spotsylvania (60 s).** "Start: answer 4 quick questions." Transportation, ZIP `22553`, "For me," Skip. Save Mobility Options and FXBGO! (its card shows phone, hours, "Free" and wheelchair lifts, all stated by its source). Open My Plan, see the call script, "Print large-type list."
 2. **Dana, Stafford (30 s).** Topics → Legal help → Stafford County. The listings appear under "Elsewhere in the region" because their sources only list Fredericksburg.
 3. **Maria, Spanish-speaking caregiver (30 s).** Tap "Español." Everything switches. In My Plan the script stays in English (what to say to the provider) with the Spanish meaning below.
 4. **A veteran without a computer (90 s).** Home → "No computer?" → Get updates. Check Food, Stafford, phone `540-555-0134`, "Text messages," permission, "Sign me up." The page says to reply YES. Sign in at `/staff` (`demo-outreach`). In "Try the text & phone line," text `YES` from that number, then `RIDE 22553`. Call the line and press 1, then enter 22553.
@@ -203,7 +213,7 @@ On Vercel the listings site works, but verifier edits and subscriber data live i
 
 ## Next steps
 
-1. Fill the directory: verify the 9 listings and add 20 to 30 more from sources that can be loaded (see "Seed data").
+1. Fill the directory: verify the 20 listings, fill the 6 unread ones, and add food, county social services and other local listings (see "Seed data").
 2. Connect Twilio, register for A2P 10DLC, and finish the go-live checklist.
 3. Replace shared passcodes with personal staff accounts (single sign-on) before many staff use the dashboard.
 4. Phone line in Spanish (press 2 for Spanish), and Spanish replies on the text line for Spanish-language subscribers.

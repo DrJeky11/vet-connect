@@ -1,11 +1,27 @@
-// One-off helper that documents how data/resources.json was assembled.
-// Every record below comes from a source the project spec cites. Contact
-// fields stay null because the source pages could not be loaded from the
-// build environment; a verifier must open each source_url and fill them.
+// Documents how data/resources.json was assembled; run it to rebuild the seed.
+//
+// Every field below is stated by the record's source_url (or by an
+// additional_sources page named in source_notes), read on the
+// source_checked_at date. Records with source_checked_at null were not read:
+// their contact fields stay null and a verifier must fill them from the source.
+//
+// Sources read on 2026-11-05: www.va.gov pages, plus two Virginia Veterans
+// Navigator pages (the DVS office and the FXBGO! PDF). Not read: 211 Virginia
+// turns away automated clients and asks that data access go through Connect211;
+// Veterans Navigator's robots.txt asks AI agents not to crawl it, so no other
+// Navigator pages were loaded; valegalaid.org now redirects to
+// virginialawhelp.org, which the build environment could not reach.
 import { writeFileSync } from "node:fs";
 
-const NOT_LOADED =
-  "Seeded from the project spec's citation. The source page was not loaded during the build (network blocked), so contact fields are empty on purpose. Verifier: open the source, fill only what it states, then verify.";
+const CHECKED = "2026-11-05";
+
+const NOT_READ_211 =
+  "Not read during the build: 211 Virginia turns away automated clients and asks that data access go through Connect211 (connect211.com), so contact fields are empty on purpose. Verifier: open the source in a browser, fill only what it states, then verify.";
+
+const VA_RICHMOND = "VA Richmond health care (va.gov)";
+const VA = "U.S. Department of Veterans Affairs (va.gov)";
+const FXBG_VA_URL = "https://www.va.gov/richmond-health-care/locations/fredericksburg-3-va-clinic/";
+const NATIONAL = "National service, shown here as available statewide.";
 
 const base = {
   eligibility_text: "Not stated by source. Call to confirm.",
@@ -18,7 +34,7 @@ const base = {
   languages: [],
   accessibility: [],
   source_checked_at: null,
-  source_notes: NOT_LOADED,
+  source_notes: NOT_READ_211,
   additional_sources: [],
   last_verified_at: null,
   verified_by: null,
@@ -26,6 +42,7 @@ const base = {
 };
 
 const records = [
+  // ---- Transportation ----
   {
     id: "healthy-generations-mobility-options",
     name: "Mobility Options",
@@ -41,14 +58,52 @@ const records = [
   {
     id: "fxbgo-regional-transit",
     name: "FXBGO! regional transit",
-    organization: "FXBGO!",
+    organization: "City of Fredericksburg",
     categories: ["transportation"],
-    description: "Public bus service in the Fredericksburg area. Call or check the source for routes.",
-    service_area: ["fredericksburg"],
+    description:
+      "Public bus service in the City of Fredericksburg and Spotsylvania and Stafford counties. All buses have wheelchair lifts, and drivers help riders on and off when needed.",
+    eligibility_text: "No age requirement, per the source. Call to confirm.",
+    cost_type: "free",
+    service_area: ["fredericksburg", "spotsylvania", "stafford"],
+    address: "1400 Emancipation Highway, VA 22401",
+    phone: "(540) 372-1222",
+    website: "https://www.fredericksburgva.gov/1992/Fredericksburg-Regional-Transit",
+    hours: "Monday to Friday, 7:00 am to 8:30 pm. Saturday and Sunday closed.",
+    how_to_apply: "Call for information and visit the website.",
+    languages: ["English"],
+    accessibility: ["Wheelchair lifts on all buses", "Manual and powered wheelchairs", "One personal care attendant rides free"],
     source_name: "Virginia Veterans Navigator",
     source_url: "https://veteransnavigator.org/print/pdf/node/78129",
-    source_notes: NOT_LOADED + " Service area outside the City of Fredericksburg is not confirmed.",
+    source_checked_at: CHECKED,
+    source_notes:
+      'Read from the source PDF on 2026-11-05. The source gives the street address without a city. "No Fee" (cost) and the service area are as the source states.',
   },
+  {
+    id: "va-richmond-veterans-transportation-program",
+    name: "Free rides to VA health appointments (Veterans Transportation Program)",
+    organization: "U.S. Department of Veterans Affairs (VA Richmond health care)",
+    categories: ["transportation"],
+    description:
+      "Free rides to and from VA health appointments for veterans enrolled in VA health care. Ask for a ride by phone or online through VetRide.",
+    eligibility_text:
+      "You must be a veteran enrolled in VA health care, and the appointment must be at a VA health facility or a VA-authorized community care provider (source wording). Call to confirm.",
+    cost_type: "free",
+    service_area: [],
+    phone: "804-675-5000, then select 0 and ask for a VTP representative",
+    website: "https://www.va.gov/resources/how-to-request-rides-to-va-health-appointments/",
+    how_to_apply:
+      "Call 804-675-5000, select 0 and ask for a Veterans Transportation Program representative. Or request a ride online with VetRide (you need an ID.me or Login.gov account). The deadline to ask for a ride depends on the facility.",
+    source_name: VA,
+    source_url: "https://www.va.gov/resources/veterans-transportation-program-representatives/",
+    source_checked_at: CHECKED,
+    additional_sources: [
+      { name: `${VA}: How to request rides to VA health appointments`, url: "https://www.va.gov/resources/how-to-request-rides-to-va-health-appointments/" },
+    ],
+    source_notes:
+      "Read from va.gov on 2026-11-05. The phone number is from the VA Richmond healthcare entry on the main source. Eligibility, VetRide and the deadline note are from the additional source. VA lists the Fredericksburg VA Health Care Center under VA Richmond health care. The main source also lists a Beneficiary Travel Office (mileage pay) at 804-675-5000, ext. 4006. No counties are listed, so service area is left empty.",
+  },
+
+  // ---- Legal ----
   {
     id: "legal-aid-works-fxbg",
     name: "Legal Aid Works",
@@ -59,7 +114,7 @@ const records = [
     service_area: ["fredericksburg"],
     source_name: "211 Virginia",
     source_url: "https://search.211virginia.org/search/57dca12a-e8d5-5a03-aebd-874845a3fbef",
-    source_notes: NOT_LOADED + " Only the Fredericksburg location is confirmed; other localities not yet checked.",
+    source_notes: NOT_READ_211 + " Only the Fredericksburg location is confirmed; other localities not yet checked.",
   },
   {
     id: "lsnv-fredericksburg",
@@ -79,29 +134,72 @@ const records = [
     ],
     source_notes:
       "ADDRESS CONFLICT: 211 Virginia and valegalaid.org list different street addresses for this office. Address is left empty until a person calls the office and records the correct one. " +
-      NOT_LOADED,
+      NOT_READ_211 +
+      " valegalaid.org now redirects to virginialawhelp.org, which the build could not reach.",
   },
+
+  // ---- Benefits ----
   {
     id: "dvs-fredericksburg-office",
     name: "Virginia Department of Veterans Services, Fredericksburg office",
     organization: "Virginia Department of Veterans Services",
     categories: ["benefits"],
     description:
-      "State office that helps veterans with VA benefits and claims. Ask about filing or appealing a claim.",
-    service_area: ["fredericksburg"],
+      "State office where a service representative can help a veteran and family learn what local, state and federal benefits are available. All services are free.",
+    eligibility_text: "For veterans and their families, per the source. Age requirement: 18 and over. Call to confirm.",
+    cost_type: "free",
+    service_area: ["caroline", "fredericksburg", "king_george", "spotsylvania"],
+    address: "10300 Spotsylvania Avenue, Lee Hill Building 1, Suite 290, Fredericksburg, VA 22408",
+    phone: "(540) 376-7298",
+    website: "https://www.dvs.virginia.gov/benefits-services",
+    hours:
+      "Monday to Friday, 8:00 am to 4:30 pm. Veterans are seen 8:30 am to 3:00 pm by appointment only. Closed to the public on the last business day of the month.",
+    how_to_apply: "Call 540-376-7298 for an appointment, or schedule one online. Veterans are seen by appointment only.",
+    languages: ["English"],
     source_name: "Virginia Veterans Navigator",
     source_url: "https://veteransnavigator.org/node/53612",
+    source_checked_at: CHECKED,
+    source_notes:
+      'Read from the source page on 2026-11-05. The source also lists Northumberland and Westmoreland counties, which are outside this app\'s area. It does not list Stafford County. Website is the source\'s "Visit Program" link.',
   },
   {
-    id: "va-national-guard-family-assistance-center",
-    name: "Family Assistance Center",
-    organization: "Virginia National Guard",
-    categories: ["public_services", "benefits"],
-    description: "Support for Virginia National Guard members and their families.",
-    service_area: [],
-    source_name: "211 Virginia",
-    source_url: "https://search.211virginia.org/search/138933d1-19fb-52b1-9c83-33e8bfb12447",
-    source_notes: NOT_LOADED + " Service area not yet confirmed.",
+    id: "va-accredited-representative",
+    name: "Get help from a VA-accredited representative or VSO",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["benefits"],
+    description:
+      "An accredited Veterans Service Organization (VSO) representative, attorney or claims agent can help you file a VA claim or ask for a decision review. VA has an online tool to find one.",
+    eligibility_text:
+      "Not stated by source. The source says help from an accredited VSO representative on VA claims is always free, but accredited attorneys and claims agents can charge fees.",
+    service_area: ["statewide"],
+    phone: "800-698-2411, ext. 0",
+    website: "https://www.va.gov/get-help-from-accredited-representative/",
+    hours: "24/7 (phone)",
+    how_to_apply:
+      "Use VA's search tool to find a representative and ask if they can help. Then you both sign VA Form 21-22 (for a VSO) or 21-22a (for an attorney or claims agent) and submit it online, by mail or at a VA regional office.",
+    accessibility: ["TTY: 711"],
+    source_name: VA,
+    source_url: "https://www.va.gov/get-help-from-accredited-representative/",
+    source_checked_at: CHECKED,
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL} For in-person help nearby, see the Virginia Department of Veterans Services office listing.`,
+  },
+  {
+    id: "va-benefits-hotline",
+    name: "VA benefits hotline",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["benefits"],
+    description:
+      "Phone line for questions about VA benefits, such as the status of a disability, pension or survivors claim or appeal, requesting a letter, or updating your address or direct deposit.",
+    service_area: ["statewide"],
+    phone: "800-827-1000",
+    website: "https://www.va.gov/contact-us/",
+    hours: "Monday to Friday, 8:00 a.m. to 9:00 p.m. ET",
+    how_to_apply: "Call 800-827-1000. For TTY, dial 711.",
+    accessibility: ["TTY: 711"],
+    source_name: VA,
+    source_url: "https://www.va.gov/contact-us/",
+    source_checked_at: CHECKED,
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL}`,
   },
   {
     id: "virginia-veterans-navigator",
@@ -114,7 +212,213 @@ const records = [
     how_to_apply: "Search the website.",
     source_name: "Virginia Veterans Navigator",
     source_url: "https://veteransnavigator.org/",
-    source_notes: "Website field is the source itself. " + NOT_LOADED,
+    source_notes:
+      "Website field is the source itself. Not read for other details: the site's robots.txt asks AI agents not to crawl it.",
+  },
+
+  // ---- Employment ----
+  {
+    id: "va-veteran-readiness-and-employment",
+    name: "Veteran Readiness and Employment (VR&E, Chapter 31)",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["employment", "benefits"],
+    description:
+      "Job and training help for service members and veterans with a service-connected disability. Options include finding a new job, returning to a former job, starting a business, education counseling and help living independently.",
+    eligibility_text:
+      "For service members and veterans with a service-connected disability that limits or prevents their ability to work (source wording). Check eligibility on the source.",
+    service_area: ["statewide"],
+    website: "https://www.va.gov/careers-employment/vocational-rehabilitation/",
+    how_to_apply: "Apply online through the source page. It also links an eligibility check and how-to-apply steps.",
+    source_name: VA,
+    source_url: "https://www.va.gov/careers-employment/vocational-rehabilitation/",
+    source_checked_at: CHECKED,
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL} The source lists no phone number.`,
+  },
+
+  // ---- Health ----
+  {
+    id: "va-fredericksburg-3-va-clinic",
+    name: "Fredericksburg VA Health Care Center",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["health"],
+    description:
+      "VA outpatient care center with primary care, pharmacy, lab tests, hearing and vision care, pain care, chiropractic care and more. Part of the Central Virginia VA Health Care System.",
+    eligibility_text:
+      "Outpatient care for veterans in the Northern Virginia and Central Virginia area, per the source. This page does not explain VA health care enrollment. Call to confirm.",
+    service_area: [],
+    address: "10432 Patriot Highway, Fredericksburg, VA 22408-2628",
+    phone: "540-707-7074",
+    website: FXBG_VA_URL,
+    hours: "Monday to Friday, 8:00 a.m. to 4:30 p.m. Saturday and Sunday closed. Hours vary by service.",
+    how_to_apply:
+      "Call 540-707-7074 to schedule, change or cancel an appointment. The source says primary care does not need a referral. You can also call VA Health Connect at 855-679-0074.",
+    accessibility: ["TTY: 711"],
+    source_name: VA_RICHMOND,
+    source_url: FXBG_VA_URL,
+    source_checked_at: CHECKED,
+    source_notes:
+      'Read from va.gov on 2026-11-05. The page title is "Fredericksburg 3 VA Clinic"; the page text calls it the Fredericksburg VA Health Care Center. The source says it serves veterans in the Northern and Central Virginia area but lists no counties, so service area is left empty.',
+  },
+  {
+    id: "va-apply-for-health-care",
+    name: "Apply for VA health care",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["health"],
+    description:
+      "Apply to get health care through VA online, by phone, by mail or in person. An accredited representative or Veterans Service Organization can help you apply.",
+    eligibility_text: "For veterans and service members, per the source. VA decides who is eligible. Call to confirm.",
+    service_area: ["statewide"],
+    phone: "877-222-8387",
+    website: "https://www.va.gov/health-care/how-to-apply/",
+    hours: "Monday to Friday, 8:00 a.m. to 8:00 p.m. ET (phone)",
+    how_to_apply:
+      "Apply online, call 877-222-8387, mail VA Form 10-10EZ, or bring a signed form to the nearest VA medical center or clinic. Have your discharge papers, insurance information and last year's household income ready.",
+    source_name: VA,
+    source_url: "https://www.va.gov/health-care/how-to-apply/",
+    source_checked_at: CHECKED,
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL} The source says a decision usually takes less than 1 week.`,
+  },
+  {
+    id: "va-dental-care",
+    name: "VA dental care",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["health"],
+    description:
+      "Some veterans can get some or all of their dental care through VA, depending on service history, health and living situation. Veterans who can't may be able to buy lower-cost dental insurance through VA (VADIP).",
+    eligibility_text:
+      "Depends on your VA dental benefits class, for example a service-connected dental condition, former prisoner of war status, or a 100% disability rating (source summary). VADIP insurance requires VA health care or CHAMPVA. Call to confirm.",
+    service_area: ["statewide"],
+    website: "https://www.va.gov/health-care/about-va-health-benefits/dental-care/",
+    how_to_apply:
+      "Apply for VA health care first. If you are already enrolled, you don't need to reapply; find a VA dental clinic near you.",
+    source_name: VA,
+    source_url: "https://www.va.gov/health-care/about-va-health-benefits/dental-care/",
+    source_checked_at: CHECKED,
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL} The source lists no phone number.`,
+  },
+
+  // ---- Mental health ----
+  {
+    id: "va-fredericksburg-mental-health-care",
+    name: "Mental health care, Fredericksburg VA Health Care Center",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["mental_health"],
+    description:
+      "Counseling and treatment for PTSD, depression, anxiety, grief, anger, trauma, addiction and more, with individual and group therapy. The source says all VA health care facilities offer same-day help.",
+    eligibility_text:
+      "For veterans. The source says some veterans may be able to get mental health care without enrolling in VA health care, and that this service needs a referral. Call to confirm.",
+    service_area: [],
+    address: "10432 Patriot Highway, Fredericksburg, VA 22408-2628",
+    phone: "540-707-7153",
+    website: FXBG_VA_URL,
+    hours: "Monday to Friday, 8:00 a.m. to 4:30 p.m.",
+    how_to_apply:
+      "Call 540-707-7153. The source says you can visit with or without an appointment, but this service needs a referral, so you may need to contact your VA primary care provider first.",
+    accessibility: ["TTY: 711"],
+    source_name: VA_RICHMOND,
+    source_url: FXBG_VA_URL,
+    source_checked_at: CHECKED,
+    source_notes:
+      "Read from the Mental health care section of the va.gov Fredericksburg VA Health Care Center page on 2026-11-05. The source lists no counties, so service area is left empty.",
+  },
+  {
+    id: "veterans-crisis-line",
+    name: "Veterans Crisis Line",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["mental_health"],
+    description:
+      "Free, private help for veterans in crisis, any time, day or night. Many responders are veterans. Call 988 and select 1, text 838255, or chat online.",
+    eligibility_text: "For veterans in crisis and people concerned about a veteran, per the source.",
+    cost_type: "free",
+    service_area: ["statewide"],
+    phone: "988, then select 1",
+    website: "https://www.veteranscrisisline.net/get-help-now/chat/",
+    hours: "24/7",
+    how_to_apply: "Call 988 and select 1, text 838255, or start a confidential chat online. For TTY, call 711 then 988.",
+    accessibility: ["TTY: call 711, then 988"],
+    source_name: VA_RICHMOND,
+    source_url: "https://www.va.gov/richmond-health-care/health-services/suicide-prevention/",
+    source_checked_at: CHECKED,
+    source_notes:
+      "Read from va.gov on 2026-11-05. veteranscrisisline.net could not be reached from the build environment, so the website field is the chat link the va.gov page gives. These are the numbers the crisis footer shows on every page.",
+  },
+
+  // ---- Housing ----
+  {
+    id: "va-richmond-health-care-for-homeless-veterans",
+    name: "Health Care for Homeless Veterans",
+    organization: "U.S. Department of Veterans Affairs (VA Richmond health care)",
+    categories: ["housing"],
+    description:
+      "Help for veterans who are homeless or about to be. Care coordinators can help with food and shelter, transitional and permanent housing, job training, money to prevent homelessness, addiction and depression treatment, and health and dental care.",
+    eligibility_text:
+      "Veterans who are homeless or at risk of becoming homeless due to financial hardship, unemployment, addiction, depression, or transition from jail (source wording). Call to confirm.",
+    service_area: [],
+    phone: "804-675-5000, ext. 12041",
+    website: "https://www.va.gov/richmond-health-care/health-services/homeless-veteran-care/",
+    how_to_apply:
+      "If you are homeless or within 14 days of becoming homeless, call 804-675-5000, ext. 12041 to talk with an intake specialist.",
+    source_name: VA_RICHMOND,
+    source_url: "https://www.va.gov/richmond-health-care/health-services/homeless-veteran-care/",
+    source_checked_at: CHECKED,
+    additional_sources: [{ name: `${VA_RICHMOND}: Fredericksburg VA Health Care Center`, url: FXBG_VA_URL }],
+    source_notes:
+      "Read from va.gov on 2026-11-05. Phone, eligibility and services are from the main source. The Fredericksburg VA Health Care Center page (additional source) says homeless veteran care is also offered there, with or without an appointment. Neither page lists the counties served.",
+  },
+  {
+    id: "va-national-call-center-homeless-veterans",
+    name: "National Call Center for Homeless Veterans",
+    organization: "U.S. Department of Veterans Affairs",
+    categories: ["housing"],
+    description:
+      "Free, private calls with a trained VA counselor for veterans who are homeless or at risk. They can help with safe shelter, short-term money to prevent homelessness, talking with landlords and long-term housing, and connect you to local help.",
+    eligibility_text:
+      "Veterans who are homeless or at risk of becoming homeless. Family, friends or neighbors can also call; the source says they don't need to know the veteran's military details or confirm eligibility first.",
+    cost_type: "free",
+    service_area: ["statewide"],
+    phone: "877-424-3838",
+    website: "https://www.va.gov/resources/homeless-help/",
+    hours: "24/7",
+    how_to_apply: "Call 877-424-3838 any time, or chat online. A counselor will ask about your situation and connect you to help.",
+    source_name: VA,
+    source_url: "https://www.va.gov/resources/homeless-help/",
+    source_checked_at: CHECKED,
+    additional_sources: [{ name: `${VA}: Contact us`, url: "https://www.va.gov/contact-us/" }],
+    source_notes: `Read from va.gov on 2026-11-05. ${NATIONAL} "Free" is from the VA contact page (additional source).`,
+  },
+
+  // ---- Public services ----
+  {
+    id: "va-richmond-caregiver-support",
+    name: "Caregiver Support Program",
+    organization: "U.S. Department of Veterans Affairs (VA Richmond health care)",
+    categories: ["public_services"],
+    description:
+      "Help for people who care for a veteran. A caregiver support coordinator can help you get VA caregiver help, find services and benefits, and connect with local programs.",
+    eligibility_text:
+      "For caregivers of veterans, per the source. The Fredericksburg VA page says caregivers of veterans injured after 9/11 may be eligible for more services, such as a stipend, training and medical coverage. Call to confirm.",
+    service_area: [],
+    phone: "804-675-6631",
+    website: "https://www.va.gov/richmond-health-care/health-services/caregiver-support/",
+    how_to_apply:
+      "Call a VA Richmond caregiver support coordinator at 804-675-6631. For questions about caregiver services nationwide, or if you need someone to listen right now, call the VA Caregiver Support Line at 855-260-3274.",
+    source_name: VA_RICHMOND,
+    source_url: "https://www.va.gov/richmond-health-care/health-services/caregiver-support/",
+    source_checked_at: CHECKED,
+    additional_sources: [{ name: `${VA_RICHMOND}: Fredericksburg VA Health Care Center`, url: FXBG_VA_URL }],
+    source_notes:
+      "Read from va.gov on 2026-11-05. The note about post-9/11 caregivers is from the Fredericksburg VA Health Care Center page (additional source), which also lists caregiver support there. Neither page lists the counties served.",
+  },
+  {
+    id: "va-national-guard-family-assistance-center",
+    name: "Family Assistance Center",
+    organization: "Virginia National Guard",
+    categories: ["public_services", "benefits"],
+    description: "Support for Virginia National Guard members and their families.",
+    service_area: [],
+    source_name: "211 Virginia",
+    source_url: "https://search.211virginia.org/search/138933d1-19fb-52b1-9c83-33e8bfb12447",
+    source_notes: NOT_READ_211 + " Service area not yet confirmed.",
   },
   {
     id: "211-virginia",
@@ -127,21 +431,8 @@ const records = [
     how_to_apply: "Search the website.",
     source_name: "211 Virginia",
     source_url: "https://search.211virginia.org/",
-    source_notes: "Website field is the source itself. " + NOT_LOADED,
-  },
-  {
-    id: "veterans-crisis-line",
-    name: "Veterans Crisis Line",
-    organization: "U.S. Department of Veterans Affairs",
-    categories: ["mental_health"],
-    description: "Crisis support for veterans. Dial 988 then press 1, or text 838255.",
-    service_area: ["statewide"],
-    phone: "988, then press 1",
-    how_to_apply: "Dial 988 then press 1, or text 838255.",
-    source_name: "Veterans Crisis Line",
-    source_url: "https://www.veteranscrisisline.net/",
     source_notes:
-      "Phone and text numbers are the ones the project spec requires on every page. Verifier: confirm on the source page.",
+      "Website field is the source itself. Not read for other details: 211 Virginia turns away automated clients.",
   },
 ];
 

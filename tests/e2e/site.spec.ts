@@ -27,10 +27,12 @@ test("topic page: place filter, tips, breadcrumbs", async ({ page }) => {
   await page.getByRole("link", { name: /Transportation/ }).first().click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Transportation");
   await expect(page.getByRole("navigation", { name: "Breadcrumb" })).toContainText("Topics");
-  await page.getByRole("link", { name: "Spotsylvania County" }).click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Transportation near Spotsylvania County");
-  await expect(page.locator('[data-id="healthy-generations-mobility-options"]')).toBeVisible();
+  // No transportation source lists King George, so area listings show under "Elsewhere in the region"
+  await page.getByRole("link", { name: "King George County" }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Transportation near King George County");
+  await expect(page.locator('[data-id="va-richmond-veterans-transportation-program"]')).toBeVisible();
   await expect(page.getByTestId("nearby")).toContainText("FXBGO!");
+  await expect(page.getByTestId("nearby")).toContainText("Mobility Options");
   await expect(page.locator("main")).toContainText("Before you call, have ready");
 });
 

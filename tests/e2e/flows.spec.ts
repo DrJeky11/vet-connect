@@ -46,9 +46,10 @@ test.describe("veteran flows (fictional scenarios)", () => {
     }
     await card.getByRole("button", { name: /^\+ Save to My Plan\s*: / }).click();
 
-    // FXBGO! is listed for the city only; it appears under "Elsewhere in the region"
-    await expect(page.getByTestId("nearby")).toContainText("FXBGO!");
-    await page.getByTestId("nearby").getByRole("button", { name: /Save to My Plan\s*: FXBGO/ }).click();
+    // FXBGO!'s source lists Spotsylvania in its service area, so it is a main result
+    const fxbgo = page.locator('[data-testid="resource-card"][data-id="fxbgo-regional-transit"]');
+    await expect(fxbgo).toBeVisible();
+    await fxbgo.getByRole("button", { name: /Save to My Plan\s*: FXBGO/ }).click();
 
     await page.getByRole("link", { name: /My Plan/ }).first().click();
     await expect(page.getByTestId("plan-item")).toHaveCount(2);
