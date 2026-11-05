@@ -44,11 +44,11 @@ test.describe("veteran flows (fictional scenarios)", () => {
       await expect(c.getByTestId("status-badge")).toBeVisible();
       await expect(c.getByTestId("last-verified")).toContainText(/Not yet verified|\d{4}/);
     }
-    await card.getByRole("button", { name: /Save .* to My Plan/ }).click();
+    await card.getByRole("button", { name: /^\+ Save to My Plan\s*: / }).click();
 
     // FXBGO! is listed for the city only; it appears under "Elsewhere in the region"
     await expect(page.getByTestId("nearby")).toContainText("FXBGO!");
-    await page.getByTestId("nearby").getByRole("button", { name: /Save FXBGO/ }).click();
+    await page.getByTestId("nearby").getByRole("button", { name: /Save to My Plan\s*: FXBGO/ }).click();
 
     await page.getByRole("link", { name: /My Plan/ }).first().click();
     await expect(page.getByTestId("plan-item")).toHaveCount(2);
@@ -74,7 +74,7 @@ test.describe("veteran flows (fictional scenarios)", () => {
     await expect(page.getByTestId("nearby")).toContainText("Legal Services of Northern Virginia");
     await expect(page.locator("body")).toContainText("Income limits are set by the provider");
     await expect(page.locator("body")).not.toContainText(/you qualify/i);
-    await page.getByTestId("nearby").getByRole("button", { name: /Save Legal Aid Works/ }).click();
+    await page.getByTestId("nearby").getByRole("button", { name: /Save to My Plan\s*: Legal Aid Works/ }).click();
 
     await page.getByText("Filters", { exact: true }).click();
     await page.getByLabel("Topic").selectOption("benefits");

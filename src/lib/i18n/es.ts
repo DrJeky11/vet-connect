@@ -201,8 +201,6 @@ export const es: Dict = {
     newTab: "(se abre en otra pestaña)",
     save: "+ Guardar en Mi Plan",
     saved: "✓ Guardado en Mi Plan",
-    saveLabel: (name: string) => `Guardar ${name} en Mi Plan`,
-    removeLabel: (name: string) => `Quitar ${name} de Mi Plan`,
     listen: "Escuchar",
     stopListening: "Parar",
     report: "Reportar un problema con este servicio",

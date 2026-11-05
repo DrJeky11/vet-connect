@@ -11,10 +11,11 @@ export function SaveButton({ id, name }: { id: string; name: string }) {
       type="button"
       className={`btn ${saved ? "btn-primary" : "btn-secondary"} no-print`}
       aria-pressed={saved}
-      aria-label={saved ? t.card.removeLabel(name) : t.card.saveLabel(name)}
       onClick={() => (saved ? remove(id) : add(id))}
     >
+      {/* The visible words come first in the accessible name, so voice control ("click Save to My Plan") works. */}
       {saved ? t.card.saved : t.card.save}
+      <span className="sr-only">: {name}</span>
     </button>
   );
 }

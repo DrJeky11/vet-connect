@@ -21,7 +21,7 @@ export default async function HelpPage() {
         <ol className="ml-5 list-decimal">
           {faqs.map((f) => (
             <li key={f.id}>
-              <a href={`#${f.id}`} className="inline-flex min-h-[44px] items-center">{f.q}</a>
+              <a href={`#${f.id}`} className="flex min-h-[44px] items-center py-1">{f.q}</a>
             </li>
           ))}
         </ol>

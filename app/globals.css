@@ -43,6 +43,8 @@ html[data-contrast="high"] .card {
 @layer base {
 html {
   font-size: 112.5%; /* 18px base body text */
+  /* Keep focused and scrolled-to elements clear of the sticky crisis bar. */
+  scroll-padding-bottom: 6.5rem;
 }
 html[data-text="large"] {
   font-size: 137.5%; /* 22px, from the "Larger text" setting */

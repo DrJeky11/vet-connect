@@ -1,122 +1,210 @@
 # Veteran Services Navigator
 
-A mobile-first web app that helps a veteran in the Fredericksburg, Virginia region find local services, see where every listing came from, and leave with a printable list of who to call. Built for [Hack for Humanity use case 08, "Make services easier to navigate"](https://h4h.opsfloor.org/builder-guide.html#use-cases).
+A website, text line and phone line that help veterans in the Fredericksburg, Virginia region find local services, see where every listing came from, and get updates the way they prefer: on the web, by text, by recorded phone call or by mail. Built for [Hack for Humanity use case 08, "Make services easier to navigate"](https://h4h.opsfloor.org/builder-guide.html#use-cases).
 
-**Service area (v1):** City of Fredericksburg and the counties of Spotsylvania, Stafford, King George and Caroline.
+**Service area:** City of Fredericksburg and the counties of Spotsylvania, Stafford, King George and Caroline.
+
+## Ways a veteran can use it
+
+| If they… | They can… |
+| --- | --- |
+| Use a phone or computer | Search, answer 4 quick questions, or pick a topic. Save listings to My Plan and print a large-type call list with what to say. English or Spanish. |
+| Prefer texting | Text a topic and ZIP (`RIDE 22553`) to get listings back. Text `JOIN` for updates, `STOP` to stop. |
+| Prefer a phone call | Call the line and use the keypad to hear listings read aloud, have them texted, or sign up for recorded update calls. |
+| Have no computer | Get letters with listings for their topics and place. Sign up on a printed paper form or by phone with staff. Libraries and VSO offices can print the whole directory. |
+| Help someone else | Do all of the above on their behalf, with their permission. |
+
+The text and phone line run only after a Twilio number is connected (see [Going live](#going-live-with-texts-and-calls)). Until then everything works in a clearly labeled simulated mode, and staff can try both lines on the dashboard.
 
 ## Run it
 
-Requires Node.js 22.13 or newer. There is no database to set up.
+Requires Node.js 22.13 or newer. There is no database server to set up (SQLite files are created in `.data/`).
 
 ```bash
 npm install && npm run dev
 ```
 
-Open http://localhost:3000. The verifier dashboard is at `/verify` (demo passcode `demo-verifier`).
+Open http://localhost:3000.
+
+| Page | Who | Demo sign-in |
+| --- | --- | --- |
+| `/` and everything linked from it | Veterans and families | none |
+| `/verify` | Verifiers who check listings | initials + `demo-verifier` |
+| `/staff` | Outreach staff | initials + `demo-outreach` |
 
 | Command | What it does |
 | --- | --- |
 | `npm run dev` | Local dev server |
 | `npm run build && npm start` | Production build |
-| `npm test` | Vitest: seed-data validation gate, filters, plan, verifier rules, importers, navigator |
-| `npm run test:e2e` | Playwright on a phone viewport: Ray, Dana and Maria flows, verifier flow, crisis footer on every page. Run `npx playwright install chromium` once first. |
+| `npm test` | Vitest: seed-data gate, filters, plan, verifier rules, importers, navigator, outreach store, consent, text and phone line |
+| `npm run test:e2e` | Playwright on a phone viewport: veteran flows, Spanish, menu, sign-up → YES → send → STOP, phone keypad, letters, reports, no sideways scrolling, crisis footer on every page |
+| `npm run lint` | TypeScript check |
 | `npm run validate:data` | Seed-data validation only |
-| `npm run import:csv -- file.csv [--write]` | Bulk-load a spreadsheet (template: `data/templates/resources-template.csv`) |
-| `npm run import:va [-- --write]` | Import VA health facilities near Fredericksburg from the VA Facilities API. Needs `VA_FACILITIES_API_KEY`; skipped without it. |
+| `npm run import:csv -- file.csv [--write]` | Bulk-load listings from a spreadsheet (template: `data/templates/resources-template.csv`) |
+| `npm run import:va [-- --write]` | Import VA health facilities near Fredericksburg. Needs `VA_FACILITIES_API_KEY`. |
 
-Optional settings are in `.env.example`.
+All settings are optional and listed in `.env.example`.
+
+## Where this stands against the spec
+
+| Spec item | Status |
+| --- | --- |
+| Guided intake, directory and filters, sourced listing cards | Done |
+| My Plan with call scripts, large-type print, share link | Done |
+| Verifier dashboard, change log, Stale after 90 days | Done; now also shows public reports |
+| Crisis line on every page | Done, in both languages and on every printout and letter |
+| Accessibility | Done. Lighthouse accessibility 100 on home, intake, topic, listing, plan, updates, help, print, suggest and staff pages in this build. |
+| Stretch 6: conversational navigator | Done (behind `ENABLE_CHAT`) |
+| Stretch 7: Spanish and read-aloud | **Done in this round** |
+| Seed data: 25 to 40 verified listings | **Not done: 9 listings, all unverified, contact fields empty.** See below. |
+
+New in this round, from the conversation with the VA: a full website structure (topic pages, help, printable directory, footer navigation), and outreach by text, phone call and mail with its own database, consent tracking and staff tools.
+
+## Seed data: the biggest remaining gap
+
+`data/resources.json` holds **9 listings, all `unverified`**, with phone, address and hours empty on purpose. The build environment's network policy blocks the source sites (211 Virginia, Virginia Veterans Navigator, valegalaid.org, va.gov and provider sites), and the project rule is never to fill a contact field the source does not state.
+
+This matters more now: the text and phone line read only what the directory holds, so they say "no phone number on file yet" for most listings today. To fix it:
+
+1. A verifier opens each listing's source in `/verify`, fills only what the source states (a source note is required), and marks it verified.
+2. Add listings through `npm run import:csv`. Every row needs a `source_url`. Imported rows are unverified.
+3. Run `npm run import:va -- --write` with a VA Facilities API key.
+4. Use public reports: the "Report a problem" and "Suggest a listing" forms feed the verifier dashboard.
+5. Watch the staff overview's "found nothing" column. It shows which topics and places people ask the text and phone line for that the directory cannot answer.
+
+**Demo moment:** 211 Virginia and valegalaid.org list different street addresses for Legal Services of Northern Virginia, Fredericksburg. The verifier dashboard flags it "Sources disagree," and its address stays empty until a person confirms it.
 
 ## What is real and what is simulated
 
 **Real**
 
-- Every listing is a real organization, and each card links to the public page it came from (`source_url`).
-- The Veterans Crisis Line footer on every page: dial 988 then press 1, or text 838255.
-- Verifier edits are stored in SQLite (Node's built-in `node:sqlite`), with a change log of who did what and when.
+- Every listing is a real organization, and each card links to the page it came from.
+- The Veterans Crisis Line on every page: dial 988 then press 1, or text 838255.
+- Verifier edits, public reports, subscribers, consent records, messages and delivery records are stored in SQLite (Node's built-in `node:sqlite`).
+- The text-line and phone-line logic, the consent rules and the Twilio integration are complete code paths with tests. Twilio itself could not be reached from the build environment.
 
-**Simulated or limited**
+**Simulated until configured**
 
-- **Verifier login is simulated.** It is a shared passcode plus initials in a signed cookie, not real accounts. The page says so.
-- There is no integration with any VA system, and nothing books rides or appointments.
-- The personas (Ray, Dana, Maria) are fictional. Saved plans stay in the browser (`localStorage`). Share links contain only listing IDs.
-- On Vercel the SQLite file lives in `/tmp`, so verifier changes reset on cold start. Run it locally or point `VERIFIER_DB_PATH` at persistent storage to keep them.
+- **Texts and calls.** With no Twilio account, or until every go-live item is done, each send is recorded as "simulated" and nothing leaves the server. The staff dashboard shows which mode it is in.
+- **Sign-in.** Verifiers and staff use shared passcodes plus initials in a signed cookie, not personal accounts. With the demo staff passcode, every name, phone number and address is hidden on staff screens and letters, so a public demo cannot leak anything someone typed in.
+- There is no connection to any VA system. Nothing books rides or appointments.
+- Ray, Dana and Maria, and the 555-01xx phone numbers in tests, are fictional.
 
-**What the app will not do**
+**What the site will not do**
 
 - Decide eligibility. Cards show the provider's own words and say "may be eligible" and "call to confirm."
-- Fill a field the source does not state. Empty phone, address and hours fields stay empty and show "Not listed by source."
-- Store names, service numbers, discharge status or accounts.
+- Fill a contact field the source does not state.
+- Ask for service numbers, discharge status or health information.
 
-## Seed data status: read this before the demo
+## Outreach: how it works
 
-`data/resources.json` holds **9 listings, all `unverified`**. That is below the spec's 25 to 40 target.
+**Data kept, and why.** Browsing still needs no account and stores nothing. Only people who ask for updates are stored, in a separate database (`OUTREACH_DB_PATH`), with only what is needed to reach them: phone number, or name and mailing address. Phone, name and address are encrypted with AES-256-GCM (`OUTREACH_ENCRYPTION_KEY`). Lookups use a keyed hash, so the plain number never sits in a searchable column. Locality, topics and language stay readable so staff can target messages without decrypting anything. What people text or say to the line is never stored; only the topic, place and number of results are counted.
 
-The build environment's network policy blocked the source sites (211 Virginia, Virginia Veterans Navigator, valegalaid.org, va.gov, provider websites), so no source page could be loaded. Under the "never invent contact details" guardrail, the seed holds only the listings and URLs the project spec cites (plus 211 Virginia, Virginia Veterans Navigator and the Veterans Crisis Line). Their phone, address and hours fields are null on purpose. Each record's `source_notes` explains why.
+**Consent rules (in code, with tests)**
 
-To bring the directory up to demo strength:
+- Each channel has its own consent wording (English and Spanish). Every opt-in and opt-out is recorded with the method, the wording version and language, who recorded it and when.
+- Text sign-ups from the website stay *pending* until the phone replies YES, so a mistyped or someone else's number never gets updates.
+- Staff can sign people up who ask by phone, in person or on a paper form. Staff confirm they read the consent wording, and their initials are recorded.
+- `STOP` (anywhere in a text), `press 9` on a call, the Stop updates page or staff all turn off **every** automated text and call for that number. Letters stop separately.
+- Texts and calls go out only between 8 a.m. and 9 p.m. Eastern. Outside those hours sending pauses and can be resumed.
+- Every broadcast text starts with the sender name and ends with "Reply STOP to opt out." Every update call offers press 1 to repeat and press 9 to stop.
+- A crisis message (for example "I want to end my life") always gets the Veterans Crisis Line first.
 
-1. A verifier opens each listing's source in `/verify`, fills only what the source states (the dashboard requires a note saying where contact details came from), and marks it verified.
-2. Add more listings through `npm run import:csv`. Every row needs a `source_url`. Imported rows are always unverified.
-3. Run `npm run import:va -- --write` with a VA Facilities API key to add the area's VA clinics.
-4. Or rerun the research step from an environment that can reach those sites.
+**Staff workflow** (`/staff`)
 
-**Demo moment:** 211 Virginia and valegalaid.org list different street addresses for Legal Services of Northern Virginia, Fredericksburg. The dashboard flags that listing with "Sources disagree." Its address stays empty until a person confirms it.
+1. **Overview:** go-live checklist, sign-ups by channel, and what people asked the text and phone line for.
+2. **Subscribers:** list (last four digits only), add someone who called or sent a paper form, consent history, stop, or erase completely.
+3. **Messages:** write one message with text, call and letter versions, target by topic, place and language, review who it reaches, then send. Texts and calls go in batches with progress shown. Letters print one per page, sized for a #10 window envelope, and can list each person's matching services.
+4. **Try the text & phone line:** a simulator that runs the real code. In simulated mode its sign-ups, YES and STOP are saved, so the whole flow can be demonstrated.
+
+## Going live with texts and calls
+
+Real messages go out only when `OUTREACH_LIVE=true` **and** every item below is done. The staff overview shows each one.
+
+1. `OUTREACH_PASSCODE`: a private staff passcode, 12 or more characters.
+2. `OUTREACH_ENCRYPTION_KEY`: run `openssl rand -hex 32`. **Back it up.** Without it, stored contact details cannot be read.
+3. Persistent storage: set `OUTREACH_DB_PATH` (and `VERIFIER_DB_PATH`) to a disk or volume. Serverless hosts such as Vercel wipe local files, so do not run outreach there without one.
+4. Twilio: set `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` and `TWILIO_FROM_NUMBER` (or `TWILIO_MESSAGING_SERVICE_SID`). Register the number for A2P 10DLC texting before sending.
+5. `PUBLIC_SITE_URL`: the site's `https://` address.
+6. In Twilio, set the number's webhooks (HTTP POST): messages to `/api/sms` and calls to `/api/voice`. Both reject any request without a valid Twilio signature, and both return 404 while Twilio is not configured.
+
+Also set `OUTREACH_SENDER_NAME` and `OUTREACH_RETURN_ADDRESS` so texts, calls, letters and the paper form name the right organization. Have someone familiar with TCPA and CTIA rules review the consent wording in `src/lib/outreach/rules.ts` before launch.
 
 ## Guardrails and how they are enforced
 
 | Guardrail | Where |
 | --- | --- |
-| Source on every listing | Schema requires `source_name` and `source_url`. Every card shows the source link, status badge and last-verified date (or "Not yet verified"). |
-| A person verifies | Seed records must be `unverified`; `tests/unit/seed-data.test.ts` fails the build otherwise. "Verified" is only set by `VerifierStore.verify` with initials. It turns Stale after 90 days. |
-| Never promise access | The seed validator rejects phrases like "you qualify." Call scripts ask whether the caller "may be eligible." |
-| No fabricated contact details | The validator fails if a contact field is filled without a source. Verifier edits that fill contact fields require a source note. The CSV and VA importers keep missing fields null. |
-| Crisis access on every page | `CrisisFooter` sits in the root layout, is sticky on screen and appears on printouts. Playwright checks every route. |
-| Minimal data | No accounts. Plans live in `localStorage`. Share links carry only IDs. |
-| Label anything simulated | Verifier login banner, `/about` page, navigator disclaimer. |
+| Source on every listing | Schema requires `source_name` and `source_url`. Every card, printout and letter shows the source and status. |
+| A person verifies | Seed records must be `unverified` (`tests/unit/seed-data.test.ts`). Only `VerifierStore.verify` sets "verified." Public reports never change a listing. |
+| Never promise access | Seed validator rejects "you qualify." Call scripts, texts and calls say "may be eligible" and "call to confirm." |
+| No fabricated contact details | Validator, verifier source notes, importers keep missing fields null. The phone line says "no phone number on file yet." |
+| Crisis access everywhere | Footer on every page (tested), every printout, every letter, the phone line greeting, and the first reply to any crisis text. |
+| Minimal data | No accounts for browsing. Outreach keeps only reachable contact details, encrypted, for people who opted in. Message text is not stored. Erase removes everything. |
+| Consent and opt-out | Per-channel consent records; YES confirmation for web text sign-ups; STOP / press 9 / web / staff opt-out; contact hours. |
+| No sends by accident | Live only when the full checklist passes; webhooks need a valid signature; the simulator is a dry run once live. |
+| Label anything simulated | Staff mode banner, demo note on the sign-up page, `/about`, verifier login banner. |
 
-## Stretch feature 6: conversational navigator
+## Accessibility and ease of use
 
-Off by default. Set `ENABLE_CHAT=true` to add an "Ask in your own words" page at `/ask`.
+- 18px base text, 22px with "Larger text" and on print. Tap targets at least 44px. High contrast.
+- Labeled Menu button on phones; every page also linked from the footer, so the site works if JavaScript does not load. Breadcrumbs on inner pages.
+- English and Spanish in one tap. The language switch, search, sign-up and stop forms work without JavaScript.
+- "Listen" reads a listing aloud using the browser's voice.
+- Skip link, focus moves to each intake step's heading, status badges include screen-reader text, and button names start with their visible words for voice control.
+- Tested that no page scrolls sideways on a phone, in either language, and that the sticky crisis bar stays compact. Scroll padding keeps focused elements from hiding under it.
 
-- It is retrieval only. A sentence becomes directory filters, and the reply lists directory cards with their IDs in brackets. When nothing matches it says "I don't have a listing for that."
-- Without `ANTHROPIC_API_KEY` it matches keywords. With a key it asks Claude (`claude-opus-5-5`, low effort, JSON-schema output) to pick filters only. The model never writes the reply text, and filter values it returns that aren't in the fixed lists are dropped. Server-side refusal fallback (`fallbacks: "default"`) is on; any API error falls back to keywords.
+## Demo script (about 5 minutes)
 
-Stretch feature 7 (Spanish UI and read-aloud) is not built.
+Use a phone-sized window. All people and numbers are fictional.
 
-## Accessibility
-
-- 18px base text and 22px on print. Tap targets are at least 44px (most are 48px).
-- Skip link, labeled controls, focus moves to each intake step's heading, and status badges include screen-reader text.
-- High-contrast toggle in the header, remembered per browser.
-- Lighthouse accessibility scored 100 on home, intake, results, card, plan and verifier pages in this build.
-
-## 3-minute demo script
-
-Use a phone-sized window. All people are fictional.
-
-1. **Ray, 71, Spotsylvania, needs a ride to a VA clinic (about 60 seconds).** Home, then "Start." Tap Transportation. Type ZIP `22553` and tap "Use ZIP" (Spotsylvania is selected), then Next. Tap "For me," then "Skip." Healthy Generations Mobility Options appears with its 211 Virginia source and an "Unverified" badge. Save it. Under "Elsewhere in the region," save FXBGO! as well. Open My Plan: each item has a call script ("Hi, I'm a veteran in Spotsylvania County…"). Tap "Print large-type list."
-2. **Dana, 34, Stafford, landlord dispute (about 45 seconds).** Pick "Legal help," then Stafford County. Legal Aid Works and LSNV show under "Elsewhere in the region," because their sources only list Fredericksburg. The cards say income limits are set by the provider. Open Filters and switch the topic to Benefits and claims help to find the DVS Fredericksburg office.
-3. **Maria, caregiver (about 30 seconds).** Pick "Public services," then Caroline County, then "For someone else," then check "Free only." The app shows 0 results rather than guessing, because no source states a cost. Remove the filter, save 211 Virginia, and open My Plan: the script now says "I'm calling for a veteran in Caroline County." Tap "Share link." The link carries only IDs.
-4. **Verifier (about 45 seconds).** Footer link "Verifier sign-in," enter initials `QA` and passcode `demo-verifier`. LSNV is flagged "Sources disagree." Try to add hours without a source note and the save is refused. Mark the listing verified with a note. The change log shows it, and the public card now reads "Verified … by QA."
+1. **Ray, 71, Spotsylvania (60 s).** "Start: answer 4 quick questions." Transportation, ZIP `22553`, "For me," Skip. Save Mobility Options and FXBGO!. Open My Plan, see the call script, "Print large-type list."
+2. **Dana, Stafford (30 s).** Topics → Legal help → Stafford County. The listings appear under "Elsewhere in the region" because their sources only list Fredericksburg.
+3. **Maria, Spanish-speaking caregiver (30 s).** Tap "Español." Everything switches. In My Plan the script stays in English (what to say to the provider) with the Spanish meaning below.
+4. **A veteran without a computer (90 s).** Home → "No computer?" → Get updates. Check Food, Stafford, phone `540-555-0134`, "Text messages," permission, "Sign me up." The page says to reply YES. Sign in at `/staff` (`demo-outreach`). In "Try the text & phone line," text `YES` from that number, then `RIDE 22553`. Call the line and press 1, then enter 22553.
+5. **Staff send an update (60 s).** Messages: write a food update with text and letter versions, target Food and Stafford, review the count, Send now. Deliveries show as simulated. Text `STOP` in the simulator; the subscriber's consent history shows it.
+6. **Verifier (45 s).** On a listing, "Report a problem." Sign in at `/verify` (`demo-verifier`). The report appears at the top, LSNV is flagged "Sources disagree," and verifying a listing shows "Verified … by QA" on the public card.
 
 ## Project layout
 
 ```
-app/                 Next.js App Router pages and API routes
-  intake/            Guided 4-step intake
-  resources/         Directory, filters, card detail pages
-  plan/              My Plan, print view, share links
-  verify/            Verifier dashboard (simulated login)
-  ask/               Optional navigator (ENABLE_CHAT=true)
-  api/               Verifier actions, public resources, navigator
-src/lib/             Schema (zod), seed validation, filters, plan, status, verifier rules, SQLite store
-src/components/      Resource card, status badge, crisis footer, header
-data/resources.json  Seed listings (the source of truth for listings)
-scripts/             VA Facilities and CSV importers; seed builder
-tests/unit/          Vitest
-tests/e2e/           Playwright
+app/                    Next.js App Router
+  page.tsx, topics/, resources/, intake/, plan/, help/, print/, suggest/, about/
+  updates/              Sign-up, stop, paper form (public)
+  staff/                Outreach dashboard: subscribers, messages, letters, simulator
+  verify/               Verifier dashboard
+  api/sms, api/voice    Twilio webhooks (text line, phone line)
+  api/twilio/status     Delivery status callbacks
+  lang/                 No-JavaScript language switch
+src/lib/                Schema, seed validation, filters, plan, verifier rules, SQLite stores
+src/lib/outreach/       Subscriber store and encryption, consent rules, text/phone line,
+                        sending engine, Twilio provider and signatures, config and go-live checks
+src/lib/i18n/           English and Spanish interface text
+src/components/         Header, menu, footer, crisis bar, listing card, display settings
+data/resources.json     Seed listings (the source of truth for listings)
+scripts/                VA Facilities and CSV importers; seed builder
+tests/unit/, tests/e2e/ Vitest and Playwright
 ```
 
 ## Deploy
 
-On Vercel or any Node 22.13+ host: `npm run build`, then `npm start`. See the note above about `/tmp` storage on Vercel.
+Outreach needs storage that survives restarts, so use a host with a disk or volume. A `Dockerfile` is included:
+
+```bash
+docker build -t vet-connect .
+```
+
+```bash
+docker run -p 3000:3000 -v vetdata:/data --env-file .env vet-connect
+```
+
+The image stores both databases in `/data`. The image's runtime stage was tested by running the production build with production-only dependencies; the Docker build itself was not run here because no Docker daemon was available.
+
+On Vercel the listings site works, but verifier edits and subscriber data live in `/tmp` and reset on cold start, and the go-live checklist will not pass. Use it for demos only.
+
+## Next steps
+
+1. Fill the directory: verify the 9 listings and add 20 to 30 more from sources that can be loaded (see "Seed data").
+2. Connect Twilio, register for A2P 10DLC, and finish the go-live checklist.
+3. Replace shared passcodes with personal staff accounts (single sign-on) before many staff use the dashboard.
+4. Phone line in Spanish (press 2 for Spanish), and Spanish replies on the text line for Spanish-language subscribers.
+5. Email as a fourth channel, and a mail vendor integration if letter volume grows beyond printing in-house.

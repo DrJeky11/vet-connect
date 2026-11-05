@@ -203,8 +203,6 @@ export const en = {
     newTab: "(opens in a new tab)",
     save: "+ Save to My Plan",
     saved: "✓ Saved to My Plan",
-    saveLabel: (name: string) => `Save ${name} to My Plan`,
-    removeLabel: (name: string) => `Remove ${name} from My Plan`,
     listen: "Listen",
     stopListening: "Stop",
     report: "Report a problem with this listing",

@@ -42,7 +42,7 @@ test("Spanish: one tap switches the interface, and the choice is remembered", as
   await expect(page.getByTestId("crisis-footer")).toContainText("Marque 988 y oprima 1");
   await page.goto("/resources/211-virginia");
   await expect(page.locator("main")).toContainText("La información de cada servicio está en inglés");
-  await expect(page.getByRole("button", { name: /Guardar 211 Virginia en Mi Plan/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Guardar en Mi Plan\s*: 211 Virginia/ })).toBeVisible();
   await page.getByRole("link", { name: /English/ }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });
@@ -114,6 +114,18 @@ test("sitemap lists topic and listing pages; robots keeps staff pages out", asyn
   expect(robots).toContain("Disallow: /staff");
 });
 
+test("the crisis bar stays compact on small phones in both languages", async ({ browser }) => {
+  for (const lang of ["en", "es"]) {
+    const ctx = await browser.newContext({ viewport: { width: 320, height: 640 } });
+    await ctx.addCookies([{ name: "vsn-lang", value: lang, url: "http://localhost:3100" }]);
+    const page = await ctx.newPage();
+    await page.goto("/");
+    const h = await page.getByTestId("crisis-footer").evaluate((e) => e.getBoundingClientRect().height);
+    expect(h, lang).toBeLessThanOrEqual(110);
+    await ctx.close();
+  }
+});
+
 test("no page scrolls sideways on a phone, in English or Spanish", async ({ page, context }) => {
   const paths = ["/", "/intake", "/resources", "/topics/transportation", "/resources/lsnv-fredericksburg", "/plan?ids=211-virginia", "/updates", "/help", "/print", "/suggest", "/updates/paper-form"];
   for (const lang of ["en", "es"]) {
@@ -124,4 +136,24 @@ test("no page scrolls sideways on a phone, in English or Spanish", async ({ page
       expect(overflow, `${lang} ${path}`).toBeLessThanOrEqual(0);
     }
   }
+});
+
+test("sign-up and stop forms work without JavaScript", async ({ browser }) => {
+  const ctx = await browser.newContext({ javaScriptEnabled: false });
+  const page = await ctx.newPage();
+  await page.goto("/updates/stop");
+  await page.getByLabel("Phone number").fill("540-555-0198");
+  await page.getByRole("button", { name: "Stop updates" }).click();
+  await expect(page.getByTestId("stop-done")).toBeVisible();
+  await page.goto("/updates");
+  await page.getByRole("textbox", { name: "Phone number" }).fill("540-555-0197");
+  await page.getByRole("checkbox", { name: /Recorded phone calls/ }).check();
+  await page.getByRole("button", { name: "Sign me up" }).click();
+  // Missing permission: the error shows and what was typed is kept.
+  await expect(page.getByRole("alert")).toContainText("permission");
+  await expect(page.getByRole("textbox", { name: "Phone number" })).toHaveValue("540-555-0197");
+  await page.getByRole("checkbox", { name: /This is my phone number/ }).check();
+  await page.getByRole("button", { name: "Sign me up" }).click();
+  await expect(page.getByTestId("signup-done")).toContainText("Press 9");
+  await ctx.close();
 });
