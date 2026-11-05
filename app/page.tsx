@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/lib/schema";
+import { chatEnabled } from "@/lib/navigator-llm";
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -19,6 +22,11 @@ export default function Home() {
           <Link href="/resources" className="btn btn-secondary !min-h-[56px]">
             Browse all listings
           </Link>
+          {chatEnabled() && (
+            <Link href="/ask" className="btn btn-secondary !min-h-[56px]">
+              Ask in your own words
+            </Link>
+          )}
         </div>
         <p className="text-muted">
           No account. No names. Anything you save stays on this device. Helping someone else? That works too.
