@@ -15,7 +15,7 @@ test.describe("veteran flows (fictional scenarios)", () => {
     const start = Date.now();
     await page.goto("/");
     await expect(page.getByTestId("crisis-footer")).toContainText("988");
-    await page.getByRole("link", { name: "Start: What do you need help with?" }).click();
+    await page.getByRole("link", { name: "Start: answer 4 quick questions" }).click();
 
     // Step 1: need
     await page.getByRole("button", { name: /Transportation/ }).click();
@@ -139,7 +139,25 @@ test("verifier marks a listing verified; it shows in the log and on the card", a
 });
 
 test("crisis footer is on every page", async ({ page }) => {
-  for (const path of ["/", "/intake", "/resources", "/resources/211-virginia", "/plan", "/verify", "/about", "/nope"]) {
+  for (const path of [
+    "/",
+    "/intake",
+    "/resources",
+    "/resources/211-virginia",
+    "/topics",
+    "/topics/food",
+    "/plan",
+    "/updates",
+    "/updates/stop",
+    "/updates/paper-form",
+    "/help",
+    "/print",
+    "/suggest",
+    "/verify",
+    "/staff",
+    "/about",
+    "/nope",
+  ]) {
     await page.goto(path);
     await expect(page.getByTestId("crisis-footer"), path).toContainText("Dial 988, then press 1");
     await expect(page.getByTestId("crisis-footer"), path).toContainText("838255");

@@ -4,20 +4,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CATEGORIES, LOCALITIES, resolveLocality, type CategoryId, type LocalityId } from "@/lib/schema";
 import { filtersToParams } from "@/lib/filter";
 import { usePlan } from "@/lib/usePlan";
+import { useDict } from "@/lib/i18n/client";
 
 const STEPS = ["need", "where", "who", "filters"] as const;
-type Step = (typeof STEPS)[number];
-const TITLES: Record<Step, string> = {
-  need: "What do you need help with?",
-  where: "Where does the veteran live?",
-  who: "Who is this for?",
-  filters: "Anything else that matters?",
-};
 
 export function Intake() {
   const router = useRouter();
   const params = useSearchParams();
   const { setLocality, setForSomeone } = usePlan();
+  const t = useDict();
   const initialCategory = (params.get("category") as CategoryId) || null;
 
   const [step, setStep] = useState<number>(initialCategory ? 1 : 0);
@@ -60,7 +55,7 @@ export function Intake() {
   function applyZip() {
     const loc = resolveLocality(zip);
     if (!loc) {
-      setZipError("We could not match that ZIP or place. Pick your city or county below.");
+      setZipError(t.intake.zipError);
       return;
     }
     setZipError(null);
@@ -70,15 +65,15 @@ export function Intake() {
   return (
     <div className="grid gap-5">
       <p className="text-muted" aria-live="polite">
-        Step {step + 1} of {STEPS.length}
+        {t.intake.stepOf(step + 1, STEPS.length)}
       </p>
       <h1 ref={heading} tabIndex={-1} className="text-3xl font-bold outline-none">
-        {TITLES[current]}
+        {t.intake.steps[current]}
       </h1>
 
       {current === "need" && (
         <fieldset className="grid gap-3">
-          <legend className="sr-only">Choose one topic</legend>
+          <legend className="sr-only">{t.intake.chooseTopic}</legend>
           {CATEGORIES.map((c) => (
             <button
               key={c.id}
@@ -91,8 +86,8 @@ export function Intake() {
               }}
             >
               <span>
-                <span className="block text-lg font-bold">{c.label}</span>
-                <span className="block text-base text-muted">{c.hint}</span>
+                <span className="block text-lg font-bold">{t.categories[c.id].label}</span>
+                <span className="block text-base text-muted">{t.categories[c.id].hint}</span>
               </span>
             </button>
           ))}
@@ -103,7 +98,7 @@ export function Intake() {
         <div className="grid gap-4">
           <div className="grid gap-2">
             <label htmlFor="zip" className="font-bold">
-              ZIP code (optional)
+              {t.intake.zipLabel}
             </label>
             <div className="flex gap-2">
               <input
@@ -117,7 +112,7 @@ export function Intake() {
                 aria-describedby={zipError ? "zip-error" : undefined}
               />
               <button type="button" className="btn btn-secondary" onClick={applyZip}>
-                Use ZIP
+                {t.intake.useZip}
               </button>
             </div>
             {zipError && (
@@ -125,13 +120,13 @@ export function Intake() {
                 {zipError}
               </p>
             )}
-            <p className="text-base text-muted">Some ZIP codes cross county lines. Check the choice below.</p>
+            <p className="text-base text-muted">{t.intake.zipNote}</p>
           </div>
           <fieldset className="grid gap-3">
-            <legend className="mb-2 font-bold">Or pick a city or county</legend>
+            <legend className="mb-2 font-bold">{t.intake.pickPlace}</legend>
             {LOCALITIES.map((l) => (
               <button key={l.id} type="button" className="choice" aria-pressed={locality === l.id} onClick={() => setLoc(l.id)}>
-                <span className="text-lg font-bold">{l.label}</span>
+                <span className="text-lg font-bold">{t.localities[l.id]}</span>
               </button>
             ))}
           </fieldset>
@@ -140,49 +135,49 @@ export function Intake() {
 
       {current === "who" && (
         <fieldset className="grid gap-3">
-          <legend className="sr-only">Who is this for?</legend>
+          <legend className="sr-only">{t.intake.steps.who}</legend>
           <button type="button" className="choice" aria-pressed={forSomeone === false} onClick={() => { setFor(false); setStep(3); }}>
-            <span className="text-lg font-bold">For me — I am a veteran</span>
+            <span className="text-lg font-bold">{t.intake.forMe}</span>
           </button>
           <button type="button" className="choice" aria-pressed={forSomeone === true} onClick={() => { setFor(true); setStep(3); }}>
             <span>
-              <span className="block text-lg font-bold">For someone else</span>
-              <span className="block text-base text-muted">A spouse, parent, friend or client</span>
+              <span className="block text-lg font-bold">{t.intake.forSomeone}</span>
+              <span className="block text-base text-muted">{t.intake.forSomeoneHint}</span>
             </span>
           </button>
-          <p className="text-base text-muted">We use this only to word your call script. It is not saved anywhere but this device.</p>
+          <p className="text-base text-muted">{t.intake.whoNote}</p>
         </fieldset>
       )}
 
       {current === "filters" && (
         <fieldset className="grid gap-3">
-          <legend className="mb-2">Check any that apply. You can skip this.</legend>
+          <legend className="mb-2">{t.intake.filtersLegend}</legend>
           <label className="choice">
             <input type="checkbox" className="h-6 w-6" checked={freeOnly} onChange={(e) => setFreeOnly(e.target.checked)} />
-            <span className="text-lg">Free only</span>
+            <span className="text-lg">{t.intake.freeOnly}</span>
           </label>
           <label className="choice">
             <input type="checkbox" className="h-6 w-6" checked={wheelchair} onChange={(e) => setWheelchair(e.target.checked)} />
-            <span className="text-lg">Wheelchair accessible</span>
+            <span className="text-lg">{t.intake.wheelchair}</span>
           </label>
           <label className="choice">
             <input type="checkbox" className="h-6 w-6" checked={spanish} onChange={(e) => setSpanish(e.target.checked)} />
-            <span className="text-lg">Spanish spoken</span>
+            <span className="text-lg">{t.intake.spanish}</span>
           </label>
         </fieldset>
       )}
 
       <div className="flex flex-wrap gap-3 border-t border-line pt-4">
         <button type="button" className="btn btn-secondary" onClick={back}>
-          ← Back
+          {t.intake.back}
         </button>
         {current !== "need" && (
           <button type="button" className="btn btn-primary" onClick={next}>
-            {step === STEPS.length - 1 ? "Show results" : "Next"}
+            {step === STEPS.length - 1 ? t.intake.show : t.intake.next}
           </button>
         )}
         <button type="button" className="btn btn-secondary !border-transparent" onClick={step === STEPS.length - 1 ? finish : () => setStep(step + 1)}>
-          Skip
+          {t.intake.skip}
         </button>
       </div>
     </div>

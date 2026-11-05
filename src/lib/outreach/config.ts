@@ -30,6 +30,8 @@ export interface OutreachConfig {
   storagePersistent: boolean;
   liveRequested: boolean;
   live: boolean;
+  /** Demos and tests only: let simulated sends run outside contact hours. Never applies when live. */
+  anyHour: boolean;
 }
 
 type Env = Record<string, string | undefined>;
@@ -61,8 +63,10 @@ export function readConfig(env: Env = process.env): OutreachConfig {
     storagePersistent: !env.VERCEL || Boolean(env.OUTREACH_DB_PATH),
     liveRequested: env.OUTREACH_LIVE === "true",
     live: false,
+    anyHour: false,
   };
   cfg.live = cfg.liveRequested && readiness(cfg).every((c) => c.ok);
+  cfg.anyHour = !cfg.live && env.OUTREACH_DEMO_ANY_HOUR === "true";
   return cfg;
 }
 

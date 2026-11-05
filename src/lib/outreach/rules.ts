@@ -7,11 +7,26 @@ export const CHANNEL_LABELS: Record<Channel, string> = {
   voice: "Recorded phone calls",
   mail: "Letters in the mail",
 };
+export const CHANNEL_LABELS_ES: Record<Channel, string> = {
+  sms: "Mensajes de texto",
+  voice: "Llamadas grabadas",
+  mail: "Cartas por correo",
+};
 
 /** Bump when the wording below changes; each consent record stores the version shown. */
 export const CONSENT_VERSION = "2026-11-05";
 
-export function consentText(channel: Channel, sender: string): string {
+export function consentText(channel: Channel, sender: string, lang: "en" | "es" = "en"): string {
+  if (lang === "es") {
+    switch (channel) {
+      case "sms":
+        return `Acepto recibir mensajes de texto automáticos y recurrentes de ${sender} sobre servicios para veteranos al número de arriba. No es necesario aceptar para recibir ningún servicio. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Conteste STOP para cancelar o HELP para ayuda.`;
+      case "voice":
+        return `Acepto recibir llamadas grabadas de ${sender} sobre servicios para veteranos al número de arriba. No es necesario aceptar para recibir ningún servicio. Oprima 9 durante una llamada, o envíe STOP por texto, para parar las llamadas.`;
+      case "mail":
+        return `Quiero recibir cartas de ${sender} sobre servicios para veteranos en la dirección de arriba. Puedo pedir que paren cuando quiera.`;
+    }
+  }
   switch (channel) {
     case "sms":
       return `I agree to get recurring automated text messages from ${sender} about veteran services at the phone number above. Consent is not required to get any service. Message frequency varies. Message and data rates may apply. Reply STOP to cancel or HELP for help.`;

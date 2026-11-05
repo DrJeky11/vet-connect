@@ -69,3 +69,16 @@ export function callScript(r: Resource, locality: LocalityId | null, forSomeone 
   const subj = forSomeone ? "they" : "I";
   return `Hi, ${who} looking for ${need}. I found ${r.name} in a directory. Can you tell me if ${subj} may be eligible, what to bring, and how to get started?`;
 }
+
+/** Spanish meaning of the English call script, shown under it in Spanish mode. */
+export function callScriptMeaningEs(
+  r: Resource,
+  placeEs: string | null,
+  needEs: string,
+  forSomeone = false,
+): string {
+  const where = placeEs ? ` en ${placeEs}` : "";
+  return forSomeone
+    ? `Hola, llamo por un veterano${where} que busca ${needEs}. Encontré ${r.name} en un directorio. ¿Me puede decir si podría calificar, qué debe llevar y cómo empezar?`
+    : `Hola, soy veterano${where} y busco ${needEs}. Encontré ${r.name} en un directorio. ¿Me puede decir si podría calificar, qué debo llevar y cómo empiezo?`;
+}

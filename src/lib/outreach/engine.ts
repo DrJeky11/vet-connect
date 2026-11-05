@@ -104,7 +104,7 @@ export async function processCampaign(
   const campaign = store.campaign(campaignId);
   if (!campaign) throw new Error("No such message.");
   const batch = store.queued(campaignId, limit);
-  if (batch.length && !inContactHours(now)) {
+  if (batch.length && !inContactHours(now) && !cfg.anyHour) {
     return { processed: 0, remaining: store.queuedCount(campaignId), paused: "contact_hours" };
   }
   for (const d of batch) {

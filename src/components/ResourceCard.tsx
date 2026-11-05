@@ -1,9 +1,14 @@
+"use client";
 import Link from "next/link";
-import { categoryLabel, COST_LABELS, localityLabel, type Resource } from "@/lib/schema";
-import { effectiveStatus, formatDate } from "@/lib/status";
+import type { Resource } from "@/lib/schema";
+import { effectiveStatus } from "@/lib/status";
 import { directionsHref, telHref } from "@/lib/contact";
+import { formatDateIn, type Dict } from "@/lib/i18n";
+import { useDict } from "@/lib/i18n/client";
+import { speakPhone } from "@/lib/outreach/phone";
 import { StatusBadge } from "./StatusBadge";
 import { SaveButton } from "./SaveButton";
+import { ReadAloud } from "./ReadAloud";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -14,7 +19,18 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   );
 }
 
-const NotListed = () => <span className="text-muted">Not listed by source</span>;
+/** What the Listen button reads. Only fields the source states. */
+export function spokenListing(r: Resource, t: Dict): string {
+  const parts = [r.name + (r.organization !== r.name ? `, ${r.organization}` : "") + ".", r.description];
+  parts.push(`${t.card.whoItServes}: ${r.eligibility_text}`);
+  parts.push(`${t.card.cost}: ${t.cost[r.cost_type]}.`);
+  parts.push(`${t.card.phone}: ${r.phone ? speakPhone(r.phone) : t.card.notListed}.`);
+  if (r.address) parts.push(`${t.card.address}: ${r.address}.`);
+  if (r.hours) parts.push(`${t.card.hours}: ${r.hours}.`);
+  parts.push(`${t.card.howToApply}: ${r.how_to_apply}`);
+  parts.push(t.card.whoNote);
+  return parts.join(" ");
+}
 
 export function ResourceCard({
   r,
@@ -27,73 +43,73 @@ export function ResourceCard({
   headingLevel?: 2 | 3;
   now?: Date;
 }) {
+  const t = useDict();
+  const NotListed = () => <span className="text-muted">{t.card.notListed}</span>;
   const status = effectiveStatus(r, now);
   const tel = telHref(r.phone);
   const dir = directionsHref(r.address);
   const H = headingLevel === 2 ? "h2" : "h3";
-  const area = r.service_area.length ? r.service_area.map(localityLabel).join(", ") : "Not stated by source";
+  const area = r.service_area.length ? r.service_area.map((a) => t.localities[a]).join(", ") : t.card.areaNotStated;
 
   return (
     <article className="card print-break rounded-xl border border-line bg-white p-4 shadow-sm" data-testid="resource-card" data-id={r.id}>
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <H className="text-2xl font-bold leading-tight">
+          <H className="text-2xl font-bold leading-tight" lang="en">
             {detail ? r.name : <Link href={`/resources/${r.id}`}>{r.name}</Link>}
           </H>
-          {r.organization !== r.name && <p className="text-muted">{r.organization}</p>}
+          {r.organization !== r.name && <p className="text-muted" lang="en">{r.organization}</p>}
         </div>
         <StatusBadge status={status} />
       </div>
 
       <p className="mt-2 text-sm font-bold uppercase tracking-wide text-muted">
-        {r.categories.map(categoryLabel).join(" · ")}
+        {r.categories.map((c) => t.categories[c].label).join(" · ")}
       </p>
-      <p className="mt-2">{r.description}</p>
+      <p className="mt-2" lang="en">{r.description}</p>
 
       <dl className="mt-3 grid gap-2">
-        <Row label="Who it serves">
-          <span>{r.eligibility_text}</span>
-          <span className="block text-base text-muted">
-            In the provider&apos;s words, where stated. You may be eligible — call to confirm.
-          </span>
+        <Row label={t.card.whoItServes}>
+          <span lang="en">{r.eligibility_text}</span>
+          <span className="block text-base text-muted">{t.card.whoNote}</span>
         </Row>
-        <Row label="Cost">{COST_LABELS[r.cost_type]}</Row>
-        <Row label="Phone">{r.phone ?? <NotListed />}</Row>
+        <Row label={t.card.cost}>{t.cost[r.cost_type]}</Row>
+        <Row label={t.card.phone}>{r.phone ?? <NotListed />}</Row>
         {detail && (
           <>
-            <Row label="Address">{r.address ?? <NotListed />}</Row>
-            <Row label="Hours">{r.hours ?? <NotListed />}</Row>
-            <Row label="Website">
+            <Row label={t.card.address}>{r.address ?? <NotListed />}</Row>
+            <Row label={t.card.hours}>{r.hours ?? <NotListed />}</Row>
+            <Row label={t.card.website}>
               {r.website ? <a href={r.website}>{r.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}</a> : <NotListed />}
             </Row>
-            <Row label="How to apply">{r.how_to_apply}</Row>
-            <Row label="Service area">{area}</Row>
-            <Row label="Languages">{r.languages.length ? r.languages.join(", ") : <NotListed />}</Row>
-            <Row label="Accessibility">{r.accessibility.length ? r.accessibility.join(", ") : <NotListed />}</Row>
+            <Row label={t.card.howToApply}><span lang="en">{r.how_to_apply}</span></Row>
+            <Row label={t.card.serviceArea}>{area}</Row>
+            <Row label={t.card.languages}>{r.languages.length ? r.languages.join(", ") : <NotListed />}</Row>
+            <Row label={t.card.accessibility}>{r.accessibility.length ? r.accessibility.join(", ") : <NotListed />}</Row>
           </>
         )}
-        {!detail && <Row label="Service area">{area}</Row>}
-        <Row label="Source">
+        {!detail && <Row label={t.card.serviceArea}>{area}</Row>}
+        <Row label={t.card.source}>
           <a href={r.source_url} rel="noopener noreferrer" target="_blank" data-testid="source-link">
             {r.source_name}
-            <span className="sr-only"> (opens in a new tab)</span>
+            <span className="sr-only"> {t.card.newTab}</span>
           </a>
           {detail &&
             r.additional_sources.map((s) => (
               <span key={s.url} className="block">
-                Also: <a href={s.url} rel="noopener noreferrer" target="_blank">{s.name}</a>
+                {t.card.also} <a href={s.url} rel="noopener noreferrer" target="_blank">{s.name}</a>
               </span>
             ))}
         </Row>
-        <Row label="Last verified">
+        <Row label={t.card.lastVerified}>
           <span data-testid="last-verified">
-            {formatDate(r.last_verified_at)}
-            {r.verified_by ? ` by ${r.verified_by}` : ""}
+            {formatDateIn(t, r.last_verified_at)}
+            {r.verified_by ? ` ${t.card.by} ${r.verified_by}` : ""}
           </span>
         </Row>
         {detail && r.source_notes && (
-          <Row label="Notes for verifiers">
-            <span className="text-base text-muted">{r.source_notes}</span>
+          <Row label={t.card.notes}>
+            <span className="text-base text-muted" lang="en">{r.source_notes}</span>
           </Row>
         )}
       </dl>
@@ -101,22 +117,28 @@ export function ResourceCard({
       <div className="no-print mt-4 flex flex-wrap gap-2">
         {tel && (
           <a className="btn btn-primary" href={tel}>
-            Call
+            {t.card.call}
             <span className="sr-only"> {r.name}</span>
           </a>
         )}
         {dir && (
           <a className="btn btn-secondary" href={dir} rel="noopener noreferrer" target="_blank">
-            Directions<span className="sr-only"> to {r.name} (opens in a new tab)</span>
+            {t.card.directions}<span className="sr-only"> {r.name} {t.card.newTab}</span>
           </a>
         )}
         <SaveButton id={r.id} name={r.name} />
+        {detail && <ReadAloud text={spokenListing(r, t)} label={r.name} />}
         {!detail && (
           <Link className="btn btn-secondary" href={`/resources/${r.id}`}>
-            Details<span className="sr-only"> for {r.name}</span>
+            {t.card.details}<span className="sr-only"> {r.name}</span>
           </Link>
         )}
       </div>
+      {detail && (
+        <p className="no-print mt-3">
+          <Link href={`/suggest?listing=${r.id}`}>{t.card.report}</Link>
+        </p>
+      )}
     </article>
   );
 }

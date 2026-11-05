@@ -30,3 +30,14 @@ export function speakDigits(phone: string): string {
     .split("")
     .join(" ");
 }
+
+/** Read numbers digit by digit; keep words like "then press 1". */
+export function speakPhone(phone: string): string {
+  if (/^[\d\s().+-]+$/.test(phone)) {
+    const d = speakDigits(phone).split(" ");
+    const ten = d.length === 11 && d[0] === "1" ? d.slice(1) : d;
+    if (ten.length === 10) return `${ten.slice(0, 3).join(" ")}, ${ten.slice(3, 6).join(" ")}, ${ten.slice(6).join(" ")}`;
+    return ten.join(" ");
+  }
+  return phone.replace(/\d+/g, (m) => m.split("").join(" "));
+}

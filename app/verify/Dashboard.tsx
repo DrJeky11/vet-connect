@@ -5,6 +5,76 @@ import { useRouter } from "next/navigation";
 import { COST_LABELS, COST_TYPES, EDITABLE_FIELDS, type EditableField, type LogEntry, type Resource } from "@/lib/schema";
 import { daysSince, effectiveStatus, formatDate } from "@/lib/status";
 import { StatusBadge } from "@/components/StatusBadge";
+import type { Suggestion } from "@/lib/store";
+
+const KIND_LABELS: Record<Suggestion["kind"], string> = {
+  wrong_info: "Something is wrong",
+  closed: "Closed or moved",
+  new_listing: "New listing suggested",
+  other: "Other",
+};
+
+function Reports({ items, names }: { items: Suggestion[]; names: Map<string, string> }) {
+  const router = useRouter();
+  const [note, setNote] = useState<Record<number, string>>({});
+  const [error, setError] = useState<string | null>(null);
+  async function resolve(id: number) {
+    setError(null);
+    const res = await fetch(`/api/verify/suggestions/${id}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ note: note[id] ?? "" }),
+    });
+    if (!res.ok) return setError((await res.json().catch(() => ({}))).error ?? "Something went wrong.");
+    router.refresh();
+  }
+  return (
+    <section aria-labelledby="reports-h" data-testid="reports">
+      <h2 id="reports-h" className="mb-2 text-2xl font-bold">Reports from the public ({items.length} open)</h2>
+      <p className="mb-2 text-base text-muted">
+        Reports never change a listing by themselves. Check the source or call the provider, then edit or verify the listing.
+        New listings are added with the CSV import (see README).
+      </p>
+      {error && <p role="alert" className="font-bold text-bad">{error}</p>}
+      {items.length === 0 ? (
+        <p className="text-muted">No open reports.</p>
+      ) : (
+        <ol className="grid gap-3">
+          {items.map((s) => (
+            <li key={s.id} className="rounded-xl border-2 border-warn p-3" data-testid="report">
+              <p className="font-bold">
+                {KIND_LABELS[s.kind]}
+                {s.resource_id && (
+                  <>
+                    {" · "}
+                    <Link href={`/resources/${s.resource_id}`}>{names.get(s.resource_id) ?? s.resource_id}</Link>
+                  </>
+                )}
+              </p>
+              <p className="mt-1 whitespace-pre-wrap">{s.details}</p>
+              {s.source_url && (
+                <p className="mt-1 text-base">
+                  Page: <a href={s.source_url} target="_blank" rel="noopener noreferrer nofollow">{s.source_url}</a>
+                </p>
+              )}
+              {s.how_known && <p className="mt-1 text-base">How they know: {s.how_known}</p>}
+              <p className="mt-1 text-base text-muted">Received {new Date(s.created_at).toLocaleString("en-US")}</p>
+              <div className="mt-2 flex flex-wrap items-end gap-2">
+                <div className="grid flex-1 gap-1">
+                  <label htmlFor={`rs-${s.id}`} className="text-base font-bold">What you did (optional)</label>
+                  <input id={`rs-${s.id}`} className="field" value={note[s.id] ?? ""} onChange={(e) => setNote({ ...note, [s.id]: e.target.value })} />
+                </div>
+                <button type="button" className="btn btn-secondary" onClick={() => resolve(s.id)}>
+                  Mark resolved
+                </button>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+  );
+}
 
 const FIELD_LABELS: Record<EditableField, string> = {
   name: "Name",
@@ -33,7 +103,7 @@ async function post(id: string, body: object): Promise<string | null> {
   return (await res.json().catch(() => ({}))).error ?? "Something went wrong.";
 }
 
-function Row({ r, now, log }: { r: Resource; now: Date; log: LogEntry[] }) {
+function Row({ r, now, log, reports }: { r: Resource; now: Date; log: LogEntry[]; reports: number }) {
   const router = useRouter();
   const [mode, setMode] = useState<null | "verify" | "edit" | "note" | "archive">(null);
   const [note, setNote] = useState("");
@@ -86,6 +156,9 @@ function Row({ r, now, log }: { r: Resource; now: Date; log: LogEntry[] }) {
         </div>
         <StatusBadge status={status} />
       </div>
+      {reports > 0 && (
+        <p className="mt-2 rounded-lg bg-warn-bg p-2 font-bold text-warn">{reports} open report(s) from the public — see Reports above.</p>
+      )}
       {hasConflict && (
         <p className="mt-2 rounded-lg bg-bad-bg p-2 font-bold text-bad">Sources disagree — check before verifying.</p>
       )}
@@ -210,7 +283,19 @@ function LogList({ entries, showId = false }: { entries: LogEntry[]; showId?: bo
   );
 }
 
-export function Dashboard({ initials, queue, log, now }: { initials: string; queue: Resource[]; log: LogEntry[]; now: string }) {
+export function Dashboard({
+  initials,
+  queue,
+  log,
+  now,
+  suggestions,
+}: {
+  initials: string;
+  queue: Resource[];
+  log: LogEntry[];
+  now: string;
+  suggestions: Suggestion[];
+}) {
   const router = useRouter();
   const nowDate = new Date(now);
   const counts = { verified: 0, unverified: 0, stale: 0, archived: 0 };
@@ -242,11 +327,18 @@ export function Dashboard({ initials, queue, log, now }: { initials: string; que
           </div>
         ))}
       </dl>
+      <Reports items={suggestions} names={new Map(queue.map((r) => [r.id, r.name]))} />
       <section aria-labelledby="queue-h">
         <h2 id="queue-h" className="mb-2 text-2xl font-bold">Queue</h2>
         <ol className="grid gap-3">
           {queue.map((r) => (
-            <Row key={r.id} r={r} now={nowDate} log={log.filter((e) => e.resource_id === r.id)} />
+            <Row
+              key={r.id}
+              r={r}
+              now={nowDate}
+              log={log.filter((e) => e.resource_id === r.id)}
+              reports={suggestions.filter((s) => s.resource_id === r.id).length}
+            />
           ))}
         </ol>
       </section>

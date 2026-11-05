@@ -287,3 +287,21 @@ describe("Twilio provider", () => {
     expect(r).toEqual({ ok: false, error: "Twilio 400 (21610): Unsubscribed recipient" });
   });
 });
+
+describe("demo any-hour override", () => {
+  it("only applies while simulated", () => {
+    expect(readConfig({ OUTREACH_DEMO_ANY_HOUR: "true" }).anyHour).toBe(true);
+    const live = readConfig({
+      OUTREACH_DEMO_ANY_HOUR: "true",
+      OUTREACH_LIVE: "true",
+      OUTREACH_PASSCODE: "a-long-private-passcode",
+      OUTREACH_ENCRYPTION_KEY: KEY,
+      TWILIO_ACCOUNT_SID: "AC123",
+      TWILIO_AUTH_TOKEN: "tok",
+      TWILIO_FROM_NUMBER: "540-555-0100",
+      PUBLIC_SITE_URL: "https://vets.example.org",
+    });
+    expect(live.live).toBe(true);
+    expect(live.anyHour).toBe(false);
+  });
+});

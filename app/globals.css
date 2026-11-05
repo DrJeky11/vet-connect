@@ -44,6 +44,9 @@ html[data-contrast="high"] .card {
 html {
   font-size: 112.5%; /* 18px base body text */
 }
+html[data-text="large"] {
+  font-size: 137.5%; /* 22px, from the "Larger text" setting */
+}
 body {
   background: var(--color-paper);
   color: var(--color-ink);
@@ -156,5 +159,14 @@ html[data-contrast="high"] .choice:has(input:checked) {
   }
   .print-break {
     break-inside: avoid;
+  }
+}
+
+@media print {
+  .letter {
+    break-after: page;
+  }
+  .letter:last-of-type {
+    break-after: auto;
   }
 }

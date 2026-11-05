@@ -10,10 +10,15 @@ export default defineConfig({
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
   projects: [{ name: "phone", use: { ...devices["Pixel 5"] } }],
   webServer: {
-    command: `node -e "require('fs').rmSync('.data/e2e-verifier.db',{force:true})" && npx next build && npx next start -p ${PORT}`,
+    command: `node -e "for (const f of ['e2e-verifier.db','e2e-outreach.db','e2e-outreach.db-wal','e2e-outreach.db-shm']) require('fs').rmSync('.data/'+f,{force:true})" && npx next build && npx next start -p ${PORT}`,
     url: `http://localhost:${PORT}`,
     timeout: 240_000,
     reuseExistingServer: !process.env.CI,
-    env: { VERIFIER_DB_PATH: ".data/e2e-verifier.db", NEXT_TELEMETRY_DISABLED: "1" },
+    env: {
+      VERIFIER_DB_PATH: ".data/e2e-verifier.db",
+      OUTREACH_DB_PATH: ".data/e2e-outreach.db",
+      OUTREACH_DEMO_ANY_HOUR: "true",
+      NEXT_TELEMETRY_DISABLED: "1",
+    },
   },
 });

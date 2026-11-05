@@ -63,6 +63,8 @@ export interface SubscriberInput {
   method: ConsentMethod;
   /** "self" for the person themself, otherwise staff initials. */
   recordedBy: string;
+  /** Language of the consent wording the person saw (stored with the consent version). */
+  consentLocale?: Language;
 }
 
 export interface SubscriberSummary {
@@ -100,6 +102,8 @@ export interface Campaign {
   sms_body: string | null;
   voice_script: string | null;
   mail_body: string | null;
+  /** Letters also list directory entries matching each person's topics and place. */
+  include_listings: boolean;
   channels: Channel[];
   audience: Audience;
   status: CampaignStatus;
@@ -189,6 +193,7 @@ export function openOutreachDb(path: string): DatabaseSync {
       sms_body TEXT,
       voice_script TEXT,
       mail_body TEXT,
+      include_listings INTEGER NOT NULL DEFAULT 0,
       channels TEXT NOT NULL,
       audience TEXT NOT NULL,
       status TEXT NOT NULL,
@@ -340,12 +345,13 @@ export class OutreachStore {
     method: ConsentMethod,
     recordedBy: string,
     at: string,
+    locale: Language = "en",
   ) {
     this.db
       .prepare(
         "INSERT INTO consents (subscriber_id, channel, granted, method, consent_version, recorded_by, at) VALUES (?, ?, ?, ?, ?, ?, ?)",
       )
-      .run(subscriberId, channel, granted ? 1 : 0, method, granted ? CONSENT_VERSION : null, recordedBy, at);
+      .run(subscriberId, channel, granted ? 1 : 0, method, granted ? `${CONSENT_VERSION}-${locale}` : null, recordedBy, at);
   }
 
   private setState(id: number, channel: Channel, state: ChannelState, at: string) {
@@ -439,7 +445,7 @@ export class OutreachStore {
         const next: ChannelState = ch === "sms" && input.method === "web_form" ? "pending" : "on";
         if (next === "pending") needsSmsConfirm = true;
         this.setState(id, ch, next, at);
-        this.recordConsent(id, ch, true, input.method, recordedBy, at);
+        this.recordConsent(id, ch, true, input.method, recordedBy, at, input.consentLocale ?? "en");
       }
       return { subscriber: this.summarize(this.row(id)!), created: !existing, needsSmsConfirm };
     });
@@ -547,7 +553,15 @@ export class OutreachStore {
   // ---- Campaigns ----------------------------------------------------------
 
   createCampaign(
-    input: { title: string; sms_body?: string | null; voice_script?: string | null; mail_body?: string | null; channels: Channel[]; audience: Partial<Audience> },
+    input: {
+      title: string;
+      sms_body?: string | null;
+      voice_script?: string | null;
+      mail_body?: string | null;
+      include_listings?: boolean;
+      channels: Channel[];
+      audience: Partial<Audience>;
+    },
     createdBy: string,
     now: Date = new Date(),
   ): Campaign {
@@ -569,13 +583,14 @@ export class OutreachStore {
     };
     const res = this.db
       .prepare(
-        "INSERT INTO campaigns (title, sms_body, voice_script, mail_body, channels, audience, status, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, 'draft', ?, ?)",
+        "INSERT INTO campaigns (title, sms_body, voice_script, mail_body, include_listings, channels, audience, status, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?)",
       )
       .run(
         title,
         channels.includes("sms") ? sms : null,
         channels.includes("voice") ? voice : null,
         channels.includes("mail") ? mail : null,
+        channels.includes("mail") && input.include_listings ? 1 : 0,
         JSON.stringify(channels),
         JSON.stringify(audience),
         createdBy,
@@ -589,6 +604,7 @@ export class OutreachStore {
     if (!row) return null;
     return {
       ...(row as unknown as Campaign),
+      include_listings: Number(row.include_listings) === 1,
       channels: JSON.parse(row.channels as string),
       audience: JSON.parse(row.audience as string),
     };
@@ -661,7 +677,14 @@ export class OutreachStore {
   }
 
   /** Letters to print for a campaign, with decrypted names and addresses. */
-  letters(campaignId: number): { delivery: Delivery; name: string; address: MailingAddress; language: Language }[] {
+  letters(campaignId: number): {
+    delivery: Delivery;
+    name: string;
+    address: MailingAddress;
+    language: Language;
+    topics: CategoryId[];
+    locality: LocalityId | null;
+  }[] {
     const rows = this.db
       .prepare("SELECT * FROM deliveries WHERE campaign_id = ? AND channel = 'mail' AND status IN ('to_print', 'mailed') ORDER BY id")
       .all(campaignId) as unknown as Delivery[];
@@ -669,7 +692,7 @@ export class OutreachStore {
       const s = this.get(d.subscriber_id);
       // Someone who stopped letters after the message was queued is left out.
       if (!s || !s.address || !s.name || s.mail !== "on") return [];
-      return [{ delivery: d, name: s.name, address: s.address, language: s.language }];
+      return [{ delivery: d, name: s.name, address: s.address, language: s.language, topics: s.topics, locality: s.locality }];
     });
   }
 

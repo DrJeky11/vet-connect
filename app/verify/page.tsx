@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { currentVerifier } from "@/lib/session";
 import { loadSeed } from "@/lib/seed";
-import { getStore } from "@/lib/store";
+import { getStore, getSuggestions } from "@/lib/store";
 import { LoginForm } from "./LoginForm";
 import { Dashboard } from "./Dashboard";
 
@@ -24,6 +24,7 @@ export default async function VerifyPage() {
           initials={initials}
           queue={getStore().queue(loadSeed())}
           log={getStore().log()}
+          suggestions={getSuggestions().list("open")}
           now={new Date().toISOString()}
         />
       ) : (
