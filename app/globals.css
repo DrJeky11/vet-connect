@@ -40,6 +40,7 @@ html[data-contrast="high"] .card {
   border-color: #000;
 }
 
+@layer base {
 html {
   font-size: 112.5%; /* 18px base body text */
 }
@@ -60,6 +61,9 @@ a {
   border-radius: 4px;
 }
 
+}
+
+@layer components {
 /* 44px minimum tap targets */
 .btn {
   display: inline-flex;
@@ -134,12 +138,14 @@ html[data-contrast="high"] .choice:has(input:checked) {
   clip: rect(0 0 0 0);
 }
 
+}
+
 @media print {
   .no-print {
     display: none !important;
   }
   html {
-    font-size: 125%;
+    font-size: 137.5%; /* 22px large type for printed call lists */
   }
   body {
     background: #fff;

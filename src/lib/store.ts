@@ -2,15 +2,13 @@ import "server-only";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import type { DatabaseSync as DatabaseSyncType } from "node:sqlite";
-import { createRequire } from "node:module";
 import { applyOverride, type ResourceOverride, VerifierStore } from "./verifier";
 
 /**
  * SQLite-backed store for verifier edits, using Node's built-in `node:sqlite`
- * (no native build step). Seed JSON stays read-only; edits live as per-record
+ * (no native build step, Node 22.13+). Seed JSON stays read-only; edits live as per-record
  * overrides plus an append-only log.
  */
-const require = createRequire(import.meta.url);
 
 function defaultPath(): string {
   if (process.env.VERIFIER_DB_PATH) return resolve(process.env.VERIFIER_DB_PATH);
@@ -20,7 +18,8 @@ function defaultPath(): string {
 }
 
 export function openDatabase(path: string = defaultPath()): DatabaseSyncType {
-  const { DatabaseSync } = require("node:sqlite") as typeof import("node:sqlite");
+  // Loaded at runtime so the bundler leaves Node's built-in SQLite alone.
+  const { DatabaseSync } = process.getBuiltinModule("node:sqlite") as typeof import("node:sqlite");
   if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });
   const db = new DatabaseSync(path);
   db.exec(`

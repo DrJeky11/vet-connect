@@ -22,6 +22,13 @@ export function Directory({ resources, now }: { resources: Resource[]; now: stri
   const filters = paramsToFilters(params);
   const results = useMemo(() => applyFilters(resources, filters), [resources, params]); // eslint-disable-line react-hooks/exhaustive-deps
   const nowDate = new Date(now);
+  // With a locality set, also show same-topic listings elsewhere in the region whose
+  // service area for that locality is not confirmed, clearly labeled.
+  const nearby = useMemo(() => {
+    if (!filters.locality) return [];
+    const ids = new Set(results.map((r) => r.id));
+    return applyFilters(resources, { ...filters, locality: null }).filter((r) => !ids.has(r.id));
+  }, [resources, results, params]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function set(patch: Partial<Filters>) {
     const p = filtersToParams({ ...filters, ...patch });
@@ -142,11 +149,13 @@ export function Directory({ resources, now }: { resources: Resource[]; now: stri
 
       <p aria-live="polite" className="font-bold" data-testid="result-count">
         {results.length} {results.length === 1 ? "listing" : "listings"} found
+        {filters.locality ? ` that list ${localityLabel(filters.locality)}` : ""}
       </p>
 
-      {results.length === 0 && (
+      {results.length === 0 && nearby.length === 0 && (
         <div className="rounded-xl bg-warn-bg p-4" role="status">
           <p className="font-bold">No listings match all of these.</p>
+          <p className="mt-1">We would rather show nothing than guess. Try fewer filters.</p>
           {(filters.language || filters.accessibility) && (
             <p className="mt-1">
               Language and accessibility only match when a source states them, and many sources do not. Try removing
@@ -166,6 +175,25 @@ export function Directory({ resources, now }: { resources: Resource[]; now: stri
           </li>
         ))}
       </ul>
+
+      {nearby.length > 0 && (
+        <section aria-labelledby="nearby-h" className="grid gap-3" data-testid="nearby">
+          <h2 id="nearby-h" className="text-2xl font-bold">
+            Elsewhere in the region
+          </h2>
+          <p>
+            These listings are for another nearby city or county. Their sources do not say they serve{" "}
+            {localityLabel(filters.locality!)}. Call to ask.
+          </p>
+          <ul className="grid gap-4">
+            {nearby.map((r) => (
+              <li key={r.id}>
+                <ResourceCard r={r} now={nowDate} headingLevel={3} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <p className="no-print">
         <Link href="/plan" className="btn btn-primary">Go to My Plan →</Link>

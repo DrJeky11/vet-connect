@@ -17,7 +17,7 @@ export function ContrastToggle() {
     } catch {}
   }
   return (
-    <button type="button" className="btn btn-secondary !border-transparent" aria-pressed={high} onClick={toggle}>
+    <button type="button" className="btn btn-secondary !border-transparent !px-3" aria-pressed={high} onClick={toggle}>
       High contrast
     </button>
   );

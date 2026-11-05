@@ -1,0 +1,2 @@
+id,name,organization,categories,description,eligibility_text,cost_type,service_area,address,phone,website,hours,how_to_apply,languages,accessibility,source_name,source_url,source_checked_at,source_notes
+example-food-pantry,Example Food Pantry (delete this row),Example Church,food,Free groceries once a week.,"Quote the provider's own words here, or leave empty.",free,fredericksburg;stafford,,,,,Walk-in,,,Example source,https://example.org/listing,2026-11-05,Leave contact fields empty unless the source states them.
