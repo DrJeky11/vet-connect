@@ -15,7 +15,7 @@ export default async function ResourcePage({ params }: { params: Promise<{ id: s
   const r = getResource((await params).id);
   if (!r || r.status === "archived") notFound();
   return (
-    <div className="grid gap-4">
+    <div className="mx-auto grid w-full max-w-3xl gap-4">
       <p className="no-print">
         <Link href="/resources">← Back to directory</Link>
       </p>

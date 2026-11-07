@@ -21,11 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="flex min-h-screen flex-col">
         <Header />
-        <main id="main" className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
+        <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
           {children}
         </main>
         <div className="no-print border-t border-line bg-wash">
-          <div className="mx-auto max-w-3xl px-4 py-4 text-base text-muted">
+          <div className="mx-auto max-w-5xl px-4 py-4 text-base text-muted">
             <p>
               This directory does not decide who qualifies. Each provider sets its own rules. Always call to confirm.{" "}
               <Link href="/about">What is real and what is simulated</Link> ·{" "}

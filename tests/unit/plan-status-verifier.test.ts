@@ -75,11 +75,14 @@ describe("verifier store", () => {
   });
 
   it("requires a source note when filling contact fields", () => {
+    // A listing whose phone is still empty because its sources conflict.
+    const blank = "dvs-fredericksburg-office";
+    expect(resources.find((x) => x.id === blank)?.phone).toBeNull();
     const s = new MemoryVerifierStore();
-    expect(() => s.edit(resources, id, "AB", { phone: "540-555-0100" }, null, NOW)).toThrow(/came from/);
-    const r = s.edit(resources, id, "AB", { phone: "540-555-0100" }, "Phoned the office", NOW);
+    expect(() => s.edit(resources, blank, "AB", { phone: "540-555-0100" }, null, NOW)).toThrow(/came from/);
+    const r = s.edit(resources, blank, "AB", { phone: "540-555-0100" }, "Phoned the office", NOW);
     expect(r.phone).toBe("540-555-0100");
-    expect(s.log(id)[0].changes).toEqual({ phone: { from: null, to: "540-555-0100" } });
+    expect(s.log(blank)[0].changes).toEqual({ phone: { from: null, to: "540-555-0100" } });
   });
 
   it("rejects non-editable fields and bad initials", () => {

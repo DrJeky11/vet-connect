@@ -4,7 +4,7 @@ export const metadata: Metadata = { title: "What is real and what is simulated" 
 
 export default function About() {
   return (
-    <div className="grid gap-4">
+    <div className="mx-auto grid w-full max-w-3xl gap-4">
       <h1 className="text-3xl font-bold">What is real and what is simulated</h1>
       <section>
         <h2 className="text-2xl font-bold">Real</h2>

@@ -14,6 +14,7 @@ import {
 } from "@/lib/schema";
 import { applyFilters, filtersToParams, paramsToFilters, type Filters } from "@/lib/filter";
 import { ResourceCard } from "@/components/ResourceCard";
+import { CATEGORY_STYLE } from "@/lib/category-style";
 
 export function Directory({ resources, now }: { resources: Resource[]; now: string }) {
   const params = useSearchParams();
@@ -46,11 +47,32 @@ export function Directory({ resources, now }: { resources: Resource[]; now: stri
   );
 
   return (
-    <div className="grid gap-5">
+    <div className="mx-auto grid w-full max-w-3xl gap-5">
       <h1 className="text-3xl font-bold">
         {filters.category ? categoryLabel(filters.category) : "All services"}
         {filters.locality ? ` near ${localityLabel(filters.locality).replace(/^City of /, "")}` : ""}
       </h1>
+
+      <nav aria-label="Browse by subject" className="no-print -mx-1 flex flex-wrap gap-2">
+        {CATEGORIES.map((c) => {
+          const on = filters.category === c.id;
+          const s = CATEGORY_STYLE[c.id];
+          return (
+            <button
+              key={c.id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => set({ category: on ? null : c.id })}
+              className={`chip inline-flex min-h-[44px] items-center gap-1.5 rounded-full border-2 px-3 text-base font-bold ${
+                on ? `chip-solid ${s.accent} border-transparent text-white` : "border-line bg-white text-ink hover:border-brand"
+              }`}
+            >
+              <span aria-hidden="true">{s.emoji}</span>
+              {c.label}
+            </button>
+          );
+        })}
+      </nav>
 
       <form role="search" className="grid gap-2" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="q" className="font-bold">

@@ -46,9 +46,11 @@ test.describe("veteran flows (fictional scenarios)", () => {
     }
     await card.getByRole("button", { name: /Save .* to My Plan/ }).click();
 
-    // FXBGO! is listed for the city only; it appears under "Elsewhere in the region"
-    await expect(page.getByTestId("nearby")).toContainText("FXBGO!");
-    await page.getByTestId("nearby").getByRole("button", { name: /Save FXBGO/ }).click();
+    // FXBGO!'s source lists Spotsylvania, so it is a direct match, not "Elsewhere in the region"
+    const bus = page.locator('[data-testid="resource-card"][data-id="fxbgo-regional-transit"]');
+    await expect(bus).toBeVisible();
+    await expect(page.getByTestId("nearby")).toHaveCount(0);
+    await bus.getByRole("button", { name: /Save FXBGO/ }).click();
 
     await page.getByRole("link", { name: /My Plan/ }).first().click();
     await expect(page.getByTestId("plan-item")).toHaveCount(2);
@@ -70,11 +72,13 @@ test.describe("veteran flows (fictional scenarios)", () => {
     await page.getByRole("button", { name: "Next" }).click();
     await page.getByRole("button", { name: "Skip" }).click();
     await page.getByRole("button", { name: "Skip" }).click();
-    await expect(page.getByTestId("nearby")).toContainText("Legal Aid Works");
-    await expect(page.getByTestId("nearby")).toContainText("Legal Services of Northern Virginia");
-    await expect(page.locator("body")).toContainText("Income limits are set by the provider");
+    // Both offices' sources list Stafford, so they are direct matches
+    const legalAid = page.locator('[data-testid="resource-card"][data-id="legal-aid-works-fxbg"]');
+    await expect(legalAid).toBeVisible();
+    await expect(page.locator('[data-id="lsnv-fredericksburg"]')).toBeVisible();
+    await expect(page.locator("body")).toContainText("You may be eligible");
     await expect(page.locator("body")).not.toContainText(/you qualify/i);
-    await page.getByTestId("nearby").getByRole("button", { name: /Save Legal Aid Works/ }).click();
+    await legalAid.getByRole("button", { name: /Save Legal Aid Works/ }).click();
 
     await page.getByText("Filters", { exact: true }).click();
     await page.getByLabel("Topic").selectOption("benefits");
@@ -92,9 +96,11 @@ test.describe("veteran flows (fictional scenarios)", () => {
     await page.getByRole("button", { name: /For someone else/ }).click();
     await page.getByLabel("Free only").check();
     await page.getByRole("button", { name: "Show results" }).click();
-    // No seed listing states it is free: the app says so instead of guessing
-    await expect(page.getByTestId("result-count")).toContainText("0 listings");
+    // "Free only" keeps only listings whose source states they are free
+    await expect(page.locator('[data-id="211-virginia"]')).toBeVisible();
+    await expect(page.locator('[data-id="caroline-dss"]')).toHaveCount(0);
     await page.getByRole("button", { name: /Free only/ }).click();
+    await expect(page.locator('[data-id="caroline-dss"]')).toBeVisible();
     await page.locator('[data-id="211-virginia"]').getByRole("button", { name: /Save/ }).click();
     await page.goto("/plan");
     await expect(page.getByTestId("call-script")).toContainText("I'm calling for a veteran in Caroline County");

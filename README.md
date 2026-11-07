@@ -30,7 +30,7 @@ Optional settings are in `.env.example`.
 
 **Real**
 
-- Every listing is a real organization, and each card links to the public page it came from (`source_url`).
+- Every listing is a real organization or program, and each card links to the public page its details came from (`source_url`).
 - The Veterans Crisis Line footer on every page: dial 988 then press 1, or text 838255.
 - Verifier edits are stored in SQLite (Node's built-in `node:sqlite`), with a change log of who did what and when.
 
@@ -49,18 +49,25 @@ Optional settings are in `.env.example`.
 
 ## Seed data status: read this before the demo
 
-`data/resources.json` holds **9 listings, all `unverified`**. That is below the spec's 25 to 40 target.
+`data/resources.json` holds **48 listings, all `unverified`**, across all nine topics and all five localities.
 
-The build environment's network policy blocked the source sites (211 Virginia, Virginia Veterans Navigator, valegalaid.org, va.gov, provider websites), so no source page could be loaded. Under the "never invent contact details" guardrail, the seed holds only the listings and URLs the project spec cites (plus 211 Virginia, Virginia Veterans Navigator and the Veterans Crisis Line). Their phone, address and hours fields are null on purpose. Each record's `source_notes` explains why.
+They were researched on 2026-11-07 from pages that were actually loaded at the time: provider websites, county and state .gov pages, va.gov, 211 Virginia, and the Virginia Veterans and Senior Navigators. Each record's `source_url` is the page its contact details came from, extra pages are in `additional_sources`, and `source_checked_at` is the date the page was read. That is not a verification: a person still has to check each listing in `/verify`.
 
-To bring the directory up to demo strength:
+Where sources conflicted, the contact field was left empty and the conflict is written up in `source_notes`. The verifier dashboard flags those listings with "Sources disagree" (11 at the moment), including:
 
-1. A verifier opens each listing's source in `/verify`, fills only what the source states (the dashboard requires a note saying where contact details came from), and marks it verified.
-2. Add more listings through `npm run import:csv`. Every row needs a `source_url`. Imported rows are always unverified.
-3. Run `npm run import:va -- --write` with a VA Facilities API key to add the area's VA clinics.
-4. Or rerun the research step from an environment that can reach those sites.
+- **Phone and fax swapped on 211 Virginia** for several offices (Social Services, DVS, Healthy Generations, CVHS). Provider pages were preferred; the two DVS benefits offices have no phone until someone calls to confirm.
+- **LSNV Fredericksburg**: walk-in day (Monday on the office page and 211, "Wednesdays ONLY" on the How to Apply page) and phone.
+- **Guadalupe Free Clinic, Micah, VVFS North, Fredericksburg DSS**: address, hours, or phone differ between sources.
 
-**Demo moment:** 211 Virginia and valegalaid.org list different street addresses for Legal Services of Northern Virginia, Fredericksburg. The dashboard flags that listing with "Sources disagree." Its address stays empty until a person confirms it.
+Things the research turned up that matter for the demo:
+
+- The **Lloyd F. Moss Free Clinic closed on June 12, 2025**. It is not listed. Its replacements (CVHS, Fredericksburg Christian Health Center, Guadalupe) are.
+- There is **no Vet Center in Fredericksburg yet**; VA tells the area to call the Richmond Vet Center, which is listed.
+- `dvs.virginia.gov`, `legalaidworks.org` and a few city pages block automated requests, so their details come from 211 Virginia or the Navigator sites. Worth confirming first.
+
+To add more: run `npm run import:csv` (every row needs a `source_url`, imported rows are always unverified) or `npm run import:va -- --write` with a VA Facilities API key. `scripts/build-seed.mjs` documents how the original 9 records were made; it is no longer the source of truth.
+
+**Demo moment:** open `/verify` and LSNV is flagged "Sources disagree" about which day it takes walk-ins. The listing stays unverified until a person calls.
 
 ## Guardrails and how they are enforced
 
@@ -94,10 +101,10 @@ Stretch feature 7 (Spanish UI and read-aloud) is not built.
 
 Use a phone-sized window. All people are fictional.
 
-1. **Ray, 71, Spotsylvania, needs a ride to a VA clinic (about 60 seconds).** Home, then "Start." Tap Transportation. Type ZIP `22553` and tap "Use ZIP" (Spotsylvania is selected), then Next. Tap "For me," then "Skip." Healthy Generations Mobility Options appears with its 211 Virginia source and an "Unverified" badge. Save it. Under "Elsewhere in the region," save FXBGO! as well. Open My Plan: each item has a call script ("Hi, I'm a veteran in Spotsylvania County…"). Tap "Print large-type list."
-2. **Dana, 34, Stafford, landlord dispute (about 45 seconds).** Pick "Legal help," then Stafford County. Legal Aid Works and LSNV show under "Elsewhere in the region," because their sources only list Fredericksburg. The cards say income limits are set by the provider. Open Filters and switch the topic to Benefits and claims help to find the DVS Fredericksburg office.
-3. **Maria, caregiver (about 30 seconds).** Pick "Public services," then Caroline County, then "For someone else," then check "Free only." The app shows 0 results rather than guessing, because no source states a cost. Remove the filter, save 211 Virginia, and open My Plan: the script now says "I'm calling for a veteran in Caroline County." Tap "Share link." The link carries only IDs.
-4. **Verifier (about 45 seconds).** Footer link "Verifier sign-in," enter initials `QA` and passcode `demo-verifier`. LSNV is flagged "Sources disagree." Try to add hours without a source note and the save is refused. Mark the listing verified with a note. The change log shows it, and the public card now reads "Verified … by QA."
+1. **Ray, 71, Spotsylvania, needs a ride to a VA clinic (about 60 seconds).** Home, then "Start." Tap Transportation. Type ZIP `22553` and tap "Use ZIP" (Spotsylvania is selected), then Next. Tap "For me," then "Skip." Healthy Generations Mobility Options appears with its source link, phone number and an "Unverified" badge. Save it, and save FXBGO! as well. Open My Plan: each item has a call script ("Hi, I'm a veteran in Spotsylvania County…"). Tap "Print large-type list."
+2. **Dana, 34, Stafford, landlord dispute (about 45 seconds).** Pick "Legal help," then Stafford County. Legal Aid Works and LSNV both list Stafford. The cards say "You may be eligible — call to confirm" rather than deciding. Open Filters and switch the topic to Benefits and claims help: the DVS Quantico office covers Stafford, and the DVS Fredericksburg office shows under "Elsewhere in the region" because its source does not list Stafford.
+3. **Maria, caregiver (about 30 seconds).** Pick "Public services," then Caroline County, then "For someone else," then check "Free only." Only listings whose source states they are free remain (211 Virginia, Virginia Veterans Navigator); Caroline Social Services drops out because its source does not state a cost. Save 211 Virginia, and open My Plan: the script now says "I'm calling for a veteran in Caroline County." Tap "Share link." The link carries only IDs.
+4. **Verifier (about 45 seconds).** Footer link "Verifier sign-in," enter initials `QA` and passcode `demo-verifier`. LSNV is flagged "Sources disagree." Try to change its hours without a source note and the save is refused. Mark the listing verified with a note. The change log shows it, and the public card now reads "Verified … by QA."
 
 ## Project layout
 

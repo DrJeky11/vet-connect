@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CATEGORIES, LOCALITIES, resolveLocality, type CategoryId, type LocalityId } from "@/lib/schema";
 import { filtersToParams } from "@/lib/filter";
 import { usePlan } from "@/lib/usePlan";
+import { CATEGORY_STYLE } from "@/lib/category-style";
 
 const STEPS = ["need", "where", "who", "filters"] as const;
 type Step = (typeof STEPS)[number];
@@ -68,10 +69,17 @@ export function Intake() {
   }
 
   return (
-    <div className="grid gap-5">
-      <p className="text-muted" aria-live="polite">
-        Step {step + 1} of {STEPS.length}
-      </p>
+    <div className="mx-auto grid w-full max-w-3xl gap-5">
+      <div className="grid gap-2">
+        <p className="text-muted" aria-live="polite">
+          Step {step + 1} of {STEPS.length}
+        </p>
+        <div className="flex gap-2" aria-hidden="true">
+          {STEPS.map((s, i) => (
+            <span key={s} className={`h-2 flex-1 rounded-full ${i <= step ? "bg-brand" : "bg-line"}`} />
+          ))}
+        </div>
+      </div>
       <h1 ref={heading} tabIndex={-1} className="text-3xl font-bold outline-none">
         {TITLES[current]}
       </h1>
@@ -90,6 +98,9 @@ export function Intake() {
                 setStep(1);
               }}
             >
+              <span className="text-3xl" aria-hidden="true">
+                {CATEGORY_STYLE[c.id].emoji}
+              </span>
               <span>
                 <span className="block text-lg font-bold">{c.label}</span>
                 <span className="block text-base text-muted">{c.hint}</span>

@@ -47,7 +47,7 @@ export function PlanView({ resources }: { resources: Resource[] }) {
   }
 
   return (
-    <div className="grid gap-5">
+    <div className="mx-auto grid w-full max-w-3xl gap-5">
       <div>
         <h1 className="text-3xl font-bold">My Plan: who to call</h1>
         <p className="text-muted">

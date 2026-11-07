@@ -35,9 +35,19 @@ html[data-contrast="high"] {
   --color-bad-bg: #ffffff;
 }
 html[data-contrast="high"] .badge,
-html[data-contrast="high"] .card {
+html[data-contrast="high"] .card,
+html[data-contrast="high"] .tile {
   border-width: 2px;
   border-color: #000;
+}
+html[data-contrast="high"] .tile {
+  border-top-width: 8px;
+}
+html[data-contrast="high"] .chip-solid {
+  background: #000;
+}
+html[data-contrast="high"] .crisis {
+  background: #6b0000;
 }
 
 @layer base {
@@ -45,7 +55,7 @@ html {
   font-size: 112.5%; /* 18px base body text */
 }
 body {
-  background: var(--color-paper);
+  background: var(--color-wash);
   color: var(--color-ink);
   font-family: var(--font-sans);
   line-height: 1.55;
@@ -92,6 +102,17 @@ a {
 }
 .btn-secondary:hover {
   background: var(--color-wash);
+}
+/* The one action most people came for: big, green, shows the number. */
+.btn-call {
+  background: var(--color-ok);
+  border-color: var(--color-ok);
+  color: #fff;
+  font-size: 1.1rem;
+  padding-inline: 1.25rem;
+}
+.btn-call:hover {
+  background: #155a2f;
 }
 .btn[disabled] {
   opacity: 0.55;
