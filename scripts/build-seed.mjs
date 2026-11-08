@@ -11,7 +11,7 @@
 // Veterans Navigator's robots.txt asks AI agents not to crawl it, so no other
 // Navigator pages were loaded; valegalaid.org now redirects to
 // virginialawhelp.org, which the build environment could not reach.
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 const CHECKED = "2026-11-05";
 
@@ -436,7 +436,15 @@ const records = [
   },
 ];
 
-const out = records.map((r) => ({ ...base, ...r }));
+const built = records.map((r) => ({ ...base, ...r }));
+
+// Listings researched on 2026-11-07, each from a provider, .gov or va.gov page
+// read that day (sites whose robots.txt blocks AI agents were not used). A
+// researched record replaces the record above with the same id; others are added.
+const researched = JSON.parse(readFileSync(new URL("./seed-research-2026-11-07.json", import.meta.url), "utf8"));
+const byId = new Map(built.map((r) => [r.id, r]));
+for (const r of researched) byId.set(r.id, { ...base, ...r });
+const out = [...byId.values()];
 writeFileSync(new URL("../data/resources.json", import.meta.url), JSON.stringify(out, null, 2) + "\n");
 writeFileSync(new URL("../data/verification_log.json", import.meta.url), "[]\n");
 console.log(`wrote ${out.length} records`);

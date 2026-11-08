@@ -22,7 +22,12 @@ describe("text line", () => {
   });
 
   it("says when nothing lists the place, and shows nearby listings instead", () => {
-    const r = sms("legal 22554");
+    // Every topic has a listing for every place in the real data, so use a slice
+    // where legal help is listed for the City of Fredericksburg only.
+    const cityOnly = resources
+      .filter((r) => r.id === "legal-aid-works-fxbg")
+      .map((r) => ({ ...r, service_area: ["fredericksburg" as const] }));
+    const r = handleSms("legal 22554", { subscriber: null, resources: cityOnly, cfg });
     expect(r.reply).toContain("none list Stafford County");
     expect(r.reply).toContain("Legal Aid Works");
   });

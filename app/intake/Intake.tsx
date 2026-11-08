@@ -5,6 +5,7 @@ import { CATEGORIES, LOCALITIES, resolveLocality, type CategoryId, type Locality
 import { filtersToParams } from "@/lib/filter";
 import { usePlan } from "@/lib/usePlan";
 import { useDict } from "@/lib/i18n/client";
+import { CATEGORY_STYLE } from "@/lib/category-style";
 
 const STEPS = ["need", "where", "who", "filters"] as const;
 
@@ -64,9 +65,16 @@ export function Intake() {
 
   return (
     <div className="grid gap-5">
-      <p className="text-muted" aria-live="polite">
-        {t.intake.stepOf(step + 1, STEPS.length)}
-      </p>
+      <div className="grid gap-2">
+        <p className="text-muted" aria-live="polite">
+          {t.intake.stepOf(step + 1, STEPS.length)}
+        </p>
+        <div className="flex gap-2" aria-hidden="true">
+          {STEPS.map((s, i) => (
+            <span key={s} className={`h-2 flex-1 rounded-full ${i <= step ? "bg-brand" : "bg-line"}`} />
+          ))}
+        </div>
+      </div>
       <h1 ref={heading} tabIndex={-1} className="text-3xl font-bold outline-none">
         {t.intake.steps[current]}
       </h1>
@@ -85,6 +93,9 @@ export function Intake() {
                 setStep(1);
               }}
             >
+              <span aria-hidden="true" className="text-3xl">
+                {CATEGORY_STYLE[c.id].emoji}
+              </span>
               <span>
                 <span className="block text-lg font-bold">{t.categories[c.id].label}</span>
                 <span className="block text-base text-muted">{t.categories[c.id].hint}</span>

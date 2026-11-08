@@ -9,11 +9,12 @@ import { speakPhone } from "@/lib/outreach/phone";
 import { StatusBadge } from "./StatusBadge";
 import { SaveButton } from "./SaveButton";
 import { ReadAloud } from "./ReadAloud";
+import { CategoryChip } from "./CategoryChip";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid gap-0.5 sm:grid-cols-[10rem_1fr] sm:gap-3">
-      <dt className="font-bold">{label}</dt>
+    <div className="grid content-start gap-0.5">
+      <dt className="text-sm font-bold uppercase tracking-wide text-muted">{label}</dt>
       <dd className="m-0">{children}</dd>
     </div>
   );
@@ -52,29 +53,31 @@ export function ResourceCard({
   const area = r.service_area.length ? r.service_area.map((a) => t.localities[a]).join(", ") : t.card.areaNotStated;
 
   return (
-    <article className="card print-break rounded-xl border border-line bg-white p-4 shadow-sm" data-testid="resource-card" data-id={r.id}>
-      <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
-          <H className="text-2xl font-bold leading-tight" lang="en">
-            {detail ? r.name : <Link href={`/resources/${r.id}`}>{r.name}</Link>}
-          </H>
-          {r.organization !== r.name && <p className="text-muted" lang="en">{r.organization}</p>}
-        </div>
+    <article
+      className="card print-break rounded-xl border-2 border-line bg-white p-5 shadow-sm sm:p-6"
+      data-testid="resource-card"
+      data-id={r.id}
+    >
+      <div className="flex flex-wrap items-center gap-2">
         <StatusBadge status={status} />
+        {r.categories.map((c) => (
+          <CategoryChip key={c} id={c} label={t.categories[c].label} />
+        ))}
       </div>
-
-      <p className="mt-2 text-sm font-bold uppercase tracking-wide text-muted">
-        {r.categories.map((c) => t.categories[c].label).join(" · ")}
-      </p>
+      <H className="mt-3 text-2xl font-bold leading-tight" lang="en">
+        {detail ? r.name : <Link href={`/resources/${r.id}`}>{r.name}</Link>}
+      </H>
+      {r.organization !== r.name && <p className="text-muted" lang="en">{r.organization}</p>}
       <p className="mt-2" lang="en">{r.description}</p>
 
-      <dl className="mt-3 grid gap-2">
+      <dl className="mt-4 grid gap-3 border-t-2 border-wash pt-4 sm:grid-cols-2">
         <Row label={t.card.whoItServes}>
           <span lang="en">{r.eligibility_text}</span>
           <span className="block text-base text-muted">{t.card.whoNote}</span>
         </Row>
         <Row label={t.card.cost}>{t.cost[r.cost_type]}</Row>
         <Row label={t.card.phone}>{r.phone ?? <NotListed />}</Row>
+        <Row label={t.card.howToApply}><span lang="en">{r.how_to_apply}</span></Row>
         {detail && (
           <>
             <Row label={t.card.address}>{r.address ?? <NotListed />}</Row>
@@ -82,7 +85,6 @@ export function ResourceCard({
             <Row label={t.card.website}>
               {r.website ? <a href={r.website}>{r.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}</a> : <NotListed />}
             </Row>
-            <Row label={t.card.howToApply}><span lang="en">{r.how_to_apply}</span></Row>
             <Row label={t.card.serviceArea}>{area}</Row>
             <Row label={t.card.languages}>{r.languages.length ? r.languages.join(", ") : <NotListed />}</Row>
             <Row label={t.card.accessibility}>{r.accessibility.length ? r.accessibility.join(", ") : <NotListed />}</Row>
@@ -108,22 +110,30 @@ export function ResourceCard({
           </span>
         </Row>
         {detail && r.source_notes && (
-          <Row label={t.card.notes}>
-            <span className="text-base text-muted" lang="en">{r.source_notes}</span>
-          </Row>
+          <div className="sm:col-span-2">
+            <Row label={t.card.notes}>
+              <span className="text-base text-muted" lang="en">{r.source_notes}</span>
+            </Row>
+          </div>
         )}
       </dl>
 
-      <div className="no-print mt-4 flex flex-wrap gap-2">
+      <div className="no-print mt-5 flex flex-wrap gap-2">
         {tel && (
-          <a className="btn btn-primary" href={tel}>
-            {t.card.call}
+          <a className="btn btn-call" href={tel}>
+            <span aria-hidden="true">📞</span> {t.card.call}
+            {r.phone && r.phone.length <= 20 ? ` ${r.phone}` : ""}
             <span className="sr-only"> {r.name}</span>
           </a>
         )}
         {dir && (
           <a className="btn btn-secondary" href={dir} rel="noopener noreferrer" target="_blank">
             {t.card.directions}<span className="sr-only"> {r.name} {t.card.newTab}</span>
+          </a>
+        )}
+        {!detail && r.website && (
+          <a className="btn btn-secondary" href={r.website} rel="noopener noreferrer" target="_blank">
+            {t.card.website}<span className="sr-only"> {r.name} {t.card.newTab}</span>
           </a>
         )}
         <SaveButton id={r.id} name={r.name} />

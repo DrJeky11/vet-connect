@@ -86,6 +86,7 @@ export const es: Dict = {
   },
 
   home: {
+    kicker: "Fredericksburg · Spotsylvania · Stafford · King George · Caroline",
     title: "Encuentre ayuda para veteranos cerca de Fredericksburg",
     lead: "Transporte, ayuda legal, cuidado dental, comida, beneficios y más en Fredericksburg, Spotsylvania, Stafford, King George y Caroline. Cada servicio muestra de dónde viene la información.",
     searchLabel: "¿Qué necesita?",
@@ -239,6 +240,7 @@ export const es: Dict = {
 
   directory: {
     allServices: "Todos los servicios",
+    topicBar: "Explorar por asunto",
     near: (place: string) => ` cerca de ${place}`,
     searchLabel: "Buscar servicios",
     searchPlaceholder: "Por ejemplo: ride, lawyer, dental, food",
