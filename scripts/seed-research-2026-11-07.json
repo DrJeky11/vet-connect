@@ -1,0 +1,1315 @@
+[
+  {
+    "eligibility_text": "Provider says: \"Whether you're uninsured, on Medicaid, or simply need someone to pray with, we'll meet you where you are.\" It has uninsured and charity programs; income rules are not stated on the pages read. Call to confirm.",
+    "cost_type": "insurance",
+    "address": "1129 Heatherstone Dr, Unit 101, Fredericksburg, VA 22407 (also 4107 Lafayette Blvd, Suite 1, Fredericksburg, VA 22408)",
+    "phone": "(540) 785-8500",
+    "website": "https://www.fchc.us/",
+    "hours": "Monday\u2013Friday 8:30 am\u20135:00 pm; closed for lunch 12:00\u20131:00 pm (12:00\u20131:30 pm Thursdays); open until 6:00 pm every other Thursday; closed weekends",
+    "how_to_apply": "Call the center. The website points new patients to its Patient Forms page and to MyChart for scheduling.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Contact fields and hours from fchc.us home page; insurance list (incl. Medicaid, Medicare, Tricare, VA Premier) from its Eligibility and Insurance page, so cost_type set to insurance; the Charity/Uninsured program pages were not read, so free/sliding-scale terms are unconfirmed. Service area set from the two clinic addresses (22407 and 22408 are Spotsylvania-area ZIPs with Fredericksburg mailing addresses); the provider does not name the localities it serves. King George County health services page also lists it. No dental care mentioned.",
+    "additional_sources": [
+      {
+        "name": "Fredericksburg Christian Health Center: Eligibility and Insurance",
+        "url": "https://www.fchc.us/eligibility-and-insurance"
+      },
+      {
+        "name": "King George County: Health Services",
+        "url": "https://www.kinggeorgecountyva.gov/2585/Health-Services"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "fredericksburg-christian-health-center",
+    "name": "Fredericksburg Christian Health Center",
+    "organization": "Fredericksburg Christian Health Center",
+    "categories": [
+      "health",
+      "mental_health"
+    ],
+    "description": "Nonprofit health center with primary care, behavioral health, nutrition help and spiritual care. It sees uninsured patients and has a charity program, and also takes many insurance plans.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania"
+    ],
+    "source_name": "Fredericksburg Christian Health Center website",
+    "source_url": "https://www.fchc.us/"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "free",
+    "address": null,
+    "phone": null,
+    "website": "https://germanna.edu/degrees-programs/nursing-health-technologies/dental-programs/dental-clinic",
+    "hours": "Monday\u2013Thursday 3:00\u20139:00 pm; Saturday 9:00 am\u20134:00 pm",
+    "how_to_apply": "Fill out the Request for Free Dental Care form at germanna.edu/free-dental. A student will call to schedule. Plan for 3\u20134 hours per visit; cancel 1\u20132 days ahead if you can't come.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "The page names the location (Spotsylvania Career and Technical Center) but gives no street address and no clinic phone (only the college main line and a named advisor, not stored). Clinic is student-run, so hours likely follow the academic calendar; verifier should confirm it is currently scheduling. Older search results said patients had to qualify through the Lloyd F. Moss Free Clinic, which closed in June 2025; the current page states no eligibility rules. Service area from location only.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "germanna-free-dental-clinic",
+    "name": "Germanna free dental care (student clinic)",
+    "organization": "Germanna Community College dental programs",
+    "categories": [
+      "health"
+    ],
+    "description": "Dental hygiene and dental assisting students give free dental care, supervised by hygienists and dentists, at the Spotsylvania Career and Technical Center. Services include exams, X-rays, cleanings, sealants, fillings, and crowns and bridges.",
+    "service_area": [
+      "spotsylvania"
+    ],
+    "source_name": "Germanna Community College website",
+    "source_url": "https://germanna.edu/degrees-programs/nursing-health-technologies/dental-programs/dental-clinic"
+  },
+  {
+    "eligibility_text": "DMAS says this service is for fee-for-service Medicaid members going to a Medicaid-covered service who have no other way to get there, and who are not in a Managed Care plan. Managed Care members should contact their health plan. Call to confirm.",
+    "cost_type": "unknown",
+    "address": null,
+    "phone": "1-866-386-8331 (reservations, questions, complaints; TTY 711); if your ride is late: 1-866-246-9979",
+    "website": "https://transportation.dmas.virginia.gov/Contact-Us",
+    "hours": "Rides can be scheduled 24 hours a day, seven days a week",
+    "how_to_apply": "Call the reservation line at least five business days before the appointment, unless the trip is urgent.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "All fields from the DMAS transportation Contact Us page. Cost not stated on the page. Managed care plan transportation numbers (e.g. Humana, Anthem) were seen only in search snippets and are not included.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "virginia-medicaid-nemt-ffs",
+    "name": "Medicaid non-emergency medical transportation (fee-for-service)",
+    "organization": "Virginia Department of Medical Assistance Services (DMAS), through ModivCare",
+    "categories": [
+      "transportation",
+      "health"
+    ],
+    "description": "Rides to Medicaid-covered medical visits for Virginia Medicaid members who have no other way to get there. This line is for fee-for-service members; members in a managed care health plan book through their plan.",
+    "service_area": [
+      "statewide"
+    ],
+    "source_name": "Virginia DMAS Medicaid transportation website",
+    "source_url": "https://transportation.dmas.virginia.gov/Contact-Us"
+  },
+  {
+    "eligibility_text": "Per the source: veterans and service members (including National Guard and Reserves) who meet combat, emergency or other service criteria; anyone who experienced military sexual trauma; certain VA education benefit users; and family members. The source says 'You don't need to be enrolled in VA health care to be eligible' and 'you can have any character of discharge.' Call to confirm.",
+    "cost_type": "free",
+    "address": "4902 Fitzhugh Avenue, Richmond, VA 23230",
+    "phone": "804-353-8958",
+    "website": "https://www.va.gov/richmond-vet-center/",
+    "hours": "Mon-Fri 8:00 a.m. to 4:30 p.m.; Sat-Sun closed. The source says hours change periodically, so call ahead.",
+    "how_to_apply": "Call the Richmond Vet Center at 804-353-8958 for more information or to schedule a virtual appointment.",
+    "languages": [],
+    "accessibility": [
+      "TTY: 711"
+    ],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, hours, services, eligibility, cost ('at no cost') and TTY 711 from va.gov/richmond-vet-center. That page's main phone field is blank and it lists two 24/7 call center numbers that differ (877-927-8387 and 877-927-8737), so neither was used. Phone 804-353-8958 comes from vetcenter.va.gov New Vet Centers page, which lists Fredericksburg as a planned (not yet open) Vet Center and says 'For more information or to schedule a virtual appointment, call the Richmond (VA) Vet Center at 804-353-8958.' The va.gov page lists Thursday hours as '8:00 p.m. to 4:30 p.m.' (likely a typo); other weekdays 8:00 a.m.-4:30 p.m. Service area set to Fredericksburg only because the New Vet Centers page points the Fredericksburg community here; it does not name the counties. Check whether a Fredericksburg Vet Center has opened.",
+    "additional_sources": [
+      {
+        "name": "VA Vet Center Program: New Vet Centers",
+        "url": "https://www.vetcenter.va.gov/VETCENTER/New_Vet_Centers.asp"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "richmond-vet-center",
+    "name": "Richmond Vet Center (serving the Fredericksburg area)",
+    "organization": "U.S. Department of Veterans Affairs",
+    "categories": [
+      "mental_health"
+    ],
+    "description": "Free, confidential counseling for eligible veterans, service members and their families, including PTSD, depression, grief, military sexual trauma, and couples and family counseling, in person or by telehealth. VA plans a Fredericksburg Vet Center; until it opens, VA tells the Fredericksburg community to call the Richmond Vet Center, including for virtual appointments.",
+    "service_area": [
+      "fredericksburg"
+    ],
+    "source_name": "VA Richmond Vet Center page (va.gov)",
+    "source_url": "https://www.va.gov/richmond-vet-center/"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "700 Kenmore Ave., Fredericksburg, VA",
+    "phone": "540-373-6876 (Fredericksburg, Stafford, Spotsylvania); 804-633-4148 (Caroline); 540-775-5064 (King George)",
+    "website": "https://rappahannockareacsb.org/crisis-and-immediate-support/",
+    "hours": "24 hours a day, 7 days a week",
+    "how_to_apply": "Call the emergency services line at 540-373-6876.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Crisis page says 'Emergency services are always available at 540-373-6876', '24 hours a day/7 days a week', and lists one number for all localities. The Contact Us page lists separate emergency numbers: 540-373-6876 for Fredericksburg, Stafford and Spotsylvania; 804-633-4148 for Caroline; 540-775-5064 for King George. Both kept; verifier should confirm whether the Caroline and King George numbers are still in use. Address '700 Kenmore Ave., Fredericksburg' is where the Contact Us page says the emergency services program is located (no ZIP given); neither page says it is a walk-in site. Service area from home page ('Fredericksburg and the counties of Caroline, King George, Spotsylvania, and Stafford'). Cost not stated. The old domain racsb.state.va.us failed to load (SSL error).",
+    "additional_sources": [
+      {
+        "name": "Rappahannock Area Community Services Board website: Contact Us",
+        "url": "https://rappahannockareacsb.org/contact-us/"
+      },
+      {
+        "name": "Rappahannock Area Community Services Board website: home page",
+        "url": "https://www.rappahannockareacsb.org/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "racsb-emergency-services",
+    "name": "Emergency Services (24/7 mental health crisis line)",
+    "organization": "Rappahannock Area Community Services Board",
+    "categories": [
+      "mental_health"
+    ],
+    "description": "Crisis help at any hour from the local public mental health agency. Therapists give brief crisis counseling, referrals, and help deciding if hospital care is needed; the agency also runs a 12-bed crisis stabilization home.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Rappahannock Area Community Services Board website",
+    "source_url": "https://rappahannockareacsb.org/crisis-and-immediate-support/"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "600 Jackson Street, Fredericksburg, VA 22401",
+    "phone": "540-373-3223",
+    "website": "https://rappahannockareacsb.org/",
+    "hours": "Fredericksburg clinic: Mon-Thu 8:00 a.m.-7:00 p.m.; Fri 8:00 a.m.-5:00 p.m.",
+    "how_to_apply": "Call the clinic nearest you. The website also offers a patient portal for self-registration.",
+    "languages": [],
+    "accessibility": [
+      "Clinic phone lines are listed as voice and TTY (V/TTY)"
+    ],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address/phone/hours shown are the Fredericksburg Clinic (Ronald W. Branscome Building). Other clinics on the Contact Us page: Stafford, Charles A. Cooper Building, 15 Hope Road, Stafford, VA 22554, 540-659-2725 (V/TTY), Mon-Thu 8-7, Fri closed; Spotsylvania, Edith O. Fleming Building, 7424 Brock Road, Spotsylvania, VA 22553, 540-582-3980 (V/TTY), Mon-Thu 8-7, Fri 8-5 by appointment only; King George, Marie O. Kunlo Building, 8479 St Anthonys Road, King George, VA 22485, 540-775-9879 (V/TTY), Mon-Thu 8-7, Fri closed; Caroline, Patricia K. Spaulding Building, 19254 Rogers Clark Blvd., Ruther Glen, VA 22546, 804-633-9997 (V/TTY), Mon-Thu 8-7, Fri closed. Service list and patient portal mention from home page. Neither page describes intake, same-day access, fees or insurance. No veteran-specific program mentioned.",
+    "additional_sources": [
+      {
+        "name": "Rappahannock Area Community Services Board website: home page",
+        "url": "https://www.rappahannockareacsb.org/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "racsb-outpatient-services",
+    "name": "Outpatient mental health and substance use services",
+    "organization": "Rappahannock Area Community Services Board",
+    "categories": [
+      "mental_health"
+    ],
+    "description": "The region's public mental health and substance use agency. Offers outpatient counseling, support groups, peer support, opioid treatment and other services, with a clinic in each of the five localities.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Rappahannock Area Community Services Board website: Contact Us",
+    "source_url": "https://rappahannockareacsb.org/contact-us/"
+  },
+  {
+    "eligibility_text": "Per the source, serves homeless families with children and single adults from the 'City of Fredericksburg and/or the counties of Spotsylvania, Stafford, King George or Caroline.' Clients must 'Be physically and mentally capable of independently providing adequate care for self' and follow the Center's Code of Conduct. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "471 Central Road, Fredericksburg, Virginia 22401",
+    "phone": "540-899-9853 ext. 110 (intake)",
+    "website": "https://brisbencenter.org/",
+    "hours": null,
+    "how_to_apply": "Read the Get Help page, then call 540-899-9853 ext. 110 to be considered. You must be available to arrive on time when a bed opens.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Intake phone (ext. 110), eligibility and localities from the Get Help page. Address and main number (540) 899-9853 from the home page. Hours and cost not stated. Get Help page also points to the regional homeless helpline 540-358-5801. No veteran-specific program mentioned.",
+    "additional_sources": [
+      {
+        "name": "Brisben Center website: home page",
+        "url": "https://www.brisbencenter.org/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "brisben-center-shelter",
+    "name": "Emergency shelter",
+    "organization": "The Thurman Brisben Center",
+    "categories": [
+      "housing"
+    ],
+    "description": "Shelter in Fredericksburg for homeless families with children and single adults, with shared living space and support toward finding a home.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Brisben Center website: Get Help",
+    "source_url": "https://brisbencenter.org/get-help/"
+  },
+  {
+    "eligibility_text": "The food bank says it serves the counties of Caroline, Spotsylvania, King George and Stafford and the City of Fredericksburg, and that people receiving food are never charged a fee. SNAP help depends on household size and income. Call to confirm.",
+    "cost_type": "free",
+    "address": "3631 Lee Hill Dr, Fredericksburg, VA 22408",
+    "phone": "(540) 371-7666",
+    "website": "https://www.fredfood.org/",
+    "hours": "Office: Monday-Wednesday 8:00 AM-4:00 PM; Thursday-Friday 8:00 AM-3:00 PM",
+    "how_to_apply": "Use the Pantry Locator Map (fredfood.org/pantry_locator_map), the Pantry Locator App, or the Mobile Pantry Schedule (fredfood.org/mobiles) to find food near you. For help applying for SNAP, schedule an appointment on the SNAP Outreach page (fredfood.org/Snap-Outreach) or call the main number.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Phone, address and hours from the fredfood.org home page (loaded 2026-11-07); hours appear to be office hours, not pantry hours. Service area and 'never charged a fee' from the FAQs page. The FAQ also mentions a 'six county service area' without naming the extra areas. The SNAP Outreach page lists the same main phone and does not say it is a separate SNAP line. Individual pantry hours vary; the pantry locator was not checked pantry by pantry.",
+    "additional_sources": [
+      {
+        "name": "Fredericksburg Regional Food Bank FAQs",
+        "url": "https://fredfood.org/FAQs"
+      },
+      {
+        "name": "Fredericksburg Regional Food Bank SNAP Outreach",
+        "url": "https://www.fredfood.org/Snap-Outreach"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "fredericksburg-regional-food-bank",
+    "name": "Fredericksburg Regional Food Bank",
+    "organization": "Fredericksburg Regional Food Bank",
+    "categories": [
+      "food"
+    ],
+    "description": "The regional food bank supplies a network of local food pantries and also gives food directly through mobile pantries and other programs. Its website has a pantry locator map and app, a mobile pantry schedule, and free help applying for SNAP.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Fredericksburg Regional Food Bank website",
+    "source_url": "https://www.fredfood.org/"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "King George Citizen Center, 8076 Kings Highway, King George, VA 22485; Caroline County Community Center, 17202 Richmond Turnpike, Milford, VA 22514; Lee Hill Community Center, 1 HCC Drive, Fredericksburg, VA 22408 (Spotsylvania/Fredericksburg); Rowser Building, 1739 Richmond Highway, Stafford, VA 22554",
+    "phone": "(540) 371-3375",
+    "website": "https://www.healthygenerations.org/senior-cafes/",
+    "hours": "King George: Tue, Wed, Fri 10 AM-2 PM; Caroline: Tue, Wed, Fri 10 AM-2 PM; Lee Hill (Spotsylvania/Fredericksburg): Mon, Thu, Fri 10 AM-2 PM; Stafford: Mon, Wed, Fri 10 AM-2 PM. Calendars subject to change.",
+    "how_to_apply": "Call to ask how to apply.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "All sites, hours and phones from the Senior Cafes page (loaded twice 2026-11-07, consistent). Phone field is the agency main line shown on the page. Site phones on the page: King George (540) 273-8210; Caroline (540) 220-1035; Lee Hill (540) 809-9056; Stafford (540) 220-0587. The page does not say what the cafes offer, who can attend, or cost; monthly calendar PDFs were not opened. Verifier: confirm meals are served and age requirement.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "healthy-generations-senior-cafes",
+    "name": "Senior Cafes",
+    "organization": "Healthy Generations Area Agency on Aging",
+    "categories": [
+      "food"
+    ],
+    "description": "Senior cafes run by the Area Agency on Aging at four community sites, one in each county area. Monthly calendars are posted on the website.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Healthy Generations Area Agency on Aging website (Senior Cafes page)",
+    "source_url": "https://www.healthygenerations.org/senior-cafes/"
+  },
+  {
+    "eligibility_text": "Not stated on the agency's home page beyond serving the region as its Area Agency on Aging. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "460 Lendall Lane, Fredericksburg, VA 22405",
+    "phone": "(540) 371-3375",
+    "website": "https://www.healthygenerations.org/",
+    "hours": null,
+    "how_to_apply": "Call or email info@healthygenerations.org, or use the contact form on the website. For emergency financial help, download the Emergency Services Application on the website. For transportation help, call Mobility Options at (540) 656-2985.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, phone, email and localities served (City of Fredericksburg and Caroline, King George, Spotsylvania and Stafford counties; George Washington Planning District 16) from the home page (loaded 2026-11-07); the contact page (loaded) lists the same phone and address and fax (540) 371-3384. Neither page lists office hours. The DARS AAA page returned 403. Transportation is covered by the separate existing record healthy-generations-mobility-options.",
+    "additional_sources": [
+      {
+        "name": "Healthy Generations contact page",
+        "url": "https://www.healthygenerations.org/contact/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "healthy-generations-aaa",
+    "name": "Healthy Generations Area Agency on Aging",
+    "organization": "Healthy Generations Area Agency on Aging",
+    "categories": [
+      "public_services"
+    ],
+    "description": "The Area Agency on Aging for the Fredericksburg region. It offers help finding transportation (Mobility Options), a senior resources directory, emergency financial services applications, Medicare counseling (VICAP) and senior cafes.",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "source_name": "Healthy Generations Area Agency on Aging website",
+    "source_url": "https://www.healthygenerations.org/"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "1300 Courthouse Road, Stafford, VA 22554 (mailing: P.O. Box 7, Stafford, VA 22555)",
+    "phone": "(540) 658-8720",
+    "website": "https://staffordcountyva.gov/889/Social-Services",
+    "hours": "Lobby hours Monday-Friday 8:00 AM-4:00 PM",
+    "how_to_apply": "Apply, renew or report changes online at CommonHelp (commonhelp.virginia.gov/access), or contact the office.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, phone, fax ((540) 658-8798) and lobby hours from the county page (loaded 2026-11-07). VDSS directory (loaded) agrees on phone and fax. Search snippets mention 'office open until 4:30 pm'; only lobby hours (to 4:00 pm) were confirmed.",
+    "additional_sources": [
+      {
+        "name": "Virginia Department of Social Services local agency directory",
+        "url": "https://dss.virginia.gov/localagency/?page=11"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "stafford-dss",
+    "name": "Stafford County Department of Social Services",
+    "organization": "Stafford County",
+    "categories": [
+      "public_services",
+      "food"
+    ],
+    "description": "The county's social services office. It runs SNAP, Medicaid, TANF, Energy Assistance and child care help, plus job services (VIEW) and services for children and adults.",
+    "service_area": [
+      "stafford"
+    ],
+    "source_name": "Stafford County Social Services webpage",
+    "source_url": "https://staffordcountyva.gov/889/Social-Services"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "10069 Kings Highway, King George, VA 22485 (around back of the Village Shopping Center; mailing: PO Box 130, King George, VA 22485)",
+    "phone": "(540) 775-3544",
+    "website": "https://www.king-george.va.us/875/About-Us",
+    "hours": "Monday-Friday 8:00 AM-4:30 PM",
+    "how_to_apply": "Call to ask how to apply. For SNAP, the county's SNAP page points to online applications at CommonHelp (seen in search results only).",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, phone and hours from the county About Us page (loaded 2026-11-07). VDSS directory (loaded) agrees on phone, lists second number (540) 775-3098 (unlabeled, likely fax) and mailing ZIP 22484 vs 22485 on the county page. The CommonHelp note comes from a search snippet of king-george.va.us/878/Food-Stamps-SNAP, which was not opened.",
+    "additional_sources": [
+      {
+        "name": "Virginia Department of Social Services local agency directory",
+        "url": "https://dss.virginia.gov/localagency/?page=6"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "king-george-dss",
+    "name": "King George County Department of Social Services",
+    "organization": "King George County",
+    "categories": [
+      "public_services",
+      "food"
+    ],
+    "description": "The county's social services office. It runs SNAP, Medicaid, TANF and VIEW, Energy Assistance, child care, General Assistance and holiday programs, plus services for children and adults.",
+    "service_area": [
+      "king_george"
+    ],
+    "source_name": "King George County Department of Social Services webpage",
+    "source_url": "https://www.king-george.va.us/875/About-Us"
+  },
+  {
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "address": "17202 Richmond Turnpike, Milford, VA 22514 (mailing: P.O. Box 430, Bowling Green, VA 22427)",
+    "phone": "804-633-5071",
+    "website": "https://co.caroline.va.us/278/Social-Services-Department",
+    "hours": "Monday-Friday 8:30 AM-4:30 PM",
+    "how_to_apply": "Apply online at CommonHelp (available 24/7) for SNAP, Medicaid, TANF, child care and Energy Assistance; or apply by phone at 855-635-4370 (Monday-Friday 7 AM-6 PM); or pick up a paper form outside the front door or ask for one to be mailed.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, phone, fax (804-633-5648), hours and application options from the county page (loaded 2026-11-07). VDSS directory (loaded) lists the same street address with 'P.O. Box 430, Bowling Green, VA 22427' and the same phone/fax. 855-635-4370 appears to be the statewide application line (Stafford search results show the same number). Director's direct extension omitted (individual).",
+    "additional_sources": [
+      {
+        "name": "Virginia Department of Social Services local agency directory",
+        "url": "https://dss.virginia.gov/localagency/?page=2"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "caroline-dss",
+    "name": "Caroline County Department of Social Services",
+    "organization": "Caroline County",
+    "categories": [
+      "public_services",
+      "food"
+    ],
+    "description": "The county's social services office. It handles SNAP, Medicaid, TANF, child care and Energy Assistance, and takes reports of abuse or neglect.",
+    "service_area": [
+      "caroline"
+    ],
+    "source_name": "Caroline County Social Services Department webpage",
+    "source_url": "https://co.caroline.va.us/278/Social-Services-Department"
+  },
+  {
+    "eligibility_text": "Not stated by source. The site says Virginia's legal aid offices \"may be able to provide free legal help.\" Call to confirm.",
+    "cost_type": "unknown",
+    "address": null,
+    "phone": "866-534-5243 (866-LEGLAID)",
+    "website": "https://www.virginialawhelp.org/",
+    "hours": null,
+    "how_to_apply": "Call 866-LEGLAID (866-534-5243) to find and connect with your local legal aid office, or pick your city or county on the Get Legal Help page.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Phone and description from virginialawhelp.org Get Legal Help page and homepage (loaded 2026-11-07). The homepage says the site is maintained by the Virginia Poverty Law Center. Old valegalaid.org organization pages now redirect (301) to virginialawhelp.org. The Get Legal Help page's locality picker showed no providers for Fredericksburg when loaded. No veterans-specific page was found on the site. Hours and income rules not stated.",
+    "additional_sources": [
+      {
+        "name": "Virginia Law Help homepage",
+        "url": "https://www.virginialawhelp.org/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "virginia-legal-aid-hotline",
+    "name": "Virginia legal aid hotline (866-LEGLAID) and Virginia Law Help",
+    "organization": "Virginia Poverty Law Center",
+    "categories": [
+      "legal"
+    ],
+    "description": "A statewide phone line that connects you with your local legal aid office, plus a free website with legal information and do-it-yourself forms on housing, family, debt, jobs and public benefits.",
+    "service_area": [
+      "statewide"
+    ],
+    "source_name": "Virginia Law Help (virginialawhelp.org), Get Legal Help page",
+    "source_url": "https://www.virginialawhelp.org/en/get-legal-help"
+  },
+  {
+    "eligibility_text": "Per state law and DVS regulation: veterans rated by the VA as 100% service-connected, permanent and total, who live in the home as their principal residence, and certain surviving spouses (veteran died on or after January 1, 2011, and the spouse has not remarried). Localities may not set income or asset limits or an application deadline. Call to confirm.",
+    "cost_type": "unknown",
+    "address": null,
+    "phone": null,
+    "website": null,
+    "hours": null,
+    "how_to_apply": "File with the Commissioner of the Revenue (or other assessing official) in your city or county. Bring a VA summary of benefits letter showing the 100% permanent and total rating, the locality's affidavit or application form, and proof of residency such as a Virginia driver's license. Surviving spouses also need a death certificate and marriage certificate.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Filing steps, documents and the no-deadline/no-income-limit rule from the DVS regulation 1VAC80-10-90 on law.lis.virginia.gov (loaded 2026-11-07). Eligibility, one-acre rule and surviving-spouse rules from Code of Virginia 58.1-3219.5 (loaded 2026-11-07). This is a benefit, not an office: no contact fields. A verifier could add the local Commissioner of the Revenue pages for Fredericksburg, Spotsylvania, Stafford, King George and Caroline. Cost type is unknown because the sources do not mention any filing fee. dvs.virginia.gov pages returned 403.",
+    "additional_sources": [
+      {
+        "name": "Code of Virginia 58.1-3219.5",
+        "url": "https://law.lis.virginia.gov/vacode/title58.1/chapter32/section58.1-3219.5/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "virginia-disabled-veteran-property-tax-exemption",
+    "name": "Real estate tax exemption for 100% disabled veterans and surviving spouses",
+    "organization": "Virginia Department of Veterans Services and local Commissioners of the Revenue",
+    "categories": [
+      "benefits"
+    ],
+    "description": "Virginia law exempts the home of a veteran with a 100% service-connected, permanent and total VA disability rating from local real estate tax, along with up to one acre of land. A surviving spouse who does not remarry can keep the exemption.",
+    "service_area": [
+      "statewide"
+    ],
+    "source_name": "Virginia Administrative Code, 1VAC80-10-90 (Department of Veterans Services)",
+    "source_url": "https://law.lis.virginia.gov/admincode/title1/agency80/chapter10/section90/"
+  },
+  {
+    "eligibility_text": "Per state law: the spouse, or a child age 16 to 29, of a service member killed, missing in action or taken prisoner during specified operations, or of a veteran the VA rates as \"totally and permanently disabled or at least 90 percent permanently disabled,\" discharged under conditions other than dishonorable. Virginia residency rules apply, and the student must be admitted to a Virginia public college. Call to confirm.",
+    "cost_type": "unknown",
+    "address": null,
+    "phone": null,
+    "website": null,
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply. State law says the Commissioner of Veterans Services certifies eligibility, and the student must first be admitted to a Virginia public college or university.",
+    "languages": [],
+    "accessibility": [],
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Description and eligibility from Code of Virginia 23.1-608 (loaded 2026-11-07). The statute does not describe the application steps or give contact details. The DVS VMSDEP page (dvs.virginia.gov) and the SCHEV military page returned 403, and the myvmsdep.dvs.virginia.gov portal did not resolve, so no phone, email or portal link is recorded. Search snippets mentioned a DVS VMSDEP phone and email, but those pages could not be loaded. The program changed in 2024 (tiers and stipends); a verifier should read the current DVS page. Stipends are covered in a separate section, 23.1-608.1, which was not read.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "virginia-vmsdep",
+    "name": "Virginia Military Survivors and Dependents Education Program (VMSDEP)",
+    "organization": "Virginia Department of Veterans Services",
+    "categories": [
+      "benefits"
+    ],
+    "description": "A state program that waives tuition and mandatory fees at Virginia public colleges and universities for spouses and children of certain veterans and service members who were killed, missing, captured or severely disabled.",
+    "service_area": [
+      "statewide"
+    ],
+    "source_name": "Code of Virginia 23.1-608",
+    "source_url": "https://law.lis.virginia.gov/vacode/title23.1/chapter6/section23.1-608/"
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Healthy Generations Area Agency on Aging website: Our Services",
+        "url": "https://healthygenerations.org/our-services/"
+      },
+      {
+        "name": "Healthy Generations Area Agency on Aging website: home page",
+        "url": "https://healthygenerations.org/"
+      },
+      {
+        "name": "Healthy Generations Area Agency on Aging website: Contact",
+        "url": "https://healthygenerations.org/contact/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "healthy-generations-mobility-options",
+    "name": "Mobility Options",
+    "organization": "Healthy Generations Area Agency on Aging",
+    "categories": [
+      "transportation"
+    ],
+    "description": "Transportation help for older adults and people with disabilities in the Fredericksburg area. Offers ride information and referrals, free travel training on the FXBGO! bus, and limited door-to-door shared rides.",
+    "eligibility_text": "The provider says shared door-to-door rides are for seniors aged 60 and older and adults with disabilities, based on availability and first come, first served, with advance reservations and an assessment required. Travel training is offered to the public. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": "460 Lendall Lane, Fredericksburg, VA 22405",
+    "phone": "(540) 656-2985 (Mobility Options); main (540) 371-3375",
+    "website": "https://healthygenerations.org/mobility-options/",
+    "hours": null,
+    "how_to_apply": "Call Mobility Options. Shared door-to-door rides need an advance reservation and an assessment first.",
+    "source_name": "Healthy Generations Area Agency on Aging website: Mobility Options",
+    "source_url": "https://healthygenerations.org/mobility-options/",
+    "source_notes": "Mobility Options phone (540) 656-2985 and main (540) 371-3375 from the Mobility Options page provider table and the site footer; the home page and Contact page give the same numbers, and the footer lists (540) 371-3384 as the fax. Address from the site footer and Contact page. Ride rules from the Mobility Options page. Travel training is stated as free; the shared-ride fare is not stated, so cost is unknown. Hours not stated. Service area: the program page says only 'Fredericksburg area'; the five localities are the agency's stated PD16 area (home page), so confirm the shared-ride area by phone. The Shared Ride Service User Guide PDF linked from the page returned 404. Replaces the record on main, whose source is not an allowed source."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Healthy Generations Area Agency on Aging website: Mobility Options",
+        "url": "https://healthygenerations.org/mobility-options/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "fxbgo-regional-transit",
+    "name": "FXBGO! regional transit",
+    "organization": "Fredericksburg Regional Transit (FXBGO!), City of Fredericksburg",
+    "categories": [
+      "transportation"
+    ],
+    "description": "Local public bus service in the City of Fredericksburg and Stafford and Spotsylvania counties. All routes are fare-free.",
+    "eligibility_text": "Public bus service open to the general public. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford"
+    ],
+    "address": null,
+    "phone": "540-372-1222",
+    "website": "https://www.fredericksburgva.gov/transit",
+    "hours": null,
+    "how_to_apply": "No application stated. Call 540-372-1222 or visit the city transit website for routes and schedules. Buses can be tracked at fxbgo.routematch.com or with the Route Shout app.",
+    "source_name": "GWRideConnect (George Washington Regional Commission): Transit Options",
+    "source_url": "https://www.gwrideconnect.org/transit-options/",
+    "source_notes": "Phone, website, fare-free status and service area from the GWRideConnect Transit Options page, which says the fare-free program began February 28, 2022, all FXBGO routes are fare-free, and it 'will be reviewed annually' - verifier should confirm it is still fare-free. The Healthy Generations Mobility Options page gives the same phone (540-372-1222) and the same three-locality service area. The city's own site (fredericksburgva.gov) returned 403 to our robots.txt check, so it was not loaded; website URL is as given on the GWRideConnect page (listed as http, recorded as https). Address, hours, languages and accessibility not confirmed on an allowed page, so left empty. Replaces the record on main, whose source is not an allowed source."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Healthy Generations Area Agency on Aging website: home page",
+        "url": "https://healthygenerations.org/"
+      },
+      {
+        "name": "Healthy Generations Area Agency on Aging website: Contact",
+        "url": "https://healthygenerations.org/contact/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "healthy-generations-home-delivered-meals",
+    "name": "Home Delivered Meals",
+    "organization": "Healthy Generations Area Agency on Aging",
+    "categories": [
+      "food"
+    ],
+    "description": "Meals for homebound older adults who cannot cook for themselves. Run by the regional Area Agency on Aging.",
+    "eligibility_text": "The provider says this is for homebound individuals who are unable to cook or prepare meals for themselves and do not have access to adequate nutrition. The agency serves people 60 and older. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": "460 Lendall Lane, Fredericksburg, VA 22405",
+    "phone": "(540) 371-3375",
+    "website": "https://healthygenerations.org/our-services/",
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply.",
+    "source_name": "Healthy Generations Area Agency on Aging website: Our Services",
+    "source_url": "https://healthygenerations.org/our-services/",
+    "source_notes": "Program description from the Our Services page. Main phone and address from the site header/footer and Contact page; no program-specific phone is given. Service area is the agency's stated PD16 area (home page: City of Fredericksburg and Caroline, King George, Spotsylvania and Stafford counties). The page does not state an age limit for this program specifically; the agency mission is older adults. Cost, hours and languages not stated."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Healthy Generations Area Agency on Aging website: home page",
+        "url": "https://healthygenerations.org/"
+      },
+      {
+        "name": "Healthy Generations Area Agency on Aging website: Contact",
+        "url": "https://healthygenerations.org/contact/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "healthy-generations-transportation",
+    "name": "Senior transportation",
+    "organization": "Healthy Generations Area Agency on Aging",
+    "categories": [
+      "transportation"
+    ],
+    "description": "Transportation services for older adults who cannot drive themselves and have no other way to get around. Run by the regional Area Agency on Aging.",
+    "eligibility_text": "The provider says riders must be 60 or older, lack the ability to transport themselves, and lack other means of transportation, with priority for those in greatest economic and social need. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": "460 Lendall Lane, Fredericksburg, VA 22405",
+    "phone": "(540) 371-3375",
+    "website": "https://healthygenerations.org/our-services/",
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply.",
+    "source_name": "Healthy Generations Area Agency on Aging website: Our Services",
+    "source_url": "https://healthygenerations.org/our-services/",
+    "source_notes": "Eligibility from the 'Transportation' entry on the Our Services page. Main phone and address from the site footer and Contact page. The provider page does not say the rides are for medical appointments, so the name was changed from 'Senior transportation (medical rides)'; the earlier toll-free number, office hours and how-to-apply steps came from a non-allowed source and were dropped. Service area is the agency's stated PD16 area (home page). Separate from Mobility Options (its own record)."
+  },
+  {
+    "languages": [
+      "English",
+      "Spanish"
+    ],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Empowerhouse website: home page",
+        "url": "https://www.empowerhouseva.org/"
+      },
+      {
+        "name": "Empowerhouse website: Services",
+        "url": "https://www.empowerhouseva.org/?page_id=8"
+      },
+      {
+        "name": "Empowerhouse website: Hotline",
+        "url": "https://www.empowerhouseva.org/?page_id=8519"
+      },
+      {
+        "name": "Fredericksburg Regional Continuum of Care website: Get Help",
+        "url": "https://www.fredericksburgcoc.org/get-help/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "empowerhouse-hotline",
+    "name": "24-hour domestic violence hotline and support",
+    "organization": "Empowerhouse",
+    "categories": [
+      "mental_health",
+      "housing"
+    ],
+    "description": "Free, confidential help 24 hours a day for survivors of domestic violence and their children. Services include emergency shelter, crisis intervention, safety planning, court advocacy and support groups.",
+    "eligibility_text": "Empowerhouse says it provides free help to adults and their children who are survivors of domestic violence. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": "150 Olde Greenwich Drive, Suite 101, Fredericksburg, VA 22408",
+    "phone": "540-373-9373 (24-hour hotline); toll-free 1-877-734-7238; office 540-373-9372",
+    "website": "https://www.empowerhouseva.org/",
+    "hours": "Hotline 24 hours a day. Public Outreach Office Monday to Friday, 9 am to 5 pm.",
+    "how_to_apply": "Call the 24-hour hotline at 540-373-9373 (toll-free 1-877-734-7238). Advocates are also available Monday to Friday, 9 am to 5 pm, at the King George, Spotsylvania and Stafford Sheriff's Offices; call the hotline to be connected.",
+    "source_name": "Empowerhouse website: Contact Information",
+    "source_url": "https://www.empowerhouseva.org/?page_id=101",
+    "source_notes": "Hotline, toll-free number, office phone, office address and office hours from the Empowerhouse Contact Information page; the home page and Hotline page agree. The Fredericksburg CoC Get Help page gives the same hotline and toll-free numbers. Address is the Public Outreach Office (mail goes to P.O. Box 476, Fredericksburg, VA 22404). 'We do not charge for services' and the five-locality area are from the home page; the Services page lists a Batterer Intervention Program and teen groups as fee for service, which are not part of this listing. Spanish: 'Hablamos Espanol' and 'Spanish Language and Culturally Relevant Services'. Empowerhouse's site loaded normally this time (robots.txt allows it). No veteran-specific program stated."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Central Virginia Health Services website: How to Get Started",
+        "url": "https://www.cvhsinc.org/patients/get-started"
+      },
+      {
+        "name": "Lloyd F. Moss Free Clinic closure notice",
+        "url": "https://mossfreeclinic.org/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "cvhs-fredericksburg-health-center",
+    "name": "Fredericksburg Health Center",
+    "organization": "Central Virginia Health Services (CVHS)",
+    "categories": [
+      "health",
+      "mental_health"
+    ],
+    "description": "Nonprofit community health center offering medical, dental and behavioral health care, plus prenatal care, PrEP, PEP and HIV care. Fees can be lowered based on family size and income.",
+    "eligibility_text": "CVHS says it provides primary health care 'to anyone who needs it,' and offers a sliding-scale discount, regardless of insurance status, based on family size and income. Call to confirm.",
+    "cost_type": "sliding_scale",
+    "service_area": [],
+    "address": "1965 Emancipation Highway, Suite 100, Fredericksburg, VA 22401-3353",
+    "phone": "540-735-0560",
+    "website": "https://www.cvhsinc.org/fredericksburg",
+    "hours": "Medical: Monday 8:30 am-5:00 pm; Tuesday 10:30 am-7:00 pm; Wednesday to Friday 8:30 am-5:00 pm. Dental: Tuesday to Friday 7:00 am-5:30 pm (closed 12-1 pm for lunch); closed Monday. Closed weekends. Closes at 12:00 pm on the first Wednesday of each month.",
+    "how_to_apply": "Call the health center to schedule an appointment. Complete the patient registration form online or arrive 30 minutes early. Bring current medications, your insurance card if insured, and proof of income if uninsured (or a benefits award letter if you receive benefits).",
+    "source_name": "Central Virginia Health Services website: Fredericksburg Health Center",
+    "source_url": "https://www.cvhsinc.org/fredericksburg",
+    "source_notes": "Address, phone (fax 540-735-0567), hours and services from the CVHS Fredericksburg page; the same page also writes the address as '1965 Jefferson Davis Highway' (the road's former name). Sliding scale, how-to-apply and what to bring from the CVHS How to Get Started page. The Moss Free Clinic closure notice gives the same address and phone. Service area not stated, so left empty. Patient registration forms are offered in English and Spanish, but language services are not stated, so languages left empty."
+  },
+  {
+    "languages": [
+      "English",
+      "Spanish"
+    ],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Lloyd F. Moss Free Clinic closure notice",
+        "url": "https://mossfreeclinic.org/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "guadalupe-free-clinic",
+    "name": "Guadalupe Free Clinic",
+    "organization": "Guadalupe Free Clinic",
+    "categories": [
+      "health"
+    ],
+    "description": "Free health clinic in Colonial Beach for people without health insurance. Offers primary non-emergency care, an on-site pharmacy, specialist referrals and limited dental care by referral.",
+    "eligibility_text": "King George County lists it as serving 'the indigent, working poor and medically uninsured.' Which counties' residents it serves differs between sources (see notes). Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "king_george"
+    ],
+    "address": "700 McKinney Blvd, Suite 1100, Colonial Beach, VA 22443",
+    "phone": "804-224-0571",
+    "website": "https://guadalupefreeclinic.org/",
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply.",
+    "source_name": "King George County website: Physical & Mental Health Services",
+    "source_url": "https://www.kinggeorgecountyva.gov/2585/Physical-Mental-Health-Services",
+    "source_notes": "Phone, address, website, services and Spanish-English interpretation from the King George County page (the old /2585/Health-Services link redirects here). The Moss Free Clinic closure notice gives the same address and phone. Sources disagree on residency: the Moss notice in English says the clinic serves 'residents of King George and Westmoreland counties,' but its Spanish text says Westmoreland County only; the county page states no residency rule. King George eligibility must be confirmed by phone. The clinic's own site (guadalupefreeclinic.org) returned 403 to our robots.txt check and was not loaded; the website URL is as linked from the county page. Colonial Beach is in Westmoreland County, outside the five localities. Hours not stated on an allowed page."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Volunteers of America Chesapeake & Carolinas website: Veteran Services",
+        "url": "https://www.voachesapeake.org/services/veteran-services/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "voa-ssvf-virginia",
+    "name": "Supportive Services for Veteran Families (SSVF)",
+    "organization": "Volunteers of America Chesapeake & Carolinas",
+    "categories": [
+      "housing"
+    ],
+    "description": "Helps very low-income veteran families who are homeless or about to lose housing get into or keep permanent housing. Offers case management, transportation help, referrals, help with VA benefits, and in some cases time-limited payments to landlords or utility companies.",
+    "eligibility_text": "The provider lists: a veteran head of household or spouse with an other than dishonorable discharge; combined household income at or below 50% of the Area Median Income; and the household must be in permanent housing, homeless and scheduled to get permanent housing within 90 days, or homeless after leaving permanent housing within the last 90 days. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": "5278 Lyngate Court, Burke, VA 22015",
+    "phone": "571-765-1075 or 703-341-5077",
+    "website": "https://www.voachesapeake.org/locations/supportive-services-for-veteran-families-virginia/",
+    "hours": "Monday to Friday, 9 am to 5 pm",
+    "how_to_apply": "Call the program or use the 'Apply Now' link on the program page.",
+    "source_name": "Volunteers of America Chesapeake & Carolinas website: SSVF (Virginia)",
+    "source_url": "https://www.voachesapeake.org/locations/supportive-services-for-veteran-families-virginia/",
+    "source_notes": "Both phones, the Burke address, hours, eligibility, services and service area (Cities: Fredericksburg; Counties: Caroline, King George, Spotsylvania, Stafford, among many others) from the VOA SSVF program page. The VOA Veteran Services overview page lists only 571-765-1075 for the same address. Cost not stated on the VOA pages, so unknown. The office is in Burke (Northern Virginia); no Fredericksburg-area office confirmed. The program page names a program director and email; omitted (no individuals)."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Micah Ecumenical Ministries website: Get Help",
+        "url": "https://www.micahfredericksburg.org/get-help/"
+      },
+      {
+        "name": "Micah Ecumenical Ministries website: Ministries",
+        "url": "https://www.micahfredericksburg.org/ministries/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "micah-ecumenical-ministries",
+    "name": "Neighbor Care Center",
+    "organization": "Micah Ecumenical Ministries",
+    "categories": [
+      "housing"
+    ],
+    "description": "Day center in downtown Fredericksburg for people experiencing street homelessness, offering case management, showers, mail pickup and help connecting to resources. Micah also runs a winter-only cold weather shelter (mid-November to mid-March), Hesed House and Respite House.",
+    "eligibility_text": "Micah says the Neighbor Care Center focuses on people 'currently experiencing literal street homelessness,' especially those in chronic homelessness. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [],
+    "address": "1013 Princess Anne St., Fredericksburg, VA 22401",
+    "phone": "540-479-4116",
+    "website": "https://www.micahfredericksburg.org/",
+    "hours": "Mondays, Tuesdays, Wednesdays and Fridays, 9 am to 2 pm",
+    "how_to_apply": "If you are sleeping outside (in a car, tent, or abandoned building), need emergency shelter, or are at risk of homelessness within 14 days, Micah says to call the Homeless Help Line at (540) 358-5801 first. For other questions, call (540) 479-4116.",
+    "source_name": "Micah Ecumenical Ministries website: home page",
+    "source_url": "https://www.micahfredericksburg.org/",
+    "source_notes": "Address, phone and hours from Micah's home page; the Get Help and Ministries pages show the same. Neighbor Care Center description from the Ministries page. Cold weather shelter season (mid-November to mid-March) from the Ministries page. Respite House is now listed at 1512 Princess Anne St. (540-479-8302); Hesed House at 1901 Augustine Avenue. Micah does not state a service area or cost for the center, so service area is empty and cost unknown (the Get Help page says shower access and community meals are free). No veteran-specific mention."
+  },
+  {
+    "languages": [],
+    "accessibility": [],
+    "additional_sources": [
+      {
+        "name": "Fredericksburg Regional Continuum of Care website: home page",
+        "url": "https://www.fredericksburgcoc.org/"
+      },
+      {
+        "name": "Micah Ecumenical Ministries website: Get Help",
+        "url": "https://www.micahfredericksburg.org/get-help/"
+      }
+    ],
+    "source_checked_at": "2026-11-07",
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified",
+    "id": "fredericksburg-coc-homelessness-helpline",
+    "name": "Homelessness Helpline",
+    "organization": "Fredericksburg Regional Continuum of Care",
+    "categories": [
+      "housing"
+    ],
+    "description": "One phone line for people who are homeless or about to be. It connects callers to services run by local community partners.",
+    "eligibility_text": "Per the source, for people sleeping outside (including in a car, tent, or abandoned building), people who need emergency shelter, and people at risk of either within 14 days. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "stafford",
+      "king_george",
+      "caroline"
+    ],
+    "address": null,
+    "phone": "540-358-5801",
+    "website": "https://www.fredericksburgcoc.org/get-help/",
+    "hours": null,
+    "how_to_apply": "Call the Homelessness Helpline at 540-358-5801. Questions about the helpline can be sent to helpline@fredericksburgcoc.org.",
+    "source_name": "Fredericksburg Regional Continuum of Care website: Get Help",
+    "source_url": "https://www.fredericksburgcoc.org/get-help/",
+    "source_notes": "Helpline number, who should call, and the helpline email from the CoC Get Help page; Micah's Get Help page gives the same number. Service area from the CoC home page ('serves the City of Fredericksburg and the counties of Caroline, King George, Spotsylvania, and Stafford'). Hours not stated on an allowed page (Micah says only that 'most' crisis lines are available 24 hours a day), so left null. Cost not stated. No veteran-specific mention."
+  },
+  {
+    "id": "legal-aid-works-fxbg",
+    "name": "Legal Aid Works, Fredericksburg office",
+    "organization": "Legal Aid Works",
+    "categories": [
+      "legal"
+    ],
+    "description": "Free civil legal help for people with low incomes. Civil means non-criminal problems, such as housing, family, consumer and public benefits issues.",
+    "eligibility_text": "The Virginia Poverty Law Center page says clients must meet low-income requirements based on the Federal Poverty Guidelines, and that Legal Aid Works does not handle criminal cases. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "fredericksburg",
+      "stafford",
+      "spotsylvania",
+      "king_george",
+      "caroline"
+    ],
+    "address": "500 Lafayette Boulevard, Suite 100, Fredericksburg, VA 22401",
+    "phone": "(540) 371-1105",
+    "website": null,
+    "hours": "Monday to Friday, 9:00 a.m. to 5:00 p.m.",
+    "how_to_apply": "Call the Fredericksburg office to ask how to apply.",
+    "languages": [
+      "Spanish"
+    ],
+    "accessibility": [],
+    "source_name": "Virginia Poverty Law Center, Legal Aid Works page",
+    "source_url": "https://www.vplc.org/legal-aid-works/",
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Address, phone, hours, service area (City of Fredericksburg and Stafford, Spotsylvania, King George and Caroline counties for the Fredericksburg office), case types, 'Services are completely free', Spanish and the low-income rule are all from the Virginia Poverty Law Center's Legal Aid Works page (loaded 2026-11-07). That page also lists an office email (left out because it is on the provider's own domain, which blocked our fetcher), and it lists no fax and no application steps, and it shows no update date. The provider's own website returned 403 to our fetcher and was not read, so the website field is empty and nothing was checked against the provider itself. Hours on the VPLC page are given for all three Legal Aid Works offices. Legal Aid Works (Suite 100) and LSNV's Fredericksburg office (Suite 140) are both listed at 500 Lafayette Blvd.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "lsnv-fredericksburg",
+    "name": "Legal Services of Northern Virginia, Fredericksburg",
+    "organization": "Legal Services of Northern Virginia",
+    "categories": [
+      "legal"
+    ],
+    "description": "Free civil legal help from LSNV's Fredericksburg office. For the Fredericksburg area, LSNV says it gives limited help such as advice, counsel and referrals.",
+    "eligibility_text": "LSNV says it provides free civil legal services to low-income, elderly and disabled residents of Northern Virginia, and its Veterans Law Project assists low-income, at-risk and homeless veterans. Applicants must meet LSNV's financial and documentation guidelines; screening asks about income, resources and household size. LSNV does not take criminal, traffic, personal injury, class-action or immigration cases. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "fredericksburg",
+      "caroline",
+      "king_george",
+      "spotsylvania",
+      "stafford"
+    ],
+    "address": "500 Lafayette Blvd, Suite 140, Fredericksburg, VA 22401",
+    "phone": "703-778-6800",
+    "website": "https://lsnv.org/contact-us/fredericksburg-office/",
+    "hours": "Phone intake Monday to Thursday, 9:30 a.m. to 12:00 p.m. and 1:30 to 3:00 p.m. No phone intake on Fridays. The online application is open 24 hours a day.",
+    "how_to_apply": "Call 703-778-6800 during phone intake hours, or start the online application on LSNV's How Do I Apply page. You still finish the application by phone with an intake paralegal. Ask which day the Fredericksburg office takes walk-ins before going in person.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Legal Services of Northern Virginia, Fredericksburg office page",
+    "source_url": "https://lsnv.org/contact-us/fredericksburg-office/",
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Sources disagree: LSNV's Fredericksburg office page says \"The Fredericksburg Office accepts walk-ins on Mondays; for the rest of the week an appointment is needed,\" but LSNV's How Do I Apply page says \"On Wednesdays ONLY, our offices are open for walk-in applications.\" Walk-in days are left out of the hours field until someone confirms which is current. Address is from the Fredericksburg office page and matches the Contact Us page (both loaded 2026-11-07). Phone 703-778-6800 appears on the office page under 'Contact LSNV' (not labeled as a Fredericksburg line) and is the application line on the How Do I Apply page; no Fredericksburg-only number was found. Hours are the phone-intake hours from the How Do I Apply page. Service area: LSNV's About Us page says it 'also provides limited legal services, including advice and counsel and referrals' to residents of Caroline, King George, Spotsylvania, Stafford and the City of Fredericksburg (plus other counties outside this directory); the page does not promise full representation there. 'Free' is from the home page ('free, civil legal services') and About Us ('without charge'). Veterans Law Project wording is from the Veterans Law page, which describes services for 'Northern Virginia's' veterans and does not mention Fredericksburg. No language information on any page read.",
+    "additional_sources": [
+      {
+        "name": "Legal Services of Northern Virginia, How Do I Apply",
+        "url": "https://lsnv.org/get-help/how-do-i-apply/"
+      },
+      {
+        "name": "Legal Services of Northern Virginia, About Us",
+        "url": "https://lsnv.org/about-us/"
+      },
+      {
+        "name": "Legal Services of Northern Virginia, Contact Us",
+        "url": "https://lsnv.org/contact-us/"
+      },
+      {
+        "name": "Legal Services of Northern Virginia, Veterans Law",
+        "url": "https://lsnv.org/explore-legal-issues/veterans-law/"
+      },
+      {
+        "name": "Legal Services of Northern Virginia, home page",
+        "url": "https://lsnv.org/"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "dvs-fredericksburg-office",
+    "name": "Virginia Department of Veterans Services, Fredericksburg office",
+    "organization": "Virginia Department of Veterans Services",
+    "categories": [
+      "benefits"
+    ],
+    "description": "State benefits office where veterans service officers help with VA claims, benefits information and appeals. Help is free.",
+    "eligibility_text": "Not stated by source, beyond saying the office serves veterans at no charge. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "fredericksburg",
+      "spotsylvania",
+      "caroline",
+      "king_george"
+    ],
+    "address": "10300 Spotsylvania Avenue, Lee Hill Building 1, Suite 290, Fredericksburg, VA 22408",
+    "phone": "(540) 376-7298",
+    "website": null,
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Warriors Fund directory, DVS Fredericksburg Office (serves City of Fredericksburg)",
+    "source_url": "https://warriorsfund.org/resource/virginia-department-of-veterans-services-fredericksburg-offi-209731",
+    "source_checked_at": "2026-11-07",
+    "source_notes": "The DVS website returned 403 to our fetcher and was not read, so everything here comes from secondary allowed pages; call to confirm. Phone (540) 376-7298 and street address with Suite 290 come from the Warriors Fund directory (loaded 2026-11-07), which credits a 'State veterans agency office list' with a source record dated Oct 16, 2026 and says availability has not been confirmed. The DVS Virginia Veterans Resource Guide (revised 2016, hosted on dmv.virginia.gov, loaded 2026-11-08) gives the same phone, Lee Hill Building 1 and Suite 290, but it is old. A search-engine snippet (not a source) suggested the DVS site may now list Suite 100; confirm the suite. Service area: Warriors Fund has separate entries saying this office serves the City of Fredericksburg, Spotsylvania, Caroline and King George (also Northumberland and Westmoreland, outside this directory); Stafford is not listed (see dvs-quantico-benefits-office). No hours, walk-in days or appointment rules were found on an allowed page. Website left empty because the DVS site could not be read.",
+    "additional_sources": [
+      {
+        "name": "Warriors Fund directory, DVS Fredericksburg Office (serves Spotsylvania County)",
+        "url": "https://warriorsfund.org/resource/virginia-department-of-veterans-services-fredericksburg-offi-1448"
+      },
+      {
+        "name": "Warriors Fund directory, veteran resources in Fredericksburg, VA",
+        "url": "https://warriorsfund.org/city/va/fredericksburg"
+      },
+      {
+        "name": "Virginia Department of Veterans Services, Virginia Veterans Resource Guide (revised 2016)",
+        "url": "https://www.dmv.virginia.gov/sites/default/files/documents/VAVetResourceGuide_ForWeb02.pdf"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "dvs-quantico-benefits-office",
+    "name": "Virginia Department of Veterans Services, Quantico benefits office",
+    "organization": "Virginia Department of Veterans Services",
+    "categories": [
+      "benefits"
+    ],
+    "description": "State benefits office on Marine Corps Base Quantico where veterans service officers help with VA claims, benefits counseling and disability claims. It is the DVS office listed for Stafford County.",
+    "eligibility_text": "Not stated by source, beyond saying the office serves Stafford County at no charge. Call to confirm.",
+    "cost_type": "free",
+    "service_area": [
+      "stafford"
+    ],
+    "address": "3089 Roan Street, Marine Corps Base Quantico Education Center, Quantico, VA 22134",
+    "phone": null,
+    "website": null,
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Warriors Fund directory, DVS Quantico Office (serves Stafford County)",
+    "source_url": "https://warriorsfund.org/resource/virginia-department-of-veterans-services-quantico-office-ser-1445",
+    "source_checked_at": "2026-11-07",
+    "source_notes": "Sources disagree: the Warriors Fund directory (loaded 2026-11-07; source record dated Oct 16, 2026) lists the phone as (571) 697-5915 ext. 75915, but the DVS Virginia Veterans Resource Guide (revised 2016, loaded 2026-11-08) lists (703) 630-2811. Phone left empty until someone calls and confirms the current number. Both pages agree on 3089 Roan Street, Quantico Marine Corps Base Education Center, Quantico, VA 22134. Service area: Warriors Fund says this office serves Stafford County (also Culpeper, outside this directory); no other in-region locality was confirmed. The DVS website returned 403 and was not read, so hours, walk-in days and base-access rules could not be checked; visitors without a DoD ID may need extra steps to get on base, so ask when calling.",
+    "additional_sources": [
+      {
+        "name": "Warriors Fund directory, veteran resources in ZIP 22134",
+        "url": "https://warriorsfund.org/zip/22134"
+      },
+      {
+        "name": "Virginia Department of Veterans Services, Virginia Veterans Resource Guide (revised 2016)",
+        "url": "https://www.dmv.virginia.gov/sites/default/files/documents/VAVetResourceGuide_ForWeb02.pdf"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "va-national-guard-family-assistance-center",
+    "name": "Family Assistance Center, Fredericksburg Readiness Center",
+    "organization": "Virginia National Guard",
+    "categories": [
+      "public_services",
+      "benefits"
+    ],
+    "description": "Help for Guard members, families, veterans and civilian employees, such as TRICARE, DEERS and ID cards, financial and legal assistance, community referrals and crisis help. Fredericksburg Readiness Center is one of several Family Assistance Center sites in Virginia.",
+    "eligibility_text": "The source says Family Assistance Center staff help \"any and all Service Members, their Families, Veterans, and Civilian Employees.\" Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [],
+    "address": "Fredericksburg Readiness Center, 1700 Jefferson Davis Hwy., Fredericksburg, VA 22401",
+    "phone": "1-434-480-6585 (24-hour Family Assistance hotline)",
+    "website": null,
+    "hours": "Office hours Tuesday to Friday, 7:00 a.m. to 5:30 p.m. 24-hour hotline available.",
+    "how_to_apply": "Call to ask how to apply.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Virginia National Guard Management Group website, Guardsman Support page",
+    "source_url": "https://vngmg.org/guardsman-support/",
+    "source_checked_at": "2026-11-08",
+    "source_notes": "Address, office hours, 24-hour hotline, who is served and services are from vngmg.org/guardsman-support (loaded 2026-11-08). That site is run by the Virginia National Guard Management Group (which serves the Guard Foundation and Guard associations), not by the Guard itself, so it is a secondary source. Its Family Assistance Center section links to the official Virginia National Guard site, which returned 403 to our fetcher and was not read; the program name or details may have changed. The hours on the page are listed once for all FAC sites. The 24-hour hotline is a statewide FAC number, not a Fredericksburg line. The page also lists a Fredericksburg Readiness Center office line (540) 347-4707 and mobile (540) 718-2417; these were not put in the phone field because they could not be checked against an official page. Ask about them when calling. Service area is not stated, so it is left empty. Cost is not stated.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "fredericksburg-dss",
+    "name": "Fredericksburg Department of Social Services",
+    "organization": "City of Fredericksburg",
+    "categories": [
+      "public_services"
+    ],
+    "description": "The City of Fredericksburg's local department of social services.",
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg"
+    ],
+    "address": "608 Jackson Street, Suite 100, Fredericksburg, VA 22401",
+    "phone": "(540) 372-1032",
+    "website": null,
+    "hours": null,
+    "how_to_apply": "Call to ask how to apply. The state social services directory page also links to CommonHelp (commonhelp.virginia.gov) for online applications.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Virginia Department of Social Services local agency directory",
+    "source_url": "https://www.dss.virginia.gov/localagency/?page=4",
+    "source_checked_at": "2026-11-08",
+    "source_notes": "Address and phone are from the VDSS local agency directory (loaded 2026-11-08). The directory lists two unlabeled numbers: (540) 372-1032, shown as the clickable (tel:) number, and (540) 372-1157 as plain text. On the same directory, Spotsylvania's second number is near the fax number on the county's own page, so the second number may be a fax; only the first is recorded. No hours, programs or eligibility are given in the directory. The directory links to the city's website for this office, but the city website returned 403 to our fetcher and was not read, so the website field is empty. Service area is the City of Fredericksburg by jurisdiction.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "spotsylvania-dss",
+    "name": "Spotsylvania County Department of Social Services",
+    "organization": "Spotsylvania County",
+    "categories": [
+      "public_services",
+      "food"
+    ],
+    "description": "The county's social services office. Its page lists SNAP, TANF, Medicaid and Energy Assistance, along with foster care and children's services programs.",
+    "eligibility_text": "Not stated on the county page; it links to a separate Eligibility Requirements page. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "spotsylvania"
+    ],
+    "address": "10300 Spotsylvania Ave., Suite 200, Fredericksburg, VA 22408 (mailing: P.O. Box 249, Spotsylvania, VA 22553)",
+    "phone": "540-507-7898",
+    "website": "https://www.spotsylvania.va.us/299/Social-Services",
+    "hours": "Monday to Friday, 8:00 a.m. to 4:30 p.m. On the 2nd and 4th Friday of each month the agency opens at 10:00 a.m.",
+    "how_to_apply": "Call the office to ask how to apply. The county page links to Virginia CommonHelp (commonhelp.virginia.gov) for online applications.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Spotsylvania County Social Services webpage",
+    "source_url": "https://www.spotsylvania.va.us/299/Social-Services",
+    "source_checked_at": "2026-11-08",
+    "source_notes": "Street address, mailing address, phone, fax (540-507-7807), hours with the Friday exception, and program list are from the county page (loaded 2026-11-08). 'Suite 200' is from the VDSS local agency directory (loaded 2026-11-08), which also gives 10300 Spotsylvania Avenue and (540) 507-7898; the county page gives no suite. The VDSS directory's unlabeled second number is (540) 507-7806, close to but not the same as the county's fax 540-507-7807; not recorded. robots.txt for the county site was checked; this page is allowed.",
+    "additional_sources": [
+      {
+        "name": "Virginia Department of Social Services local agency directory",
+        "url": "https://www.dss.virginia.gov/localagency/?page=11"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "virginia-works-fredericksburg",
+    "name": "Fredericksburg American Job Center",
+    "organization": "Bay Consortium Workforce Development Board",
+    "categories": [
+      "employment"
+    ],
+    "description": "Public job center (American Job Center) for the Fredericksburg area, overseen by the Bay Consortium Workforce Development Board.",
+    "eligibility_text": "Not stated by source. Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "fredericksburg"
+    ],
+    "address": "10304 Spotsylvania Ave, Suite 100, Fredericksburg, VA 22408",
+    "phone": null,
+    "website": "https://baywib.org/contact-us/",
+    "hours": "Monday, Tuesday, Thursday and Friday 8:30 a.m. to 4:30 p.m.; Wednesday 9:30 a.m. to 4:30 p.m.",
+    "how_to_apply": "Appointments are preferred and walk-ins are welcome, per the source. The source gives no center phone; use the Bay Consortium contact form or call to ask.",
+    "languages": [],
+    "accessibility": [],
+    "source_name": "Bay Consortium Workforce Development Board, Contact Us page",
+    "source_url": "https://baywib.org/contact-us/",
+    "source_checked_at": "2026-11-08",
+    "source_notes": "Address, hours and 'Appointments preferred, walk-ins welcome' are from the Bay Consortium Contact Us page (loaded 2026-11-08). The state Virginia Works website blocks AI agents in its robots.txt, so it was not read; the center's own phone and any veteran-specific services (such as veteran employment representatives) could not be confirmed and are not claimed here. No phone for the center is on the Bay Consortium page. The board's 804-333-4048 is listed as 'Phone' on baywib.org but as 'Fax' on Spotsylvania County's directory, so it was not used. A third-party directory lists 540-322-5765 for the center, but it could not be confirmed on an official page. Service area: baywib.org says the board serves 15 jurisdictions including Fredericksburg City but does not name the other counties in page text, so only Fredericksburg is recorded; ask whether Stafford, Spotsylvania, King George and Caroline residents are served here.",
+    "additional_sources": [
+      {
+        "name": "Bay Consortium Workforce Development Board, service area page",
+        "url": "https://baywib.org/service-area/"
+      },
+      {
+        "name": "Spotsylvania County directory, Bay Consortium Workforce Investment Board",
+        "url": "https://www.spotsylvania.va.us/Directory.aspx?did=145"
+      }
+    ],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  },
+  {
+    "id": "virginia-lawyer-referral-service",
+    "name": "Virginia Lawyer Referral Service",
+    "organization": "Virginia State Bar",
+    "categories": [
+      "legal"
+    ],
+    "description": "Refers members of the public to a practicing Virginia State Bar lawyer. A $35 non-refundable fee pays for a consultation of up to 30 minutes.",
+    "eligibility_text": "The Virginia State Bar says the service assists the public with referrals to practicing members of the bar. It is not free: a $35.00 non-refundable referral fee is collected at the time of referral (waived only for criminal record sealing referrals through June 30, 2027). Call to confirm.",
+    "cost_type": "unknown",
+    "service_area": [
+      "statewide"
+    ],
+    "address": null,
+    "phone": "(800) 552-7977 (toll-free); (804) 775-0808 (metro Richmond)",
+    "website": "https://vsb.org/Site/VLRS/Public/Referral-1.aspx",
+    "hours": "Monday to Friday, 9 a.m. to 5 p.m.",
+    "how_to_apply": "Call the referral line Monday to Friday, 9 a.m. to 5 p.m., or request a referral online through the \"Need a Lawyer?\" page.",
+    "languages": [],
+    "accessibility": [
+      "Voice/TTY relay: 711 or (800) 828-1120"
+    ],
+    "source_name": "Virginia State Bar, Virginia Lawyer Referral Service page",
+    "source_url": "https://www.vsb.org/Site/Site/legal-help/vlrs.aspx?hkey=662aee59-3e29-471a-b871-26da8ab12cf7",
+    "source_checked_at": "2026-11-08",
+    "source_notes": "Phones, referral-line hours, fee, fee waiver, relay numbers and the online referral link are from the VSB VLRS page (loaded 2026-11-08). The toll-free number is labeled statewide and nationwide. Cost type is unknown because the schema has no fixed-fee option. The page also lists a general VSB 'All Departments' line, (804) 775-0500, not recorded as the referral line. The bar's office address is left out because referrals are by phone or online. The page does not mention veterans or languages.",
+    "additional_sources": [],
+    "last_verified_at": null,
+    "verified_by": null,
+    "status": "unverified"
+  }
+]

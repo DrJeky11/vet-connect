@@ -3,40 +3,42 @@ import { CATEGORIES } from "@/lib/schema";
 import { chatEnabled } from "@/lib/navigator-llm";
 import { getDict } from "@/lib/i18n/server";
 import { readConfig } from "@/lib/outreach/config";
+import { getPublicResources } from "@/lib/data";
+import { CATEGORY_STYLE } from "@/lib/category-style";
 
 export const dynamic = "force-dynamic";
-
-const ICONS: Record<string, string> = {
-  transportation: "🚐",
-  legal: "⚖️",
-  health: "🩺",
-  mental_health: "💬",
-  housing: "🏠",
-  food: "🍎",
-  benefits: "📄",
-  employment: "💼",
-  public_services: "🏛️",
-};
 
 export default async function Home() {
   const t = await getDict();
   const line = readConfig().lineNumber;
   const ways = t.home.otherWays;
+  const counts = new Map<string, number>();
+  for (const r of getPublicResources()) for (const c of r.categories) counts.set(c, (counts.get(c) ?? 0) + 1);
   return (
     <div className="grid gap-10">
       <section aria-labelledby="hero" className="grid gap-4">
-        <h1 id="hero" className="text-3xl font-bold leading-tight">
+        <p className="text-sm font-bold uppercase tracking-widest text-brand">{t.home.kicker}</p>
+        <h1 id="hero" className="text-4xl font-extrabold leading-tight tracking-tight">
           {t.home.title}
         </h1>
         <p className="text-xl">{t.home.lead}</p>
 
-        <form action="/resources" method="get" role="search" className="grid gap-2 rounded-xl border-2 border-brand p-4">
+        <form action="/resources" method="get" role="search" className="grid gap-2">
           <label htmlFor="home-q" className="text-lg font-bold">
             {t.home.searchLabel}
           </label>
-          <div className="flex flex-wrap gap-2">
-            <input id="home-q" name="q" type="search" className="field min-w-0 flex-1" placeholder={t.home.searchPlaceholder} />
-            <button className="btn btn-primary">{t.home.searchButton}</button>
+          <div className="relative">
+            <span aria-hidden="true" className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-2xl">
+              🔍
+            </span>
+            <input
+              id="home-q"
+              name="q"
+              type="search"
+              className="field !min-h-[64px] !rounded-xl !pl-14 !pr-28 text-xl shadow-sm"
+              placeholder={t.home.searchPlaceholder}
+            />
+            <button className="btn btn-primary absolute right-2 top-1/2 -translate-y-1/2">{t.home.searchButton}</button>
           </div>
         </form>
 
@@ -60,18 +62,26 @@ export default async function Home() {
         <h2 id="cats" className="mb-3 text-2xl font-bold">
           {t.home.topicsTitle}
         </h2>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {CATEGORIES.map((c) => (
-            <li key={c.id}>
-              <Link href={`/topics/${c.id}`} className="choice no-underline text-ink">
-                <span aria-hidden="true" className="text-2xl">{ICONS[c.id]}</span>
-                <span>
-                  <span className="block text-lg font-bold">{t.categories[c.id].label}</span>
-                  <span className="block text-base text-muted">{t.categories[c.id].hint}</span>
-                </span>
-              </Link>
-            </li>
-          ))}
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {CATEGORIES.map((c) => {
+            const s = CATEGORY_STYLE[c.id];
+            const n = counts.get(c.id) ?? 0;
+            return (
+              <li key={c.id}>
+                <Link
+                  href={`/topics/${c.id}`}
+                  className={`tile group flex h-full min-h-[8rem] flex-col gap-1 rounded-xl border-2 border-t-8 border-line ${s.topBorder} bg-white p-4 text-ink no-underline shadow-sm transition-transform hover:-translate-y-0.5 hover:shadow-md`}
+                >
+                  <span aria-hidden="true" className="text-4xl">
+                    {s.emoji}
+                  </span>
+                  <span className="text-xl font-bold leading-snug group-hover:underline">{t.categories[c.id].label}</span>
+                  <span className="text-base text-muted">{t.categories[c.id].hint}</span>
+                  <span className="mt-auto pt-1 text-sm font-bold text-muted">{t.topicPage.count(n)}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
 

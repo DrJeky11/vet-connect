@@ -88,6 +88,7 @@ export const en = {
   },
 
   home: {
+    kicker: "Fredericksburg · Spotsylvania · Stafford · King George · Caroline",
     title: "Find help for veterans near Fredericksburg",
     lead: "Rides, legal help, dental care, food, benefits and more in Fredericksburg, Spotsylvania, Stafford, King George and Caroline. Every listing shows where it came from.",
     searchLabel: "What do you need?",
@@ -241,6 +242,7 @@ export const en = {
 
   directory: {
     allServices: "All services",
+    topicBar: "Browse by subject",
     near: (place: string) => ` near ${place}`,
     searchLabel: "Search listings",
     searchPlaceholder: "Try: ride, lawyer, dental, food",

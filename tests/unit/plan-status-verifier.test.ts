@@ -54,6 +54,11 @@ describe("telHref", () => {
   it("extracts dialable numbers", () => {
     expect(telHref("(540) 555-0100")).toBe("tel:5405550100");
     expect(telHref("988, then press 1")).toBe("tel:988");
+    expect(telHref("Dial 2-1-1")).toBe("tel:211");
+    // A note after the number must not leak into the link
+    expect(telHref("866-534-5243 (866-LEGLAID)")).toBe("tel:8665345243");
+    expect(telHref("1-434-480-6585 (24-hour hotline)")).toBe("tel:14344806585");
+    expect(telHref("540-373-9373 (24-hour hotline); toll-free 1-877-734-7238")).toBe("tel:5403739373");
     expect(telHref(null)).toBeNull();
   });
 });
@@ -75,11 +80,14 @@ describe("verifier store", () => {
   });
 
   it("requires a source note when filling contact fields", () => {
+    // A listing whose phone is still empty because its sources conflict.
+    const blank = "dvs-quantico-benefits-office";
+    expect(resources.find((x) => x.id === blank)?.phone).toBeNull();
     const s = new MemoryVerifierStore();
-    expect(() => s.edit(resources, id, "AB", { phone: "540-555-0100" }, null, NOW)).toThrow(/came from/);
-    const r = s.edit(resources, id, "AB", { phone: "540-555-0100" }, "Phoned the office", NOW);
+    expect(() => s.edit(resources, blank, "AB", { phone: "540-555-0100" }, null, NOW)).toThrow(/came from/);
+    const r = s.edit(resources, blank, "AB", { phone: "540-555-0100" }, "Phoned the office", NOW);
     expect(r.phone).toBe("540-555-0100");
-    expect(s.log(id)[0].changes).toEqual({ phone: { from: null, to: "540-555-0100" } });
+    expect(s.log(blank)[0].changes).toEqual({ phone: { from: null, to: "540-555-0100" } });
   });
 
   it("rejects non-editable fields and bad initials", () => {

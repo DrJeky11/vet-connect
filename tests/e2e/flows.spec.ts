@@ -71,16 +71,20 @@ test.describe("veteran flows (fictional scenarios)", () => {
     await page.getByRole("button", { name: "Next" }).click();
     await page.getByRole("button", { name: "Skip" }).click();
     await page.getByRole("button", { name: "Skip" }).click();
-    await expect(page.getByTestId("nearby")).toContainText("Legal Aid Works");
-    await expect(page.getByTestId("nearby")).toContainText("Legal Services of Northern Virginia");
-    await expect(page.locator("body")).toContainText("Income limits are set by the provider");
+    // Both legal aid offices' sources list Stafford, so they are direct matches
+    const legalAid = page.locator('[data-testid="resource-card"][data-id="legal-aid-works-fxbg"]');
+    await expect(legalAid).toBeVisible();
+    await expect(page.locator('[data-id="lsnv-fredericksburg"]')).toBeVisible();
+    await expect(page.locator("body")).toContainText("You may be eligible");
     await expect(page.locator("body")).not.toContainText(/you qualify/i);
-    await page.getByTestId("nearby").getByRole("button", { name: /Save to My Plan\s*: Legal Aid Works/ }).click();
+    await legalAid.getByRole("button", { name: /Save to My Plan\s*: Legal Aid Works/ }).click();
 
+    // Benefits: the Quantico DVS office lists Stafford; the Fredericksburg office does not
     await page.getByText("Filters", { exact: true }).click();
     await page.getByLabel("Topic").selectOption("benefits");
-    await expect(page.locator('[data-id="dvs-fredericksburg-office"]')).toBeVisible();
-    await page.locator('[data-id="dvs-fredericksburg-office"]').getByRole("button", { name: /Save/ }).click();
+    await expect(page.locator('[data-id="dvs-quantico-benefits-office"]')).toBeVisible();
+    await expect(page.getByTestId("nearby")).toContainText("Fredericksburg");
+    await page.locator('[data-id="dvs-quantico-benefits-office"]').getByRole("button", { name: /Save/ }).click();
     await page.goto("/plan");
     await expect(page.getByTestId("plan-item")).toHaveCount(2);
   });

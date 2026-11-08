@@ -6,6 +6,7 @@ import { CATEGORIES, COST_TYPES, LOCALITIES, type CostType, type Resource } from
 import { applyFilters, filtersToParams, paramsToFilters, type Filters } from "@/lib/filter";
 import { ResourceCard } from "@/components/ResourceCard";
 import { useDict } from "@/lib/i18n/client";
+import { CATEGORY_STYLE } from "@/lib/category-style";
 import { placeShort } from "@/lib/i18n";
 
 export function Directory({ resources, now }: { resources: Resource[]; now: string }) {
@@ -46,6 +47,27 @@ export function Directory({ resources, now }: { resources: Resource[]; now: stri
         {filters.locality ? t.directory.near(placeShort(t, filters.locality)) : ""}
       </h1>
       {t.card.sourceLanguageNote && <p className="text-base text-muted">{t.card.sourceLanguageNote}</p>}
+
+      <nav aria-label={t.directory.topicBar} className="no-print flex flex-wrap gap-2">
+        {CATEGORIES.map((c) => {
+          const on = filters.category === c.id;
+          const s = CATEGORY_STYLE[c.id];
+          return (
+            <button
+              key={c.id}
+              type="button"
+              aria-pressed={on}
+              onClick={() => set({ category: on ? null : c.id })}
+              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-full border-2 px-3 text-base font-bold ${
+                on ? `chip-solid ${s.accent} border-transparent text-white` : "border-line bg-white text-ink hover:border-brand"
+              }`}
+            >
+              <span aria-hidden="true">{s.emoji}</span>
+              {t.categories[c.id].label}
+            </button>
+          );
+        })}
+      </nav>
 
       <form role="search" className="grid gap-2" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="q" className="font-bold">

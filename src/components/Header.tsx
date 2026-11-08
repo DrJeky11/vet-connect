@@ -18,7 +18,7 @@ export async function Header() {
   const mobileItems = [{ href: "/", label: t.nav.home }, ...items, { href: "/plan", label: t.nav.plan }, { href: "/print", label: t.nav.print }];
   // My Plan sits in the top bar on every screen size, so it is never more than one tap away.
   return (
-    <header className="no-print relative border-b border-line bg-white">
+    <header className="no-print relative border-b-2 border-t-4 border-line border-t-brand bg-white">
       <a href="#main" className="sr-only-focusable btn btn-primary absolute left-2 top-2 z-50">
         {t.skip}
       </a>
@@ -35,9 +35,14 @@ export async function Header() {
       </div>
       <div className="mx-auto max-w-3xl px-4">
         <div className="flex items-center justify-between gap-3 py-2">
-          <Link href="/" className="min-w-0 text-lg font-bold leading-tight text-ink no-underline sm:text-xl">
-            {t.brand}
-            <span className="block text-sm font-normal text-muted">{t.region}</span>
+          <Link href="/" className="flex min-w-0 items-center gap-2 text-lg font-extrabold leading-tight text-ink no-underline sm:text-xl">
+            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand text-lg text-white">
+              ★
+            </span>
+            <span>
+              {t.brand}
+              <span className="block text-sm font-normal text-muted">{t.region}</span>
+            </span>
           </Link>
           <MobileMenu items={mobileItems} />
         </div>

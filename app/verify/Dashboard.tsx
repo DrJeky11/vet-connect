@@ -141,7 +141,8 @@ function Row({ r, now, log, reports }: { r: Resource; now: Date; log: LogEntry[]
     run({ action: "edit", changes, note });
   }
 
-  const hasConflict = r.source_notes?.toUpperCase().includes("CONFLICT");
+  const notes = r.source_notes?.toUpperCase() ?? "";
+  const hasConflict = notes.includes("CONFLICT") || notes.includes("DISAGREE");
 
   return (
     <li className="card rounded-xl border border-line p-4" data-testid="queue-row" data-id={r.id}>
